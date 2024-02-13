@@ -1,0 +1,89 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%\documentclass[usenames,dvipsnames,handout]{beamer}
+
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{commands}
+\usepackage{faktor}
+\usepackage{xfrac} 
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+
+\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+\renewcommand{\char}{char}
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Computing Abelian varieties over finite fields}
+\author[Marseglia Stefano]{Marseglia Stefano}
+\institute[]{Utrecht University}
+\date[04 June 2019]{04 June 2019\\
+	   Lightning Talk\\ ICERM}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Motivation }
+\blue{up to isogeny}: Honda-Tate theory:
+\begin{itemize}
+\pause \item the association
+\[ A/\F_q \mapsto \text{char.poly.}\left( \Frob_A:T_lA\to T_lA \right) \text{ which is a $q$-Weil poly.} \]
+allows us to \red{enumerate} all abelian varieties up to isogeny.
+\end{itemize}
+
+\green{up to isomorphism (setup)}: 
+\begin{itemize}
+ \pause \item Let $h$ be a squarefree ordinary $q$-Weil polynomial or a squarefree $p$-Weil polynomial without real roots.
+ \pause \item Put $K=\Q[x]/(h)=\Q[F]$.
+ \pause \item Denote by $\cC_h$ the isogeny class of abelian varieties with char.~poly.~of Frobenius $h$.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{ Main result }
+
+\begin{theorem}[M.]
+\[\begin{array}{cc}
+\faktor{\set{\text{abelian varieties in $\cC_h$}}}{\simeq} & \\
+\updownarrow & \\
+\faktor{\set{ \text{fractional ideals of $\Z[F,q/F] \subset K$ } }}{\simeq} 
+  \pause  
+  & =:\green{\ICM(\Z[F,q/F])}\\ 
+  & \green{\text{ ideal class monoid} }
+  \end{array}\]
+\end{theorem}
+\begin{itemize}
+ \pause \item Problem: $\Z[F,q/F]$ might not be maximal $\Rightarrow$ \red{non-invertible} ideals.
+ \pause \item Solution: attack the problem locally (weak equivalence) then use the action of the $\Pic$'s.
+ \pause \item Extra 1: in the ordinary case we can compute also \blue{polarizations}.
+ \pause \item Extra 2: similar results for isogeny classes $\cC_{\red{h^r}}$ (when $\Z[F,q/F]$ is Bass)
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+Coming soon on the LMFDB.\\
+\vspace{5em}
+Thank you!
+\end{center}
+\end{frame}
+\end{document}

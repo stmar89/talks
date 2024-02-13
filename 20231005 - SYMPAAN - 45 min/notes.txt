@@ -1,0 +1,6 @@
+45 minutes (+ questions);
+broad audience
+add CV
+
+Title: Abelian varieties over finite fields
+Abstract: In this talk, we describe a method to efficiently represent abelian varieties over finite fields, and classify them up to isomorphism.

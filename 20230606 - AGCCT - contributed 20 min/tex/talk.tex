@@ -1,0 +1,291 @@
+% \documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+\DeclareMathOperator{\type}{type}
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Acan}{\mathcal{A}_{\mathrm{can}}}
+\newcommand{\AcanC}{A_{\mathrm{can}}}
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+\usepackage{multirow}
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Cohen-Macaulay type of endomorphism rings of\\ abelian varieties over finite fields}
+\subtitle{\onslide<2->{...or...\\when an abelian variety met Bruns-Herzog's book.}}
+\author[Stefano Marseglia]{Stefano Marseglia}
+\institute[]{Utrecht University}
+\date[6 June 2023]{AGC$^2$T 2023 - 6 June 2023.}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Abelian varieties : Introduction } 
+    \begin{itemize}
+    \item Let $A$ be an {\bf abelian variety} over $\F_q$, $q=p^a$, of dimension $g$.
+    \item \pause $\End_{\F_q}(A)$ is a free $\Z$-module of finite rank ... 
+    \item \pause ... $\End_{\F_q}(A) \subset \End_{\F_q}(A)\otimes_\Z\Q$.
+    \item \pause Denote by $\pi_A\in \End_{\F_q}(A)$ the Frobenius endomorphism of $A$... 
+    \item \pause ... and by $h_A(x)$ the {\bf characteristic polynomial} of $\pi_A$ acting on 
+        \[ \pi_A	\curvearrowright T_\ell A = \varprojlim A[l^n] \simeq_{\Z_\ell} \Z_\ell^{2g}, \quad \text{for a prime }\ell \neq p. \]
+    \item \pause Ex. $E/\F_5 : Y^2 = X^3 + X \rightsquigarrow h_{E}(x) = x^2 - 2x + 5$.
+    \item \pause Ex. $C/\F_3: Y^2=X^6+X+1 \rightsquigarrow h_{\Jac(C)}(x) = 
+    x^4 + 3 x^3 + 6 x^2 + 9 x + 9$. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Abelian varieties : endomorphism algebra } 
+    \begin{itemize}
+    \item Some facts (Tate + Weil conjectures):
+        \begin{itemize}
+            \item \pause $h_A$ does not depend on the choice of $\ell$.
+            \item \pause $h_A \in \Z[x]$ of degree $2g$.
+            \item \pause $A/\F_q$ and $B/\F_q$ are $\F_q$-isogenous $\iff h_A=h_B$.
+            \item \pause $h_A$ is squarefree (i.e.~no repeated $\C$-roots) $\iff \End_{\F_q}(A)$ is commutative. 
+        \end{itemize}
+    \item From now on:
+        \begin{itemize}
+            \item \pause We assume that $h_A$ is {\bf squarefree}.
+            \item \pause We identify $\End_{\F_q}(A)\otimes_\Z\Q = \Q[x]/h_A=\Q[\pi]$ by $\pi_A \mapsto \pi$.
+        \end{itemize}
+    \item Note:
+        \begin{itemize}
+            \item \pause $K=\Q[\pi]$ is a {\bf \'etale $\Q$-algebra}\\
+            (i.e.~a finite product of number fields).
+            \item \pause $\Z[\pi,q/\pi] \subseteq \End_{\F_q}(A) \subseteq \cO_K$ are orders in $K$\\
+            (an {\bf order} $R$ is a subring $R\subset K$ such that $R\simeq_\Z \Z^{\dim_\Q K}$).
+        \end{itemize}    
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Orders and fractional ideals in \'etale $\Q$-algebras } 
+    \begin{itemize}
+    \item \pause Let $R$ be an order in a \'etale $\Q$-algebra $K$.
+    \item \pause A {\bf fractional $R$-ideal} is a sub-$R$-module $I\subset K$ such that $I\simeq_\Z\Z^{\dim_\Q K}$.
+    \item \pause Given fr.~$R$-ideals $I,J$ then 
+    $$(I:J)=\set{a \in K : aJ\subseteq I}
+    \quad \text{and}\quad I^t=\set{a \in K : \Tr_{K/\Q}(a I)\subseteq \Z}$$
+    are also fr.~$R$-ideals.
+    \item \pause We have $(I:I)^t = I\cdot I^t$.
+    \item \pause A fr.~$R$-ideal $I$ is invertible if $I(R:I)=R$ ...
+    \item \pause ... or, equivalently, $I_\p \simeq R_\p$ as $R_\p$-modules for every $\p$ maximal $R$-ideal.\\
+        ($R_\p$ is the completion of $R$ at $\p$)
+    \item \pause If $I$ is invertible, then $(I:I)=R$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Cohen-Macaulay type and Gorenstein orders } 
+    \begin{itemize}
+    \item Def: The {\bf (Cohen-Macaulay) type} of $R$ at a maximal ideal $\p$ is
+        \[ \type_\p (R) := \dim_{R/\p} \frac{R^t}{\p R^t}. \]
+    \item \pause Def: $R$ is {\bf Gorenstein} at $\p$ if $\type_\p(R)=1$.
+    \item \pause Remark: these definitions coincides with the 'usual' ones.
+    \item \pause Ex: monogenic $\Z[\alpha]$ and maximal $\cO_K$ orders are Gorenstein.\\
+    (also $\Z[\pi,q/\pi]$ for AVs).
+    \item \pause Ex: pick a prime $\ell\in\Z$. Then $\type_{\ell\cO_K}(\Z+\ell\cO_K) = \dim_\Q K-1$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Classification for orders of type $\leq 2$ } 
+    \begin{theorem}
+        Let $\p$ be a maximal ideal of $R$, and $I$ a fr.~$R$-ideal with $(I:I)=R$.
+        \begin{enumerate}
+            \item \pause If $\type_\p(R)=1$ (Gorenstein) then $I_\p\simeq R_\p$ as $R_\p$-modules.
+            \item \pause If $\type_\p(R)=2$ then either $I_\p\simeq R_\p$ or $I_\p\simeq R^t_\p$  as $R_\p$-modules.
+        \end{enumerate}
+    \end{theorem}
+
+    \pause Part 1 is contained (in a much more general form) in the "Ubiquity" paper by H.~Bass.\\
+    Part 2 is new, and we give a proof.
+    \pause 
+\begin{lemma}
+    Let $U,V,W$ be vectors spaces (over some field). Assume that $\dim W \ge 2$, and let $m: U\otimes V\to W$ be a surjective map. Then:
+    \begin{enumerate}
+        \item \pause $\exists u\in U$ such that $\dim(m(u\otimes V)) \ge 2$, or
+        \item \pause $\exists v\in V$ such that $\dim(m(U\otimes v)) \ge 2$.
+    \end{enumerate}
+\end{lemma}
+
+\end{frame}
+
+
+\begin{frame}{ Proof of Part 2 } 
+    \begin{itemize}
+    \item \pause Put $U = I/\p I$, $V = I^t/\p I^t$ and $W = R^t/\p R^t$.
+    \item \pause By assumption $R^t = I \cdot I^t$, so the map $ m: U \otimes V \to W $ induced by multiplication $I \times I^t \to R^t$
+    is surjective.
+    \item \pause Moreover, $\dim W = 2$ (because of the assumption on the type).
+    \item \pause By the Lemma:
+    \begin{enumerate}
+        \item $\exists x \in I$ such that $m( (x+\p I) \otimes V  ) = \frac{x I^t + \p R^t }{ \p R^t }$ equals $W$.\\
+            By Nakayama's lemma: $I_\p^t\simeq R_\p^t \iff R_\p\simeq I_\p $,...
+        \item \pause ...or, $\exists y \in I^t$ such that $U \otimes m( U \otimes (y+\p) I^t ) = W $ implying $I^t_\p \simeq R_\p \iff I_\p \simeq R^t_\p$.
+    \end{enumerate}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Back to AVs: Categorical equivalence(s) }
+    Fix a squarefree characteristic poly $h(x)$ of Frobenius $\pi$ over $\F_q$.\\
+    Put $K=\Q[x]/h=\Q[\pi]$.\\
+    Let $\mathcal{I}_h$ be the corresponding isogeny class.
+    \pause 
+    \begin{theorem}
+        Assume that $q=p$ is prime or that $\mathcal{I}_h$ is ordinary.\\
+        \pause Then there is an {\bf equivalence} of categories
+        \[
+        \begin{array}{cc}
+        & \set{ \text{ $\mathcal{I}_h$ with $\F_q$--morphisms } }  \\
+        & \updownarrow \\ 
+        & \set{ \text{fr.~$\Z[\pi,q/\pi]$-ideals with linear morphisms} }
+        \end{array} 
+        \]  
+        \pause Moreover, if $A\mapsto I$ then $A^\vee \mapsto \overline{I}^t$, where $\overline{\cdot}$ is defined by $\overline{\pi}=q/\pi$ (the CM-involution).
+    \end{theorem}
+    \pause References: Deligne, Howe, Centeleghe-Stix, Bergstr\"om-Karemaker-M.
+\end{frame}
+
+\begin{frame}{ AVs: self-duality }
+    \begin{theorem}[ Springer-M. ]
+        $\mathcal{I}_h$ and $K=\Q[\pi]=\Q[x]/h$ as before.\\
+        \pause Let $R$ be an order in $K$ and $\p$ a maximal ideal of $R$ (possibly but not necessarily above $p$). 
+        \pause Assume:
+        \[ R=\overline{R}, \quad \p = \overline{\p},\quad \text{and}\quad \type_\p(R) = 2 .\]
+        \pause Then for every $A \in \mathcal{I}_h$ such that $\End(A)=R$ we have that $A\not\simeq A^\vee$. 
+        \pause In particular, such an $A$ cannot be principally polarized nor a Jacobian.
+    \end{theorem}
+    \pause Proof: Say that $A \mapsto I$. Hence $A^\vee \mapsto \overline{I}^t$.\\
+    \pause By the Classification: either $I_\p\simeq R_\p$ or $I_\p\simeq R_\p^t$.\\
+    \pause In the first case: $\overline{I}_\p^t = \overline{I}_{\overline{\p}}^t \simeq R^t_\p \not\simeq R_\p$.\\
+    \pause Similarly, in the second: $\overline{I}_\p^t = \overline{I}_{\overline{\p}}^t \simeq R_\p \not\simeq R_\p^t$.\\
+    \pause In both cases: $I\not\simeq \overline{I}^t \iff A\not \simeq A^\vee$.
+\end{frame}
+
+\begin{frame}{ Some stats and refs } 
+    Soon on the LMFDB there will be tables of isomorphism classes of AVs$/\F_q$.
+    \pause Over $615269$ isogeny classes for $1\leq g \leq 5$ and various $q$, we encountered
+    \begin{itemize}
+        \item $3.914.908$ commutative endomorphism rings, of which:
+        \item \pause $72.6 \%$ satisfy $R=\overline{R}$;
+        \item \pause $10.3 \%$ satisfy $R=\overline{R}$ and are non-Gorenstein;
+        \item \pause $7.4 \%$ satisfy $R=\overline{R}$, are non-Gorenstein and the Theorem applies.
+	\end{itemize}
+
+    \pause 
+    {\footnotesize References:
+    \begin{itemize}
+        \item \emph{Cohen-Macaulay type of orders, generators and ideal classes}\\
+            \url{https://arxiv.org/abs/2206.03758}
+        \item \emph{Abelian varieties over finite fields and their groups of rational points}\\
+            with Caleb Springer,\\
+            \url{https://arxiv.org/abs/2211.15280}
+        \item Magma package for \'etale $\Q$-algebras\\
+            \url{https://github.com/stmar89/AlgEt} 
+            (also in Magma 2-28.1, without documentation...)
+    \end{itemize}
+    }
+\end{frame}
+
+\begin{frame}{  }
+    \begin{center}
+    \green{\huge Thank you!}
+    \end{center}  
+\end{frame}
+
+% \begin{frame}[noframenumbering]{ Secret Slide }
+	
+% \end{frame}
+
+\end{document}

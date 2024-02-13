@@ -1,0 +1,8 @@
+# 1h max including questions (shorter is better)
+# Beamer plus som kind of blackboard
+# Fairly general audience.
+# I will build on the talk given at the ALGANT
+
+
+Title: Abelian varieties over finite fields
+Abstract: I will describe how to efficiently represent abelian varieties over finite fields, classify them up to isomorphism, and study their group of points.

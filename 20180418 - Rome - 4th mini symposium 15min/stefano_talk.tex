@@ -1,0 +1,318 @@
+\documentclass{beamer}
+% \documentclass[handout]{beamer}
+
+
+% \usetheme{CambridgeUS}
+\usetheme{Pittsburgh}
+\usecolortheme{wolverine}
+% \usetheme{Montpellier}
+\usepackage{commands}
+\usepackage{faktor}
+\usepackage{xfrac} 
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Computing isomorphism classes of abelian varieties over finite fields}
+\subtitle{The $4th$ mini symposium of the RNTA}
+\author[Marseglia Stefano]{Marseglia Stefano}
+\institute[]{Stockholms University}
+\date{18 April 2018}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% \begin{frame}{ Introduction }
+% \begin{itemize}
+%  \item Goal: compute \textbf{isomorphism classes} of (polarized) abelian varieties over a finite field.
+%  \pause \item We start from the \textbf{isogeny} classification (\textbf{Honda-Tate}):
+%  pick $A/\F_q$ and let $h_A(x)$ be the characteristic polynomial of the $\Frob_A$ acting on $T_lA$. We have
+%  \[A\sim_{\F_q} B_1^{n_1}\cdots B_r^{n_r},\]
+%  where the $B_i$'s are simple and pairwise non-isogenous, and 
+%  \[h_A(x) = h_{B_1}(x)^{n_1}\cdots h_{B_r}(x)^{n_r},\]
+%  where the $h_{B_i}(x)$'s are (specific) powers of irreducible $q$-Weil polynomials.
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{ Introduction }
+\begin{itemize}
+ \item Goal: compute \textbf{isomorphism classes} of (polarized) abelian varieties over a \textbf{finite field}.
+ \pause \item in dimension $g>1$ is not easy to produce equations.
+ \pause \item for $g>3$ it is not enough to consider Jacobians.
+%  the Torelli map
+%  \[ \cM_g\to \cA_g. \]
+ \pause \item over $\C$:
+ \[
+      \set{ \text{abelian varieties $/\C$} } \longleftrightarrow 
+      \set{\parbox[c]{8em}{$\C^g/L$ with $L\simeq \Z^{2g}$\\ $+$ Riemann form}}.
+ \]
+ \pause \vspace{-6mm} \item in positive characteristic we don't have such equivalence.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ Deligne's equivalence }
+\begin{theorem}[Deligne '69]
+Let $q=p^r$, with $p$ a prime. There is an equivalence of categories:
+\[\begin{array}{cc}
+\set{\text{\textbf{Ordinary} abelian varieties over $\F_q$}}	& A \\
+\pause \updownarrow							& \downmapsto \\
+\set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+- $F\otimes \Q$ is semisimple\\
+- the roots of $\Char_{F\otimes\Q}(x)$ have abs. value $\sqrt{q}$\\
+- \textbf{half of them are $p$-adic units}\\
+- $\exists V:T\to T$ such that $FV=VF=q$
+}}	& (T(A),F(A))
+\end{array}\]
+\end{theorem}
+\pause
+\begin{remark}
+\begin{itemize}
+ \item If $\dim(A)=g$ then $\rk(T(A))=2g$;
+ \item $\Frob(A)\rightsquigarrow F(A)$.
+\end{itemize}
+\end{remark}
+\end{frame}
+
+\begin{frame}{ Deligne's equivalence: square-free case}
+Fix a \textbf{ordinary square-free} characteristic $q$-Weil polynomial $h$.\\
+\[\rightsquigarrow \text{an isogeny class $\cC_h$ (by Honda-Tate)}.\]
+\pause Put 
+\[K := \Q[x]/(h) \text{ and } F:= x \mod h. \]
+\pause Deligne's equivalence induces:
+\begin{theorem}
+\vspace{-5mm}\[\begin{array}{cc}
+\faktor{\set{\text{Ordinary abelian varieties over $\F_q$ in $\cC_h$}}}{\simeq} & \\
+\updownarrow & \\
+\faktor{\set{ \text{fractional ideals of $\Z[F,q/F] \subset K$ } }}{\simeq} & =:\textcolor{blue}{\ICM(\Z[F,q/F])}\\ 
+  & \textcolor{blue}{\text{ ideal class monoid} }
+  \end{array}\]
+\end{theorem}
+\end{frame}
+
+% \begin{frame}{ Centeleghe/Stix's equivalence }
+% \begin{theorem}[Centeleghe/Stix 2015]
+% There is an equivalence of categories:
+% \[\begin{array}{c}
+% \set{\parbox{17.5em}{Abelian varieties over $\F_p$ such that $\sqrt{p}$ \textbf{does not belong} to their Weil support}}\\
+% \updownarrow\\
+% \set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+% - $F\otimes \Q$ is semisimple\\
+% - the roots of $\Char_{F\otimes\Q}(x)$ have abs. value $\sqrt{p}$\\
+% - \textbf{$\sqrt{p}$ is not a root of $\Char_{F\otimes\Q}(x)$}\\
+% - $\exists V:T\to T$ such that $FV=VF=p$
+% }}
+% \end{array}\]
+% \end{theorem}
+% 
+% \pause For a $p$-Weil \textbf{square-free} characteristic polynomial $h$ with $h(\sqrt{p})\neq 0$:
+% \[\faktor{\set{ \text{Abelian varieties in $\cC_h$} }}{\simeq} \longleftrightarrow \textcolor{blue}{\ICM(\Z[F,p/F])}  \]
+% 
+% \end{frame}
+
+\begin{frame}{ICM : Ideal Class Monoid}
+Let $R$ be an order in a finite \'etale  $\Q$-algebra $K$ (with ring of integers $\cO_K$).\\
+% according to Bourbaki etale (over a field K) implies commutative and finite (since it is defined as being isomorphic to L^n for some extension L of K).
+\pause Recall: for fractional $R$-ideals $I$ and $J$
+\[ I\simeq_R J \Longleftrightarrow \exists x \in K^\times \text{ s.t.~} xI=J \]
+\pause Define the \textbf{ideal class monoid} of $R$ as
+\[\ICM(R) := \faktor{\set{\text{fractional $R$-ideals}}}{\simeq_R}\]
+\begin{itemize}
+\pause \item\mbox{}\vspace{-5mm} \begin{center} $\ICM(R)\supseteq \Pic(R)$ \end{center}
+\pause \item  ...actually
+\[\ICM(R) \supseteq \bigsqcup_{R\subseteq S \subseteq \cO_K} \Pic(S).\]
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{ Weak equivalence }
+% \begin{theorem}[Dade, Taussky, Zassenhaus '62]
+%  Two fractional $R$-ideals $I$ and $J$ are \textbf{weakly equivalent} ($I\sim_{\text{wk}} J$) if one of the following equivalent conditions hold:
+%  \begin{itemize}
+%   \item $I_\p\simeq_{R_\p} J_\p$ for every $\p\in \mSpec(R)$;
+%   \item $1\in (I:J)(J:I)$;
+%   \item $(I:I)=(J:J)$ and $\exists$ an invertible $(I:I)$-ideal $L$ s.t.~$I=LJ$.
+%  \end{itemize}
+% \end{theorem}
+% 
+% \pause Notation: for any order $R$:
+% \begin{itemize}
+%  \item $\cW(R):= \faktor{\set{\text{fractional $R$-ideals}}}{\sim_{\text{wk}}} $;
+%  \item $\overline\cW(R):= \faktor{\set{\text{fractional $R$-ideals $I$ with $(I:I)=R$}}}{\sim_{\text{wk}}} $;
+%  \item $\overline\ICM(R):= \faktor{\set{\text{fractional $R$-ideals $I$ with $(I:I)=R$}}}{\simeq_R} $
+% \end{itemize}
+% \end{frame}
+% 
+% \begin{frame}{ Compute $\cW(R)$ and $\ICM(R)$ }
+% Let $\frf_R=(R:\cO_K)$ be the conductor of $R$ and $I$ a fractional $R$-ideal.\\
+% Without changing the weak eq.~class, we can assume that
+% \[I\cO_K=\cO_K.\]
+% Hence $\frf_R\subseteq I \subseteq \cO_K$, and therefore:
+% \[\begin{array}{cc}
+% &\cW(R) \overset{\sim_{\text{wk}}}{\twoheadleftarrow} \set{\text{ fractional $R$-ideals $I$ : $I\cO_K = \cO_K$ }} \\
+% & \rotatebox{-90}{$\subseteq$} \\
+% & \set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$}} 
+% \end{array}\]
+% \pause \begin{theorem}
+% For every over-order $S$ of $R$, $\Pic(S)$ acts freely on $\overline{\ICM(S)}$ and
+% \[ \overline\cW(S) = \overline{\ICM(S)}/\Pic(S) \]
+% %  THIS IS WRONG The action of $\Pic(R)$ on $\overline\cW(R)$ is free and transitive and the orbit is precisely $\overline\ICM(R)$.
+% Hence:
+% \[\ICM(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \overline \ICM(S).\]
+% \end{theorem}
+% \end{frame}
+
+\begin{frame}{ simplify the problem  }
+   Study the isomorphism problem locally: (Dade, Taussky, Zassenhaus '62)\\
+\pause  \textbf{weak equivalence}:
+\[I_\p\simeq_{R_\p} J_\p \text{ for every }\p\in \mSpec(R)\]
+\pause \vspace{-6mm}\[\Updownarrow\]
+\[1\in (I:J)(J:I)\quad \textcolor{blue}{\text{easy to check!}}\]
+\pause Let $\cW(R)$ be the set of weak eq.~classes...\\
+\pause ...whose representatives can be found in
+	\[\set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$}}\quad \textcolor{blue}{\parbox{10 em}{finite! and most of the time not-too-big ...}}\]
+\end{frame}
+
+\begin{frame}{ Compute $\ICM(R)$ }
+\pause Partition w.r.t. the multiplicator ring:
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \[ \cW(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \overline \cW(S)\]
+      \[\ICM(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \overline \ICM(S)\]
+    \end{column}
+\pause
+    \begin{column}{0.5\textwidth}  %%<--- here
+	\begin{center}
+	\textcolor{blue}{\parbox{10em}{the ``bar'' means ``only classes with multiplicator ring S''}} 
+	\end{center}
+    \end{column}
+    \end{columns}
+\pause
+   \begin{theorem}
+    For every over-order $S$ of $R$, $\Pic(S)$ acts freely on $\overline{\ICM(S)}$ and
+    \[ \overline\cW(S) = \overline{\ICM(S)}/\Pic(S) \]
+\pause Repeat for every $R\subseteq S \subseteq \cO_K$:
+    \[ \rightsquigarrow \ICM(R).\]
+   \end{theorem}
+\end{frame}   
+
+\begin{frame}{ back to AV's: Dual variety/Polarization }
+\begin{itemize}
+ \item Howe ('95) defined a notion of \textbf{dual} module and of \textbf{polarization} in the category of Deligne modules.
+%  \item Fix an $\overline \Q_p \overset{\epsilon}{\simeq} \C$ and choose a \textbf{CM-type} as follows:
+%  \[\Phi:=\set{ \vphi:\Z[F,V]\otimes \Q \to \C : v_{p,\epsilon}(\vphi(F))>0 }\]
+\pause \item Concretely, if $A\leftrightarrow I$, then $A^\vee \leftrightarrow \overline{I}^t$, and
+\pause \item a polarization $\mu$ of $A$ corresponds to a $\lambda\in K^\times$ such that
+      \begin{enumerate}[-]
+       \item $\lambda I \subseteq \overline{I}^t$ (isogeny);
+       \item $\lambda$ is totally imaginary ($\overline \lambda = -\lambda$);
+       \item $\lambda$ is $\Phi$-positive, where $\Phi$ is a specific CM-type of $K$.
+% 	     \[\left(
+% 	     \begin{split}
+% 	     \vphi(\lambda)/\mathrm{i} >0,\forall \vphi\in \Phi:= & \set{ \vphi:\Z[F,V]\otimes \Q \to \C : v_{p,\epsilon}(\vphi(F))>0 },\\
+% 	     & \overline \Q_p \overset{\epsilon}{\simeq} \C
+% 	     \end{split}
+% 	     \right)\]      
+      \end{enumerate} 
+      Also: $\deg \mu= [\overline{I}^t : I]$.
+\pause  \item if $A \leftrightarrow I$ and $S=(I:I)$ then
+  \[\set{\parbox[p]{7.5em}{non-isomorphic polarizations of $A$}} \longleftrightarrow \dfrac{\set{\text{totally positive }u\in S^\times }}{\set{v\overline{v}: v\in S^\times}}\]
+  and $\Aut(A,\mu) = \set{\text{torsion units of $S$}}$
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{ Example : Elliptic curves }
+%  For elliptic curves the number of isomorphism classes can be expressed as a closed formula (Deuring, Waterhouse).
+%  
+%  Let $h(x)=x^2+\beta x +q$, with $q=p^r$ and $\beta$ an integer coprime with $p$ such that $\beta^2<4q$.
+%  
+%  Put $F:=x \mod (h(x))$ in $K:=\Q[x]/(h)$.
+%  
+%  Then $\Z[F]=\Z[F,q/F]$ and
+%  \[\ICM(\Z[F]) = \bigsqcup_{n|f} \Pic(\Z+n\cO_K) \]
+%  where $f:=\#(\cO_K:\Z[F])$, which implies that
+%  \[
+%  \#\set{\parbox[p]{10em}{ iso.~classes of ell.~curves with $q-1+\beta$ $\F_q$-points }} =
+%  \dfrac{\#\Pic(\cO_K)}{\#\cO_K^\times} \sum_{n|f} n\prod_{p|n}\left( 1-\dfrac{\Delta_K}{p}\dfrac{1}{p} \right) \]
+% \end{frame}
+
+\begin{frame}{ Example}
+\begin{itemize}
+ \item Let $h(x)=x^8 - 5x^7 + 13x^6 - 25x^5 + 44x^4 - 75x^3 + 117x^2 - 135x + 81$;
+ \item $\rightsquigarrow$ isogeny class of an simple ordinary abelian varieties over $\F_{3}$ of dimension $4$;
+ \item Let $F$ be a root of $h(x)$ and put $R:=\Z[F,3/F]\subset \Q(F)$;
+ \item $8$ over-orders of $R$: two of them are not Gorenstein;
+ \item $\#\ICM(R) = 18 \rightsquigarrow 18$ isom.~classes of AV in the isogeny class;
+ \item $5$ are not invertible in their multiplicator ring;
+ \item $8$ classes admit principal polarizations;
+ \item $10$ isomorphism classes of princ. polarized AV.
+\end{itemize}
+\end{frame}
+\begin{frame}{Example}
+Concretely:
+{\scriptsize \begin{align*}
+  \begin{split} 
+  I_1 = & 2645633792595191 \Z \oplus (F + 836920075614551) \Z \oplus (F^2 + 1474295643839839)\Z \oplus\\
+	& \oplus (F^3 + 1372829830503387)\Z \oplus (F^4 + 1072904687510)\Z \oplus\\
+	& \oplus \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F + 6704806986143610)\Z \oplus\\
+	& \oplus \frac{1}{9}(F^6 + F^5 + F^4 + 8F^3 + 2F^2 + 2991665243621169) \Z \oplus\\
+	& \oplus \frac{1}{27}(F^7 + F^6 + F^5 + 17F^4 + 20F^3 + 9F^2 + 68015312518722201)\Z\\
+  \end{split}
+\intertext{principal polarizations:}
+  \begin{split}
+  x_{1,1} = \frac{1}{27}( & -121922F^7 + 588604F^6 - 1422437F^5 +\\
+			  & +1464239F^4 + 1196576F^3 - 7570722F^2 + 15316479F - 12821193)\\ 
+%   \end{split}\\
+%   \begin{split}
+  x_{1,2} = \frac{1}{27}( & 3015467F^7 - 17689816F^6 + 35965592F^5 -\\
+			  & -64660346F^4 + 121230619F^3 - 191117052F^2 + 315021546F - 300025458)\\
+  \end{split}\\
+  & \End(I_1) =  R\\
+  & \#\Aut(I_1,x_{1,1}) = \#\Aut(I_1,x_{1,2}) = 2
+ \end{align*}}
+\end{frame}
+
+
+\begin{frame}{Example}
+ 
+{\scriptsize \begin{align*}
+  \begin{split} 
+  I_7 = & 2\Z\oplus(F + 1)\Z\oplus(F^2 + 1)\Z\oplus(F^3 + 1)\Z\oplus(F^4 + 1)\Z\oplus\frac13(F^5 + F^4 + F^3 + 2F^2 + 2F + 3)\Z \oplus \\ 		      & \oplus\frac{1}{36}(F^6 + F^5 + 10F^4 + 26F^3 + 2F^2 + 27F + 45)\Z\oplus\\
+	& \oplus \frac{1}{216}(F^7 + 4F^6 + 49F^5 + 200F^4 + 116F^3 + 105F^2 + 198F + 351)\Z\\
+  \end{split}
+\intertext{principal polarization:}\\[-7ex]
+  \begin{split}
+  x_{7,1} = \frac{1}{54}(20F^7 - 43F^6 + 155F^5 - 308F^4 + 580F^3 - 1116F^2 + 2205F - 1809)
+  \end{split}\\
+  \begin{split}
+  \End(I_7) & = \Z \oplus  F\Z \oplus  F^2\Z \oplus  F^3\Z \oplus  F^4\Z \oplus
+  \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F)\Z \oplus \\
+	& \oplus \frac{1}{18}(F^6 + F^5 + 10F^4 + 8F^3 + 2F^2 + 9F + 9)\Z \oplus\\
+	& \oplus \frac{1}{108}(F^7 + 4F^6 + 13F^5 + 56F^4 + 80F^3 + 33F^2 + 18F + 27)\Z\\
+  \end{split}\\
+  & \#\Aut(I_7,x_{7,1}) = 2
+\end{align*}}             
+$I_1$ is invertible in $R$, but $I_7$ is not invertible in $\End(I_7)$.
+\end{frame}
+
+\begin{frame}{ Final remarks }
+\begin{itemize}
+%    \item the same correspondence between iso.~classes of AV's and $\ICM$ holds for isogeny classes $\cC_h$ over $\F_p$ with $h(\sqrt{p})\neq 0$ square-free\\
+% \pause much larger subcategory ... but no polarizations in this case.
+% 	  (Centeleghe and Stix 2015)
+         \item Using Centeleghe-Stix '15 we can compute the isomorphism classes in $\cC_h$ over $\F_p$  where $h$ is square-free and $h(\sqrt{p})\neq 0$\\
+\pause much larger subcategory ... but no polarizations in this case.         
+\pause   \item we can also deal with the case $\cC_{h^d}$ (with $h$ square-free) when $\Z[F,q/F]$ is Bass.
+\pause   \item base field extensions (ordinary case).
+\pause   \item period matrices (ordinary case) of the canonical lift.
+% \pause   \item conjugacy classes of integral matrices.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ }
+\begin{center}
+{\Large Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

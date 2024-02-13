@@ -1,0 +1,15 @@
+slide 03: change the caption;
+slide 05: simplify the definition of the dual abelian variety;
+slide 09: the Frobenius is defined not only over finite fields;
+slide 09: indipendence of the char poly wrt l\neq p;
+slide 09: add ``Riemann hyp``;
+slide 10: add when the 2 thm`s where proved;
+slide 11: while the Serre-Tate lift is unique or canonical; why it is not unique in the non-ordinary case.
+slide 14: simplify or make more clear how the polarization is built;
+slide 16 and following: what is (I:I);
+slide 18: specify that this is just an example;
+
+
+
+overall: too fast for 30 mins, slides too full.
+

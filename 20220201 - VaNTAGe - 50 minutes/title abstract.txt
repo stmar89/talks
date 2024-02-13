@@ -1,0 +1,3 @@
+Title : Computing isomorphism classes of abelian varieties over finite fields.
+
+Abstract : In this talk we will give an overview of certain algorithms that given an isogeny class of abelian varieties over a finite field satisfying certain assumptions return the representatives of the isomorphism classes of abelian varieties together with their polarizations.

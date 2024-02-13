@@ -1,0 +1,315 @@
+%\documentclass[usenames,dvipsnames]{beamer}
+ \documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Acan}{\mathcal{A}_{\mathrm{can}}}
+\newcommand{\AcanC}{A_{\mathrm{can}}}
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Every finite abelian group is the group of rational points of an
+ordinary abelian variety over $\F_2$, $\F_3$ and $\F_5$}
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia\\}
+\institute[]{Utrecht University}
+\date[21 April 2022]{DIAMANT Symposium - 21 April 2022\\ \pause joint work with\\ {\bf Caleb Springer}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{ Abelian Varieties }
+    \begin{itemize}
+        \item An {\bf abelian variety} over a field $k$ is a projective geometrically connected group variety over $k$.
+        \pause
+        \item Fun fact: the group of rational points of an AV is commutative...
+        \pause
+        \item ... but this is not why they are called abelian.
+        \pause
+        \item e.g. AVs of dim $1$ are elliptic curves:
+        \[\text{when }\Char(k)\neq 2,3 \leadsto Y^2=X^3+AX+B  \]
+        % \vspace{-2em}
+        % \pause
+        % \item \red{Goal}: study \textbf{isomorphism classes} of abelian varieties over a \textbf{finite field} (+ extra structure, like polarizations, period matrices, etc.)
+        \pause
+        \item \vspace{-6mm} Annoying fact: in dimension $g>1$, the equations are typically horrible.
+        % \pause
+        % \item over $\C$:
+        % \[
+        %      \set{ \text{abelian varieties $/\C$} } \longleftrightarrow
+        %      \set{\parbox[c]{10em}{$\C^g/L$ with $L\simeq \Z^{2g}$ with\\eq.cl.~of Riemann form}}
+        % \]
+        % \pause \vspace{-6mm} \item in positive characteristic we don't have such equivalence.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classes }
+    \begin{itemize}
+        \item $A$ and $B$ are {\bf isogenous} if $\dim A=\dim B$ and there exists a surjective homomorphism $\varphi:A\to B$.
+        \pause
+        \item Being isogenous is an equivalence relation.
+        \pause
+        \item Let $q$ be a power of a prime $p$.
+        \item $A/\F_{q}$ comes with a {\bf Frobenius endomorphism},
+        \pause
+        that induces an action
+        \[ \Frob_A : T_\ell A \rightarrow T_\ell A \text{ for any prime }\ell\neq p, \]
+        where $T_\ell A=\varprojlim A[\ell^n](\overline \F_p)$ is the $\ell$-adic Tate module.
+        \pause
+        \item $T_\ell A\simeq \Z_\ell^{2\dim A}$. Put $h_A=\Char(\Frob_A)$.
+        \pause
+        \item $h_A$ satisfies:
+        \begin{itemize}
+            \item the definition of $h_A$ does not depend on $\ell$.
+            \item $h_A\in\Z[x]$.
+            \pause
+            \item $\deg h_A = 2\dim A$
+            \item the complex roots of $h_A$ have absolute value $\sqrt{q}$.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classes }
+    \begin{itemize}
+        \item By {Honda-Tate} theory, the association
+        \[ A \mapsto h_A=\Char(\Frob_A)\]
+        is {\bf injective up to isogeny}, and...\\
+        \pause
+        ...allows us to {enumerate} all AVs up to isogeny.
+        \pause
+        \item Tate: $h_A$ {\bf squarefree} (no multiple roots) iff $\End_{\F_q}(A)$ is commutative.
+        \pause
+        \item The number of rational points is $\# A(\F_q)=h_A(1)$ isogeny invariant.
+        \pause
+        \item ..but the group $A(\F_q)$ is not.
+        \pause
+        \item We say that $A/\F_q$ is {\bf cyclic} if $A(\F_q)$ is cyclic.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ Ordinary abelian varieties }
+	\begin{itemize}
+        \item $A/\F_q$ is {\bf ordinary} if
+         % $A[p](\overline \F_p)\simeq (\Z /p\Z )^{\dim A}$ ...
+        % \pause
+        % \item
+         % ... or equivalently if
+         the coefficient of $x^{\dim A}$ in $h_A(x)$ is coprime to $q$.
+        \pause
+        \item Being ordinary is an isogeny invariant.
+	\end{itemize}
+    \pause
+    \begin{theorem}[Deligne]
+        Let $h_A(x)$ be ordinary and squarefree.
+        \pause
+        Put $K=\Q[F]=\Q[x]/(h_A(x))$.\\
+        \pause
+        Then we have an {\bf equivalence} of categories:
+        \[\begin{array}{c}
+        \set{\text{abelian varieties $B/\F_q$ with $h_B(x)=h_A(x)$}}\\
+        \updownarrow \\
+        \pause
+        \set{ \text{fractional ideals of $\Z[F,q/F]\subset K$ } }\\
+        \rotatebox{90}{=}\\
+        \pause
+        \set{{\text{fin.~gen.~$\Z[F,q/F]$-module in $K$, free of max $\mathrm{rank}_\Z$}}}
+        \end{array}\]
+    \end{theorem}
+    \pause Note: $F \leftrightarrow \Frob$ (and $q/F \leftrightarrow \mathrm{Verschiebung}$).
+\end{frame}
+
+
+\begin{frame}{ Cyclic abelian varieties }
+    \begin{corollary}
+        If $B$ corresponds to the fractional $\Z[F,q/F]$-ideal $J$ then
+        \pause
+        \[ B(\F_q) \simeq \frac{J}{(1-F)J}.\]
+    \end{corollary}
+    \pause
+    \begin{prop}[M.-Springer]
+        Every ordinary squarefree isogeny class contains a cyclic abelian variety.
+    \end{prop}
+    \pause
+	Proof: Take $B\longleftrightarrow J=\Z[F,q/F]$.
+    \pause
+    \[ B(\F_q)\simeq \frac{\Z[F,q/F]}{(1-F)} \simeq \frac{\Z[x,y]}{(h_A(x),xy-q,x-1)}
+    \pause
+    \simeq \frac{\Z}{h_A(1)\Z}.\qed \]
+\end{frame}
+
+\begin{frame}{ Number of points }
+    \begin{theorem}[Howe-Kedlaya]
+        Let $m\in\Z_{\geq 0}$. Then there is a squarefree ordinary $A/\F_2$ such that $\#A(\F_2)=m$.
+    \end{theorem}
+    \pause
+    \begin{theorem}[van Bommel-Costa-Li-Poonen-Smith]
+        Let $m\in\Z_{\geq 0}$ and $k$ be $\F_3$ or $\F_5$. Then there is a squarefree ordinary $A/k$ such that $\#A(k)=m$.
+    \end{theorem}
+    \pause
+    They use extremely clever constructions that allows them to construct characteristic polynomials $h_A$ such that $h_A(1)=m$.
+\end{frame}
+
+\begin{frame}{ Group of points }
+    \begin{theorem}[M.-Springer]
+        Let $k$ be $\F_2$, $\F_3$ or $\F_5$. Let $G$ be an abelian group.
+        \pause
+        Then there exists an ordinary $A/k$ with $A(k) = G$.
+    \end{theorem}
+    \pause
+    Proof: Write
+    \[ G\simeq \frac{\Z}{m_1 \Z} \times \ldots \times \frac{\Z}{m_s \Z}.\]
+    \pause
+    By H-K or vBCLPS, for each $i$ there is an isogeny class with $m_i$ points.\\
+    \pause
+    By Proposition, within each of the isogeny classes, there is a cyclic $A_i$.\\
+    \pause
+    Take $A=\prod_i A_i$. \qed
+    \pause
+    \begin{corollary}
+        If $G$ is cyclic we can take $A$ to be ordinary and squarefree.
+    \end{corollary}
+\end{frame}
+
+\begin{frame}{ Further results (building on vBCLPS) }
+	\begin{itemize}
+        \pause
+        \item Over $\F_4$: for every abelian $G\neq 0$ there exists an ordinary or almost ordinary $A/\F_4$ such that $A(\F_4)\simeq G$.
+        \pause
+        \item Over $\F_7$: for every cyclic $G\neq 0$ with $\# G\not \in \set{2,8,14,16,17,73}$ there exists a squarefree ordinary $A/\F_7$ such that $A(\F_7)\simeq G$.
+        \pause
+        \item vBCLPS: For an arbitrary $q$, every integer $m\geq q^{3\sqrt{q}\log q}$ arises as $m=\#A(\F_q)$ for some ordinary squarefree $A/\F_q$.
+	\end{itemize}
+    \pause
+    \begin{theorem}[M.-Springer]
+        Let $m_1,\ldots,m_r$ be integers satisfying $m_i\geq q^{3\sqrt{q}\log q}$.
+        Put
+        \[ G=\frac{\Z}{m_1 \Z}\times \ldots \times \frac{\Z}{m_r \Z}. \]
+        \pause
+        Then there is an ordinary $A/\F_q$ such that $G=A(\F_q)$.
+    \end{theorem}
+\end{frame}
+
+% \begin{frame}{  }
+% 	\begin{itemize}
+%         \item
+%         \item
+% 	\end{itemize}
+% \end{frame}
+%
+% \begin{frame}{  }
+% 	\begin{itemize}
+%         \item
+%         \item
+% 	\end{itemize}
+% \end{frame}
+
+% \begin{frame}{  }
+% 	\begin{itemize}
+%         \item
+%         \item
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{  }
+    \begin{center}
+    \green{\huge Thank you!}
+    \end{center}
+\end{frame}
+
+\end{document}

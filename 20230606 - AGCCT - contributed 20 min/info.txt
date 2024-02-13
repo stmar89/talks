@@ -1,0 +1,12 @@
+25 minutes in total.
+I expect 20 minutes of talk including quesitons + epsilon.
+
+Title:
+Cohen-Macaulay type of endomorphism rings of abelian varieties over finite fields
+
+Abstract:
+Abstract. In this talk, we will speak about the (Cohen-Macaulay) type of the endomorphism ring
+of abelian varieties over a finite field with commutative endomorphism algebra. We will exhibit a
+condition on the type of End(A) implying that A cannot be isomorphic to its dual. In particular,
+such an A cannot be principally polarised or a Jacobian.
+N.B. This is partly joint work with Caleb Springer.

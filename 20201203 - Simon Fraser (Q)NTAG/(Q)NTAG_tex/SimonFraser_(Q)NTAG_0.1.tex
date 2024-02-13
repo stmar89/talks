@@ -1,0 +1,549 @@
+%\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+\renewcommand{\char}{char}
+
+
+
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cW}{{\mathcal W}}
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{proposition}[df]{Proposition}
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Products and Polarizations\\ of\\ Super-Isolated Abelian Varieties}
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia}
+\institute[]{Utrecht University}
+\date[03 December 2020]{Simon Fraser University - (Q)NTAG - 03 December 2020}
+
+\begin{document}
+
+% Abstract: 
+% Super-isolated abelian varieties are abelian varieties over finite fields whose isogeny class contains a single isomorphism class. In this talk we will review their properties, consider their products and, in the ordinary case, we will describe their (principal) polarizations.
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Today's plan: }
+	\begin{itemize}
+	 \item Quick intro: Abelian Varieties 
+	 \pause \item Super-Isolated Abelian Varieties (SIAV)
+	 \pause
+	 \begin{itemize}
+    	 \item Weil generators
+		 \item \textit{ideal} varieties : equivalence of categories	 
+	 \end{itemize}
+	 \pause \item Products of SIAV
+	 \pause \item Principal Polarization on SIAV
+	 \pause \item Applications (powers and Jacobians)
+	\end{itemize}
+	\pause Also, all \blue{morphisms} are defined \blue{over the field of definition}!\\
+	
+	\pause Joint work with \red{Travis Scholl}.
+\end{frame}
+
+\begin{frame}{ Abelian Varieties }
+	\begin{itemize}
+	 \item An \green{abelian variety} $A$ over a field $k$ is a projective geometrically connected group variety over $k$.\\
+	 \pause We have \blue{morphisms} $\oplus:A\times A \to A$, $\ominus:A\to A$ and a $k$-rational point $e\in A(k)$ such that $(A,\oplus,\ominus,e)$ is a group object in the category of projective geom.~connected varieties over $k$.
+	 \pause \item In practice, we have \red{diagrams $\rightsquigarrow$} \blue{``natural'' group structure} on $A(\overline k)$.
+	 \pause \item eg. ($\ominus$ is the ``inverse'' morphism)
+	 {\tiny
+	 \[ 
+	 	\xymatrix{
+	 		A\times_k A \ar[rr]^{(\ominus,\mathrm{id})} 	& 						& A\times_k A \ar[d]^{\oplus}\\
+	 		A \ar[u]^{\Delta} \ar[r] 	& \mathrm{Spec}(k) \ar[r]^{e}	& A 
+	 	}
+	 	\pause \qquad
+	 	\xymatrix{
+	 		A\times_k A \ar[rr]^{(\mathrm{id},\ominus)} 	& 						& A\times_k A \ar[d]^{\oplus}\\
+	 		A \ar[u]^{\Delta} \ar[r] 	& \mathrm{Spec}(k) \ar[r]^{e}	& A 
+	 	}
+	  \]}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example : $\dim A=1$ elliptic curves  }
+	\begin{itemize}
+		\item AVs of dimension $1$ are called \red{Elliptic Curves}.
+		\pause \item They admit a \blue{plane model}: if $\Char k \neq 2,3$
+		\[  Y^2Z = X^3 +AXZ^2 + BZ^3\quad A,B \in k\text{ and }e=[0:1:0]  \]
+		\pause \vspace{-0.7cm} \item The \green{groups law is explicit}:\\
+		if $P=(x_P,y_P) $ then $ \ominus P=(x_P,-y_P) $ and\\
+		\pause if $Q=(x_Q,y_Q)\neq \ominus P$ then $P\oplus Q=(x_R,y_R)$ where
+		\[ x_R = \lambda^2 -x_P-x_Q, \quad y_R = y_P+\lambda (x_R-x_P), \]
+		where
+		\[ \lambda = 
+		\begin{cases}
+			\frac{3x_P^2 + B}{2A}& \text{ if } P=Q  \\
+			\frac{y_P -y_Q}{x_P - x_Q} &  \text{ if } P\neq Q
+		\end{cases}
+		\]	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example : EC over $\R$ }
+\vspace{-0.5cm}
+\begin{center}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\onslide<2-> {Over $\R$:\\ 
+			consider the abelian variety: 
+			\[ \red{y^2 = x^3 -x +1} \]}
+			\onslide<3->{Addition law: $P,Q$ {\Large \blue{$\leadsto$}} $P\oplus Q$}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\tikz{
+			    \onslide<2->{
+				\draw [help lines] (-2,-2.24) grid (1.8,2.24);
+				\draw [->] (-2-0.2,0) -- (1.8+0.2,0) node[right] {$x$}; 
+				\draw [->] (0,-2.24-0.2) -- (0,2.24+0.2) node[left] {$y$}; 
+				\draw [red, thick, domain=-1.32471795724474602596090885448:1.8, samples=100]
+				 plot (\x, {sqrt(\x*\x*\x -\x +1)});
+				\draw [red, thick, domain=-1.32471795724474602596090885448:1.8, samples=100]
+				 plot (\x, -{sqrt(\x*\x*\x -\x +1)});
+				}
+				\onslide<3->{
+				\draw [blue, thick, domain=-2:1.8, samples=100] plot (\x, {0.7*\x +0.5 });
+				\draw [blue, thick, dashed] (1.3407,2.24) -- (1.3407,-2.24);
+				\draw (-1.2858-0.2,-0.7*1.2858+0.5+0.1) node {$P$};
+				\draw (0.43506,0.7*0.43506+0.5 +0.3) node {$Q$};
+				\draw (1.3407+0.5,-0.7*1.3407-0.5) node {$P\oplus Q$};
+				}
+			}
+		\end{column}
+	\end{columns}
+\end{center}
+\end{frame}
+
+\begin{frame}{ Motivation: why SIAV?}
+	\begin{itemize}
+	 \item Super-Isolated AVs (SIAV) where introduced by Scholl in the context of Elliptic Curves \green{Cryptography}:
+	 \pause \item \red{ECDLP}: Consider $E/\F_p$. Pick $P,Q\in E(\F_p)$. Solve 
+	 \[ kP = Q. \]
+	 \pause \item Fastest 'general' attack is \blue{Pollard $\rho$} $\leadsto O(\sqrt{p})$ running-time. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ }
+    A possible \red{attack}:
+    \begin{itemize}
+     \pause \item if there exists a \blue{'computable'} map $\vphi: E\to E'$ to a \blue{'weak'} curve $E'$...
+     \pause \item ... then one can move the ECDLP and crack it on $E'$.
+    \end{itemize}
+    \pause Facts :
+    \begin{itemize}
+     \item  'computable' maps are common, 'weak' curves are not.
+    \end{itemize}
+    \pause Prevention is better than cure:
+    \begin{itemize}
+     \item $\leadsto$ 'isolated' EC : small conductor gap = no 'computable' maps.
+     \pause \item $\leadsto$ \green{'super-isolated'} EC : no maps at all! (to other EC)
+     \pause \item No reason to stick to dimension $1$ : $\leadsto$ SIAV.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ Some background : Isogeny classification }
+	\begin{itemize}
+	\item $A$ and $B$ are \green{isogenous} if $\dim A=\dim B$ and $\exists$ a surjective hom.~$\varphi:A\to B$.
+	\pause \item Being isogenous is an equivalence relation.
+    \pause \item $A/\F_{q}$ comes with a \blue{Frobenius endomorphism}, that induces an action
+		\[ \Frob_A : T_\ell A \rightarrow T_\ell A \text{ for any }\ell\neq p, \]
+		where $T_\ell(A) = \varprojlim A[\ell^n] \simeq \Z_\ell^{2d}$.
+	\pause \item $\green{h_A(x)}:=\Char(\Frob_A)$ is a \blue{$q$-Weil} polynomial and isogeny \blue{invariant}.
+	\pause \item By \red{Honda-Tate} theory, the association
+		\[ \text{isogeny class of }A \longmapsto h_A(x) \]
+		is injective and allows us to \red{list} all isogeny classes.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ SIAV : Definition }
+    Let $h$ be a char.~polynomial $\leadsto \cC_h$ isogeny class.
+    \pause
+    \begin{df}
+        \begin{itemize}
+	     \item $\cC_h$ is \red{super-isolated} if it contains only \red{one} isomorphism class.
+	     \item $A/\F_q$ is super-isolated if $\cC_{h_A}$ is so.
+	    \end{itemize}
+	\end{df}
+    \pause
+    All information about $A$ is encoded by the polynomial $h_A$.\\
+    \pause
+    \green{Questions}:
+    \begin{itemize}
+	 \item How do we read from a $q$-Weil poly $h$ whether $\cC_h$ is super-isolated?
+	 \item Can we count super-isolated $\cC_h$?
+	 \item What about polarizations?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ }
+    \begin{center}
+    \green{\huge Characterize SIAV}
+    \end{center}
+\end{frame}
+
+\begin{frame}{ A special class of AVs }
+    \begin{df}
+    We say that $A/\F_q \in \cC_{h_A}$ is \green{ideal} if
+    	\begin{itemize}
+    	 \pause\item \parbox{5.5cm}{ $h_A$ is squarefree, i.e.\\ splits into distinct irred.~factors,}\quad \blue{ $\leadsto$~\parbox{4.8cm}{\centering $A\sim B_1\times \ldots\times B_s,\quad B_i$~simple, pair-wise non-isogenous}}
+    	 \pause\item $h_A$ has no real roots, and
+    	 \pause \item $A$ is ordinary, or $q=p=\mathrm{char(\F_q)}$. \blue{\qquad ordinary : $A[p](\overline{\F}_p)\simeq (\Z/p\Z)^g$}
+    	\end{itemize}
+	\end{df}
+	\pause
+	\begin{theorem}[Deligne 1969, Centeleghe-Stix 2015]
+	Let $\cC_{h}$ be an ideal isogeny class. There is an equivalence of categories:
+    \pause	
+	\[ \cC_{h} \longleftrightarrow \set{ \parbox{4cm}{\centering fractional-$\Z[\pi,\overline{\pi}]$-ideals\\ in the CM-\'etale algebra $K_{h}=\Q[x]/(h)=\Q[\pi]$} }.  
+	\blue{\qquad \overline{\pi}=\frac{q}{\pi}}  \]
+    \pause	
+	If $A \leftrightarrow J$ then $\End(A) \leftrightarrow (J:J)=\set{ z \in K_{h} : zJ\subseteq J}\subseteq \cO_K $.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{ Weil generators }
+    Let $K$ be an \'etale CM-$\Q$-algebra
+    \[ K = K_1 \times \ldots \times K_r,\qquad K_i\text{ a CM-number field,} \]
+    \pause with ring of integers
+    \[ \cO_K=\cO_{K_1}\times \ldots \times \cO_{K_r},\]
+    \pause and class group
+    \[ \Pic(\cO_K)=\Pic(\cO_{K_1})\times \ldots \times \Pic(\cO_{K_r}).\]
+    \pause
+    \begin{df}
+        Let $n\in\Z$. An \green{$n$-Weil generator} for $K$ is an element $\alpha\in K$ such that
+        \begin{itemize}
+         \pause \item $\alpha \overline\alpha = n $ (i.e. in the image of the diagonal embedding $\Z\to K$),
+         \pause \item $\cO_K=\Z[\alpha,\overline\alpha]$.
+        \end{itemize}
+    \end{df}
+\end{frame}
+
+\begin{frame}{ ideal SIAV \& Weil Generators }
+    \begin{theorem}
+	    Let $\cC_{h}$ be an ideal isogeny class $\F_q$.
+	    Put $K_h=\Q[x]/(h)=\Q[\pi]$.\\
+	    \pause Then:
+	    \[ 
+	        \text{$\cC_h$ is \red{super-isolated}} \iff 
+		    \begin{cases}
+		     \text{$\pi$ is a $q$-Weil generator of $K_h$, and}\\
+		     \text{$K_h$ has class number $1$.}
+		    \end{cases}
+		\]
+    \end{theorem}
+    \pause Proof: by the previous Theorem 
+    \[ \set{\text{isom.~classes in $\cC_{h}$}}
+       \longleftrightarrow
+       \set{\text{ideal classes of $\Z[\pi,\overline{\pi}]$}}.\]
+    \pause Hence $\cC_h$ is super-isolated iff
+    \[ \Z[\pi,\overline{\pi}]=\cO_{K_h} \text{ and } K_h \text{ has cl.~number }1.\]
+    QED
+\end{frame}
+
+\begin{frame}{ An example }
+    Consider the polynomials
+    \begin{align*}
+	    h_1(x) &= (x^4 - 2x^3 + 3x^2 - 4x + 4), \\
+	    h_2(x) &= (x^6 - 4x^5 + 9x^4 - 15x^3 + 18x^2 - 16x + 8), \\
+	    h_3(x) &= (x^6 - 3x^5 + 6x^4 - 9x^3 + 12x^2 - 12x + 8), \\
+	    h_4(x) &= (x^8 - 5x^7 + 12x^6 - 20x^5 + 29x^4 - 40x^3 + 48x^2 - 40x + 16), \\
+	    h_5(x) &= (x^8 - 5x^7 + 13x^6 - 25x^5 + 39x^4 - 50x^3 + 52x^2 - 40x + 16), \\
+	    h_6(x) &= (x^8 - 4x^7 + 5x^6 + 2x^5 - 11x^4 + 4x^3 + 20x^2 - 32x + 16).
+    \end{align*}
+    Let $h=\prod_i h_i$ and put $K_h=\Q[x]/(h)=\Q[\pi]$.
+    \pause One computes that
+    \[ \cO_{K_h}=\Z[\pi,2/\pi] \text{ and } \#\Pic(\cO_{K_h})=1. \]
+    Hence $\cC_h$ is an isogeny class of $20$-dimensional SIAV over $\F_2$.
+\end{frame}
+
+\begin{frame}{ A non-example }
+    Over $\F_5$ let
+    \[ A = E_1 \times E_2, \]
+    where
+    \[ E_1: y^2 = x^3 + 4x + 2 \text{ and } E_2: y^2 = x^3 + 3x + 2. \]  
+      
+    \pause By the Theorem $\leadsto E_1$ and $E_2$ are SIEC, but $A$ is not!\\
+    \pause Indeed:
+    \[\Z[\pi_A,\overline{\pi_A}] \subsetneq \cO_{K_{h_A}}=\Z[\pi_1]\times \Z[\pi_2]=\End(A).\]
+    So there exists $A'$ isogenous to $A$ with $\End(A')=\Z[\pi_A,\overline{\pi_A}]$.\\
+    In particular $A$ is not isomorphic to $A'$.
+%    More precisely, since $\cO_K$ is the unique over-order of $\Z[\pi,\bar{\pi}]$ and $\Pic(\Z[\pi,\bar{\pi}])\simeq \Z/3\Z$,
+%  by using \cite[Thm.~4.3]{marseglia2018computing} we can conclude that the isogeny class of $A$ contains exactly $4$ isomorphism classes of abelian varieties, $3$ of which have endomorphism ring $\Z[\pi,\bar{\pi}]$.
+\end{frame}
+
+\begin{frame}{ }
+    \begin{center}
+    \green{\huge Count SIAV}
+    \end{center}
+\end{frame}
+
+\begin{frame}{ How many Weil generators ? Simple case }
+    For a number field $K$, for $z \in K$, we define the \green{height} of $z$ as 
+    \[ h(z)= \max\set{|\vphi(z)| : \vphi: K\to \C }. \]
+    \pause    
+    \begin{theorem}[Scholl 2020]
+    Let $W$ be the set of Weil generator in a CM-field $K$ of degree $2g$.
+    \pause Then
+    \[ 
+    \#\set{ \alpha\in W : h(\alpha)\leq N }=
+    \begin{cases}
+        4N+O(1)             & g=1\\
+        \rho \log N +O(1)   & g=2\text{ and }W\neq \emptyset\\
+        O(1)                & g\geq 3
+    \end{cases}    
+     \]
+    where $\rho$ is a constant depending on $K$.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{  }
+    Idea of the proof:
+    All Weil generators $\alpha$ of $K$ can be written in a \red{special form}:
+    \[\alpha = \frac{u(\gamma - \overline{\gamma}) + \eta + a}{2},\]
+    \pause
+    for a fixed $\gamma$ such that $\cO_K=\cO_F[\gamma]$, where $F$ is the unique totally real subfield of $K$,
+    \pause and unique triple $(u,\eta,a)$ with
+    \begin{itemize}
+        \item $u \in \cO_{F}$.
+        \item $\eta \in T=\set{ \beta : \cO_F=\Z[\beta] }$. \blue{Note $T$ is finite (up to $\Z$-translation).}
+        \item $a\in\Z$.
+    \end{itemize}
+    \pause Exploit this formula to enumerate the Weil generators.
+\end{frame}
+
+\begin{frame}{ How many Weil generators ?  Non-simple case  }
+    \begin{theorem}
+    Let $K=K_1\times\ldots\times K_n$ be a CM-algebra, with $K_i$ number fields.\\ 
+    \pause If $n>1$ then $K$ has finitely many Weil generators.
+    \end{theorem}
+    \pause Proof:
+    \begin{enumerate}
+        \item Enough to prove it for $K=K_1\times K_2$.
+        \pause \item Write Weil generators $\alpha_i$ of $K_i$ as:
+        \[\alpha_i = \frac{u_i(\gamma_i - \overline{\gamma_i}) + \eta_i + a_i}{2}\]
+        \pause \item Resultant condition: $\alpha=(\alpha_1,\alpha_2)$ is a Weil generator for $K$ iff
+        \[ |\mathrm{Res}(g_1,g_2)|=1 \]
+        where $g_i$ is the minimal polynomial of $\alpha_i+\overline{\alpha_i}$.
+        \pause \item We get $3$ equations $\leadsto$ an affine variety $X$ of $\dim X=0$.
+        \pause \item We conclude since $\set{\text{Weil gens of } K} \xrightarrow{\text{finite-to-}1} X(\Z) $. \qquad QED
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{ How many SIAV ?  }
+	\begin{corollary}
+	Let $g$ be a positive integer.
+	There are only \red{finitely many} ideal SIAV of dimension $g$ which are \green{not simple}.
+	\pause In particular there are only finitely many finite fields $\F_q$ for which such a variety might exist.
+	\end{corollary}
+	\pause Proof:
+	\begin{enumerate}
+	    \item It is enough to count Weil generators for products of CM fields of class number $1$.
+	    \pause \item Stark '74: For a given degree, only finitely many such fields. \qquad 	QED
+	\end{enumerate}
+    \pause
+	The argument is constructive $\leadsto$ \blue{Algorithm}.
+\end{frame}
+
+\begin{frame}{ A list : non-simple SIAV of small dimension over $\F_q$ }
+    \begin{table}[!ht]
+  \begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|}\hline
+  $q$ & $1 \times 1$ & $1 \times 2$ & $1 \times 1 \times 2$ & $1 \times 2 \times 2$ & $2 \times 2$ \\\hline\hline
+  $2$ & $4$ & $24$ & $10$ & $12$ & $18$ \\\hline
+  $3$ & $4$ & $24$ & $6$ & $12$ & $18$ \\\hline
+  $4$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $5$ & $2$ & $12$ & $ $ & $2$ & $6$ \\\hline
+  $7$ & $ $ & $8$ & $ $ & $ $ & $ $ \\\hline
+  $8$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $9$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $11$ & $2$ & $8$ & $2$ & $4$ & $4$ \\\hline
+  $13$ & $ $ & $6$ & $ $ & $ $ & $ $ \\\hline
+  $17$ & $2$ & $8$ & $2$ & $ $ & $ $ \\\hline
+  $19$ & $ $ & $ $ & $ $ & $ $ & $2$ \\\hline
+  $32$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $41$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  \end{tabular}
+  \end{center}
+\end{table}
+\end{frame}
+
+\begin{frame}{ }
+    \begin{table}[!ht]
+  \begin{center}
+  \begin{tabular}{|c||c|c|c|c|c|}\hline
+  $q$ & $1 \times 1$ & $1 \times 2$ & $1 \times 1 \times 2$ & $1 \times 2 \times 2$ & $2 \times 2$ \\\hline\hline
+  $47$ & $ $ & $4$ & $ $ & $ $ & $ $ \\\hline
+  $59$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $61$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $83$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $101$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $173$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $227$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $257$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $283$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $383$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  $1523$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $1601$ & $2$ & $ $ & $ $ & $ $ & $ $ \\\hline
+  $18131$ & $ $ & $2$ & $ $ & $ $ & $ $ \\\hline
+  \end{tabular}
+  \end{center}
+\end{table}
+\end{frame}
+
+\begin{frame}{ }
+    \begin{center}
+    \green{\huge Polarizations}
+    \end{center}
+\end{frame}
+
+\begin{frame}{ Principal Polarizations for ordinary SIAV }
+    \begin{itemize}
+        \item 	$A/\F_q$ be a \green{simple ordinary} SIAV of dimension $g$. \blue{$\leadsto A$ is ideal}
+    	 \item For $h=h_A$ let $K=\Q[x]/h=\Q(\pi)$.
+    \end{itemize}
+    \pause
+	\begin{theorem}
+	  $A$ does \red{not} admit a principal polarization if and only if $N_{K/\Q}(\pi - \overline{\pi}) = 1$ and the middle coefficient $a_g$ of $h$ is $-1 \bmod{q}$ if $q > 2$ and $-1 \bmod{4}$ if $q = 2$.
+	\end{theorem}
+	\pause Proof: In Howe '95 there is a characterization of when an ordinary isogeny class $\cC_h$ contains a PPAV in terms of the ramification of $K/F$.	
+	\pause Since $A$ is SIAV, then $\cO_K=\cO_F[\pi]$, and hence $\mathrm{Diff}_{K/F}=(\pi-\overline{\pi})\cO_F$. This allows us to conclude. \qquad QED
+\end{frame}
+
+\begin{frame}{ Uniqueness of Principal Polarizations }
+	\pause 
+	\begin{theorem}
+	  Let $A$ be a simple super-isolated ordinary abelian variety over $\F_q$ which admits a principal polarization.
+	  Then the polarization is \red{unique} up to polarized isomorphism.
+	\end{theorem}
+	\pause Proof: 
+	The number of principal polarizations is given by the size of the quotient
+	  \[
+	    \frac{ U_{F}^+ }{ N_{K/F}(U_K) },
+	  \]
+	which is trivial since $K$ has class number $1$. \qquad QED
+	\pause
+    \begin{corollary}
+	  Let $A$ be an ordinary ideal SIAV, say $A=\prod_{1}^n A_i$ with $A_i$ simple.
+	  Then $A$ admits a principal polarization if and only if each $A_i$ does.
+	  If this is the case, the principal polarization is unique up to polarized isomorphism.
+	\end{corollary}
+\end{frame}
+
+\begin{frame}{ }
+    \begin{center}
+    \green{\huge Some applications }
+    \end{center}
+\end{frame}
+
+\begin{frame}{ Powers of SIAVs }
+    \pause
+    \begin{theorem}\label{thm:powers}
+	  Let $A/\F_q$ be an ideal abelian variety.
+	  If $A$ is super-isolated, then $A^n$ is super-isolated for every $n\geq 1$.
+	  Conversely, if there exists $n\geq 1$ such that $A^n$ is super-isolated then $A$ is super-isolated.
+	\end{theorem}
+	\pause
+	\begin{proposition}
+	  Let $A$ be a super-isolated abelian variety.
+	  Then $A^8$ is principally polarized.
+	\end{proposition}
+	Proof: use Zahrin's trick.\qquad QED
+	\pause
+	\begin{remark}
+	  Let $A$ be an ordinary ideal PPSIAV.
+	  Then $A^n$ is PPSIAV for every $n>1$, but the princ.~polarization is not necessarily unique.
+	\end{remark}
+\end{frame}
+
+\begin{frame}{ What about Jacobians ? }    
+    \begin{proposition}
+	Let $C$ and $C'$ be smooth, projective and geometrically integral curves of genus $g>1$ defined over $\F_q$ with the same zeta function.
+	Assume that $\Jac(C)$ is ordinary, ideal, and super-isolated.
+	Then the curves $C$ and $C'$ are isomorphic.
+	\end{proposition}
+	\pause Proof:
+	$\Jac(C')$ is isogenous to $\Jac(C) \leadsto$ isomorphic since $\Jac(C)$ is SIAV.\\
+	Denote by $\theta$ and $\theta'$ the canonical princ.~pols of $\Jac(C)$ and $\Jac(C')$.\\
+	\pause We deduce that $(\Jac(C),\theta)$ is isomorphic to $(\Jac(C'),\theta')$.\\
+	\pause By Torelli's Theorem $\leadsto C\simeq C'$.\\
+	QED
+\end{frame}
+
+\begin{frame}{ }
+\begin{center}
+\green{\huge Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

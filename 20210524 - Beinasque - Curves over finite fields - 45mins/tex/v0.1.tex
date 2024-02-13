@@ -1,0 +1,639 @@
+%\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{ Computing isomorphism classes of\\abelian varieties over finite fields. }
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia}
+\institute[]{Utrecht University}
+\date[ 24/05/2021 ]{{\large Curves over Finite Fields:}\\Past, Present and Future}
+
+\begin{document}
+
+%Abstract : Deligne and Centeleghe-Stix described functors inducing equivalences between certain categories of abelian varieties over finite fields and modules with a Frobenius endomorphism. We will describe an algorithm that given a characteristic polynomial of Frobenius returns the representatives of the isomorphism classes of abelian varieties. In the ordinary case, building on the work Howe, we will be able to compute also polarizations and period matrices.
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Abelian varieties over $\C$ vs $\F_q$ }    
+    \begin{itemize}
+     \item Let $A/\C$ be an abelian variety of dimension $g$. 
+\pause
+    \item Then $A(\C)$ is a {\bf torus}: $T:=\C^g/\Lambda$, where $\Lambda\simeq_\Z\Z^{2g}$.
+\pause 
+    \item Moreover, $T$ admits a non-degenerate {\bf Riemann form} $\longleftrightarrow$ polarization.
+\pause
+    \item Actually, $ A \mapsto A(\C)$ induces an \blue{equivalence} of categories:
+	  \[
+      \set{ \text{abelian varieties $/\C$} } \longleftrightarrow 
+      \set{\parbox[c]{12.5em}{\center $\C^g/\Lambda$ with $\Lambda\simeq \Z^{2g}$ admitting\\ a Riemann form}}.
+     \]
+\pause
+    \item In \red{char.~$p>0$} such an equivalence \red{cannot exist} : there are (supersingular) elliptic curves with quaternionic endomorphism algebras.
+\pause 
+    \item Nevertheless, over finite fields, we obtain analogous results if we restrict ourselves to certain {\bf subcategories} of AVs.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classification over $\F_q$}
+	\begin{itemize}
+    \item $A/\F_{q}$ comes with a {\bf Frobenius} endomorphism, 
+\pause
+    that induces an action
+		\[ \Frob_A : T_\ell A \rightarrow T_\ell A \text{ for any }\ell\neq p, \]
+		where $T_\ell(A) = \varprojlim A[\ell^n] \simeq \Z_\ell^{2g}$.
+\pause 
+    \item $\blue{h_A(x)}:=\Char(\Frob_A)$ is a \blue{$q$-Weil} polynomial and {\bf isogeny invariant}.
+\pause
+    \item By {\bf Honda-Tate} theory, the association
+		\[ \text{isogeny class of }A \longmapsto h_A(x) \]
+		is injective and allows us to \blue{enumerate} all AVs up to isogeny.
+\pause
+    \item Also, $h_A(x)$ is squarefree $\iff$ $\End(A)$ is commutative.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Deligne's equivalence }
+	Recall: $A/\F_q$ is {\bf ordinary} if half of the $p$-adic roots of $h_A$ are units.
+\pause
+	\begin{theorem}[Deligne '69]
+	Let $q=p^r$, with $p$ a prime.
+	There is an \blue{equivalence} of categories:
+	\[ \begin{array}{cc}
+	\set{\text{ {\bf Ordinary} abelian varieties over } \F_q } 	& A \\
+\pause
+    \updownarrow											& \downmapsto \\
+	\set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+\pause
+	- $F\otimes \Q$ is semisimple\\
+	- the roots of $\Char_{F\otimes\Q}(x)$ have abs. value $\sqrt{q}$\\
+	- \textbf{half of them are $p$-adic units}\\
+	- $\exists V:T\to T$ such that $FV=VF=q$
+	}}	& (T(A),F(A))
+	\end{array} \]
+	\end{theorem}
+\pause
+	\begin{itemize}
+	 \item Ordinary $A/\F_q$ can be canonically lifted: $\leadsto \cA_{\mathrm{can}}/\mathrm{Witt}(\F_q)$...
+\pause
+	 \item ... characterized by: $\End_{\F_q}(A) = \End_W(\cA_{\mathrm{can}})$.
+\pause
+	 \item Put $T(A):=H_1(\cA_{\mathrm{can}}\otimes \C,\Z) $
+\pause
+	  and $F(A):=$ the induced Frobenius.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Squarefree case}
+	\begin{itemize}
+	\item Fix an \textbf{ordinary squarefree} $q$-Weil polynomial \blue{$h$} :
+\pause  
+    \item  $\rightsquigarrow \text{an isogeny class } \blue{\cC_h}$/$\F_q$.
+\pause 
+    \item Put $K := \Q[x]/(h)=\Q[F]$, an \'etale algebra = product of number fields.
+\pause
+	\item Put $V=q/F$. Deligne's equivalence induces:
+\pause
+			\begin{theorem}
+			\[\begin{array}{cc}
+			\faktor{\set{\text{abelian varieties over $\F_q$ in $\cC_h$}}}{\simeq} & \\
+			\updownarrow & \\
+			\faktor{\set{ \text{fractional ideals of $\Z[F,V] \subset K$ } }}{\simeq} &
+\pause =:  \blue{\ICM(\Z[F,V])}\\ 
+			& \blue{\text{ ideal class monoid} }
+			  \end{array}\]
+			\end{theorem}
+\pause
+    \item \red{Problem:} $\Z[F,V]$ might not be maximal $\rightsquigarrow $ \red{non-invertible} ideals.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ICM : Ideal Class Monoid}
+    Let $R$ be an {\bf order} in an \'etale  $\Q$-algebra $K$.
+% according to Bourbaki etale (over a field K) implies commutative and finite (since it is defined as being isomorphic to L^n for some extension L of K).
+    \begin{itemize}
+\pause
+    \item Recall: for {\bf fractional $R$-ideals} $I$ and $J$
+	 \[ I\simeq_R J \Longleftrightarrow \exists x \in K^\times \text{ s.t.~} xI=J \]
+\pause
+    \item We have
+   	\begin{align*}
+    \ICM(R) & \supseteq \Pic(R)=\faktor{\set{\text{invertible fractional $R$-ideals}}}{\simeq_R} \\
+	\blue{\text{with equality }} & \blue{\rotatebox[origin=c]{90}{$\large\rightsquigarrow$}\mkern2mu \text{ iff } R=\cO_K }
+    \end{align*}
+\pause 
+    \item ...and actually
+    \[ \ICM(R) \supseteq \bigsqcup_{\scriptsize\parbox{5 em}{$R\subseteq S \subseteq \cO_K$\\over-orders}}\Pic(S) \qquad   
+     \textcolor{blue}{\text{with equality iff $R$ is Bass}} \]
+\pause
+    \item Hofmann-Sircana '19: computation of over-orders.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ simplify the problem  }
+    Study the isomorphism problem locally: (Dade, Taussky, Zassenhaus '62)
+    \begin{itemize}
+\pause 
+    \item  \textbf{weak equivalence}:
+    \[I_{\p}\simeq_{R_{\p}} J_{\p} \text{ for every } {\p} \in \mSpec(R)\]
+\pause
+    \vspace{-6mm}\[\Updownarrow\]
+    \[1\in (I:J)(J:I)\quad \textcolor{blue}{\text{easy to check!}}\]
+\pause
+    \item Let $\cW(R)$ be the set of weak eq.~classes...\\
+\pause
+    ...whose representatives can be found in
+    \[\set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$ }} \quad \textcolor{blue}{\parbox{10 em}{finite! and most of the time not-too-big ...}}\]
+    where $\frf_R=(R:\cO_K)$ is the conductor of $R$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ Compute $\ICM(R)$ }
+\pause 
+    Partition w.r.t. the multiplicator ring:
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \[ \cW(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \cW_S(R)\]
+      \[ \ICM(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \ICM_S(R)\]
+    \end{column}
+\pause
+    \begin{column}{0.5\textwidth}  %%<--- here
+    \begin{center}
+    \textcolor{blue}{\parbox{10em}{the ``pedix'' $-_S$ means ``only classes with multiplicator ring S''}} 
+    \end{center}
+    \end{column}
+    \end{columns}
+\pause
+    \begin{theorem}[M.]
+    For every over-order $S$ of $R$, $\Pic(S)$ acts \red{freely} on $\ICM_S(R)$ and
+    \[ \cW_S(R) = \ICM_S(R) / \Pic(S) \]
+\pause
+    Repeat for every $R\subseteq S \subseteq \cO_K$:
+    \[ \rightsquigarrow \ICM(R).\]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{ To sum up: }
+    \begin{itemize}
+    \item To sum up:
+\pause
+    \item Given a {\bf ordinary squarefree} $q$-Weil polynomial $h$ ...
+\pause
+    \item ... $\leadsto$ algorithm to \blue{compute the isomorphism classes} of AVs in~$\cC_h$.
+\pause    
+    \item We can actually get a lot more!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Dual varieties and Polarizations }
+    Howe described \textbf{dual} varieties and \textbf{polarizations} on Deligne modules.
+\pause
+    \begin{theorem}\
+    Let $A\in \cC_h$ with $h$ ordinary and squarefree. If $A\leftrightarrow I$, then:
+    \begin{itemize}
+\pause
+    \item $A^\vee \leftrightarrow \overline{I}^t:=\set{ \overline{x} \in K : \Tr(xI)\subseteq \Z}$.
+\pause
+    \item a polarization $\mu$ of $A$ corresponds to a $\lambda\in K^\times$ such that\\
+    - $\lambda I \subseteq \overline{I}^t$ (isogeny);\\
+    - $\lambda$ is \blue{totally imaginary} ($\overline \lambda = -\lambda$);\\
+    - $\lambda$ is $\Phi$-positive, where $\Phi$ is a CM-type of $K$ satisf.~the \blue{Shimura-Taniyama} formula.\\ 
+\pause
+    Also: $\deg \mu= [\overline{I}^t : \lambda I]$.
+\pause
+    \item if $(A,\mu) \leftrightarrow (I,\lambda)$ is a princ.~polarized ab.~var.~and $S=(I:I)$ then
+    \vspace{-0.7em}
+    \[\set{\parbox[p]{9em}{non-isomorphic princ. polarizations of $A$}} \longleftrightarrow \dfrac{\set{\text{totally positive }u\in S^\times }}{\set{v\overline{v}: v\in S^\times}},\]
+    \vspace{-1.5em}
+\pause
+    \item  and $\Aut(A,\mu) = \set{\text{torsion units of $S$}}$.
+    \end{itemize}
+    \end{theorem}
+\end{frame}
+
+
+\begin{frame}{Principal Polarizations}
+    We have an {\bf algorithm} to enumerate principal polarizations up to isomorphism:
+\pause
+    \begin{enumerate}
+    \item Compute $i_0$ such that $i_0 I = \overline{I}^t$.
+\pause
+    \item Loop over the representatives $u$ of the finite quotient
+    \[ \frac{S^\times}{\set{v\overline{v}: v\in S^\times}}. \]
+\pause    
+    \item If $\lambda:=i_0 u$ is totally imaginary and $\Phi$-positive ...
+\pause    
+    \item ... then we have one principal polarization.
+\pause    
+    \item By the previous Theorem, we have all princ.~polarizations up to isom.
+    \end{enumerate}
+\pause 
+    Can modify to compute polarizations of any degree.
+\end{frame}
+
+\begin{frame}{Example}
+	\begin{itemize}
+    \item Let $h(x)=x^8 - 5x^7 + 13x^6 - 25x^5 + 44x^4 - 75x^3 + 117x^2 - 135x + 81$.
+\pause
+    \item $\rightsquigarrow$ isogeny class of an simple ordinary abelian varieties over $\F_{3}$ of dimension $4$.
+\pause
+    \item Let $F$ be a root of $h(x)$ and put $R:=\Z[F,3/F]\subset \Q(F)$.
+\pause
+    \item $8$ over-orders of $R$: two of them are not Gorenstein.
+\pause
+    \item $\#\ICM(R) = 18 \rightsquigarrow 18$ isom.~classes of AV in the isogeny class.
+\pause
+    \item $5$ are not invertible in their multiplicator ring.
+\pause
+    \item $8$ classes admit principal polarizations.
+\pause
+    \item $10$ isomorphism classes of princ. polarized AV.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example}{}
+    Concretely:
+	{\scriptsize \begin{align*}
+	\begin{split} 
+	I_1 = & 2645633792595191 \Z \oplus (F + 836920075614551) \Z \oplus (F^2 + 1474295643839839)\Z \oplus\\
+	& \oplus (F^3 + 1372829830503387)\Z \oplus (F^4 + 1072904687510)\Z \oplus\\
+	& \oplus \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F + 6704806986143610)\Z \oplus\\
+	& \oplus \frac{1}{9}(F^6 + F^5 + F^4 + 8F^3 + 2F^2 + 2991665243621169) \Z \oplus\\
+	& \oplus \frac{1}{27}(F^7 + F^6 + F^5 + 17F^4 + 20F^3 + 9F^2 + 68015312518722201)\Z\\
+	\end{split}
+	\intertext{principal polarizations:}
+	\begin{split}
+	x_{1,1} = \frac{1}{27}( & -121922F^7 + 588604F^6 - 1422437F^5 +\\
+			  & +1464239F^4 + 1196576F^3 - 7570722F^2 + 15316479F - 12821193)\\ 
+	%   \end{split}\\
+	%   \begin{split}
+	x_{1,2} = \frac{1}{27}( & 3015467F^7 - 17689816F^6 + 35965592F^5 -\\
+			  & -64660346F^4 + 121230619F^3 - 191117052F^2 + 315021546F - 300025458)\\
+	  \end{split}\\
+	& \End(I_1) =  R\\
+	& \#\Aut(I_1,x_{1,1}) = \#\Aut(I_1,x_{1,2}) = 2
+	\end{align*}}
+\end{frame}
+
+
+\begin{frame}{Example}{}
+    {\scriptsize \begin{align*}
+	\begin{split} 
+	I_7 = & 2\Z\oplus(F + 1)\Z\oplus(F^2 + 1)\Z\oplus(F^3 + 1)\Z\oplus(F^4 + 1)\Z\oplus\frac13(F^5 + F^4 + F^3 + 2F^2 + 2F + 3)\Z \oplus \\ 		      & \oplus\frac{1}{36}(F^6 + F^5 + 10F^4 + 26F^3 + 2F^2 + 27F + 45)\Z\oplus\\
+	& \oplus \frac{1}{216}(F^7 + 4F^6 + 49F^5 + 200F^4 + 116F^3 + 105F^2 + 198F + 351)\Z\\
+	\end{split}
+	\intertext{principal polarization:}\\[-7ex]
+	\begin{split}
+	x_{7,1} = \frac{1}{54}(20F^7 - 43F^6 + 155F^5 - 308F^4 + 580F^3 - 1116F^2 + 2205F - 1809)
+	\end{split}\\
+	\begin{split}
+	\End(I_7) & = \Z \oplus  F\Z \oplus  F^2\Z \oplus  F^3\Z \oplus  F^4\Z \oplus
+	\frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F)\Z \oplus \\
+	& \oplus \frac{1}{18}(F^6 + F^5 + 10F^4 + 8F^3 + 2F^2 + 9F + 9)\Z \oplus\\
+	& \oplus \frac{1}{108}(F^7 + 4F^6 + 13F^5 + 56F^4 + 80F^3 + 33F^2 + 18F + 27)\Z\\
+	\end{split}\\
+	& \#\Aut(I_7,x_{7,1}) = 2
+	\end{align*}}             
+	$I_1$ is invertible in $R$, but $I_7$ is not invertible in $\End(I_7)$.
+\end{frame}
+
+\begin{frame}{ The Power-of-a-Bass case }
+    \begin{itemize}
+    \item Another case we understand well: \blue{$h=g^r$} for $g$ square-free and ordinary.
+\pause    
+    \item Every $A$ in $\cC_{g^r}$ is \blue{$A\sim B^r$} for $B\in \cC_g$.
+\pause    
+    \item Put $R:=\Z[F,V] \subset K_g:=\Q[x]/(g)=\Q[F]$.
+\pause    
+    \item Under these assumption, Deligne's theorem induces:
+    \[ \set{\text{abelian varieties in }\cC_{g^r}} \longleftrightarrow \set{ R\text{-modules }M \subseteq K_g^r }. \]
+\pause    
+    \item Recall: an order $R$ is {\bf Bass} if all its over-orders $S$ are {\bf Gorenstein}, ...
+\pause    
+    \item ... or equivalently $\ICM(R) = \bigsqcup_S \Pic(S).$
+\pause    
+    \item Eg: quadratic orders are Bass $\leadsto$ powers of ordinary elliptic curves~$E^r$.
+\pause    
+    \item If $R$ is Bass, then $M$ is isomorphic to a \blue{direct sum} of frac.$R$-ideals.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ The Power-of-a-Bass case }
+	\begin{theorem}
+	\begin{align*}
+	\faktor{\set{\text{abelian varieties in }\cC_{g^r}}}{ \simeq } 
+	\longleftrightarrow
+	\faktor{\set{I_1\oplus\ldots\oplus I_r\ :\ \text{$I_j$ a frac.~$R$-ideal}}}{\simeq}&\\
+%\pause	
+	\blue{\parbox{5.5em}{we have a\\ classification:}}
+%\pause	
+	\longleftrightarrow
+	\set{(S_1\subseteq S_2 \subseteq \ldots \subseteq S_r ,\ [I]_{\simeq}) :          
+	\parbox{7em}{$R\subseteq S_j$ orders,\\ $I$ a frac. $R$-ideal with $(I:I)=S_r$}}&
+    \end{align*}
+    \end{theorem}
+\pause    
+    \begin{corollary}
+	If $A\in \cC_{g^r}$ then $A \simeq C_1\times \ldots \times C_r$, for $C_j\in\cC_g$.     
+\pause
+    \blue{\parbox{8em}{everything\\ is a product!}}
+    \end{corollary}
+    \begin{itemize}
+    \item Howe's results on polarizations carry over ...
+\pause    
+    \item ... but computing them in general is harder!
+\pause    
+    \item Solved for $E^r$ by Kirschmer-Narbonne-Ritzenthaler-Robert~`20.
+    \blue{\parbox{3em}{next\\talk!}}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example }
+    Let $g=x^6 - 3x^5 + 6x^4 - 10x^3 + 18x^2 - 27x + 27$.   
+%\pause 
+    Note $\cC(g)$ is an isogeny class of simple ordinary abelian varieties over $\F_3$.   
+%\pause
+    Define $K=\Q[x]/(g)=\Q(F)$ and $R=\Z[F,V]$.
+\pause
+    The only over-order of $R$ is the maximal order $\cO_K$ of $K$ and, since $R$ is Gorenstein $R$ is Bass. 
+\pause
+    Observe
+    \[ \Pic(R) \simeq \faktor{\Z}{3\Z} \text{ and } \Pic(\cO_K)=\set{1}. \]
+%\pause
+    Let $I$ be a representatives of a generator of $\Pic(R)$.
+\pause
+    We now list the representatives of the isomorphism classes in $\cC(g^3)$:
+    \begin{align*}
+	& M_1=R \oplus R \oplus R &
+	& M_2=R \oplus R \oplus I &
+	& M_3=R \oplus R \oplus I^2 \\
+	& M_4=R \oplus R \oplus \cO_K & 
+	& M_5=R \oplus \cO_K \oplus \cO_K & 
+	& M_6=\cO_K \oplus \cO_K \oplus \cO_K
+	\end{align*}
+\pause 
+	\[\End(M_1) = \Mat_3(R) \text{ and }
+	\End(M_2)=
+	\begin{pmatrix}
+	R & R & I \\
+	R & R & I \\
+	(R:I) & (R:I) & R
+	\end{pmatrix}\]
+\end{frame}
+
+\begin{frame}{ Outside of the ordinary... }
+\pause
+	\begin{theorem}[Centeleghe-Stix '15]
+	There is an equivalence of categories:
+	\[ \begin{array}{cc}
+	\set{\text{abelian varieties $A$ over \red{$\F_p$} with $\pmb{h_A(\sqrt{p})\neq 0}$}} 	& A \\
+    \updownarrow											& \downmapsto \\
+	\set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+	- $F\otimes \Q$ is semisimple\\
+	- the roots of $\Char_{F\otimes\Q}(x)$ have abs. value \red{$\sqrt{p}$}\\
+	- $\pmb{\Char_{F}(\sqrt{p})\neq 0}$\\
+	- $\exists V:T\to T$ such that $FV=VF=\red{p}$
+	}}	& (T(A),F(A))
+	\end{array} \]
+	\end{theorem}
+\pause
+	\begin{itemize}
+	 \item Now, $T(A):=\Hom(A,A_w)$, where $A_w$ has minimal $\End$ among the varieties with Weil support $w=w(A)$.
+	 \item $F(A)$ is the induced Frobenius.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Outside of the ordinary...isomorphism classes } 
+\begin{itemize}
+    \item Everything I told so far about \blue{isomorphism classes} works in the \blue{same way} using the Centeleghe-Stix functor:
+    \item both in the squarefree and Power-of-Bass cases, over $\F_p$.
+\pause
+    \item (There are there are other functors:\\
+\pause
+          Oswal-Shankar for almost-ordinary abelian varieties, together with generalzations by Bergstr\"om-Karemaker-M.;\\
+\pause          
+          Serre and the work of Kani, Jordan-Keeton-Poonen-Rains-\\-Shepherd-Barron-Tate for $E^r$; \blue{Isabel Vogt's talk}\\
+\pause
+    ... but we will not use them in this talk.)
+\pause
+    \item For polarizations, the results by Howe do \red{not apply immediately} to the Centeleghe-Strix case:
+\pause
+    \item in general we \red{cannot} lift canonically \red{each} abelian variety.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ Outside of the ordinary...polarizations } 
+	\begin{itemize}
+	\item New strategy: with Jonas Bergstr\"om and Valentijn Karemaker `21.
+\pause
+	\item Consider $\cC_h$ with $h$ squarefree $/\F_q$ $\leadsto K=\Q[F]$. 
+\pause 
+    \item Chai-Conrad-Oort: A ($p$-adic) CM-type $(K,\Phi)$ satisfies the {\bf Residual Reflex Condition} if:
+    \begin{enumerate}[1.]
+\pause 
+    \item the \blue{Shimura-Taniyama formula} holds for $\Phi$.
+%	    : for every  place $\nu$ of $L$ above~$p$, we have
+%		\begin{equation*}
+%		\dfrac{ \mathrm{ord}_\nu(F)}{ \mathrm{ord}_\nu(q)}=\dfrac{\#\set{ \vphi \in \Phi \text{ s.t.~} \vphi \text{ induces } \nu }}{[L_\nu:\Q_p]}.
+%		\end{equation*}
+\pause
+    \item the residuel field $k_E$ of the reflex field $E$ of $(K,\Phi)$ satisfies: \blue{$k_E \subseteq \F_q$}.
+    \end{enumerate}
+\pause
+    \begin{theorem}[Chai-Conrad-Oort]
+    If $(K,\Phi)$ satisfies the RRC then in $\cC_h$ there exists an abelian variety $A$ admitting a canonical lifting $\cA$. 
+    \end{theorem}
+\pause
+    \item If we understand the polarizations of $A$ we can 'spread' them to the whole isogeny class.
+    \end{itemize}
+\end{frame}
+
+% OLD with xymatrix. Problems with pauses!
+%\begin{frame}{Outside of the ordinary...polarizations }
+%    Let $\cG$ be the Centeleghe-Stix functor (over $\F_p$).
+%    Let $f:A\to B$ be an isogeny. Consider: 
+%\pause
+%    \[\xymatrix{
+%	                                 & \Hom(\cA,\cA^\vee) \ar[d]_{\mathrm{red}} \ar[dr]^{\text{complex unif.}} & \\
+%	\Hom(B,B^\vee) \ar[r]^{f^* := f^\vee \circ - \circ f}\ar[d]^{\cG} & \Hom(A,A^\vee)\ar[d]^{\cG} & (\overline I^t : I) \ar[d]_{\red{\alpha}}^{\simeq} \\
+%	 (\cG(B) : \cG(B^\vee))\ar[r]^{\cG(f^*)} & (\cG(A) : \cG(A^\vee)) & (\overline I^t : I)
+%	 \ar@{=}[l]
+%	}\]
+%\pause
+%    Note that $\cG(f^*)$ is multiplication by the total real element $\overline{\cG(f)}\cG(f)$.
+%\pause
+%    So it sends totally imaginary elements to totally imaginary elements and $\Phi$-positive elements to $\Phi$-positive elements. 
+%\pause
+%    The only 'issue' is the \red{$\alpha$}.\\
+%\pause    
+%    We study when we can \blue{'pretend' $\alpha=1$}. 
+%\end{frame}
+
+% using tikzcd, but no pauses in the diagram
+%\begin{frame}{ Outside of the ordinary...polarizations }
+%\onslide<+->
+%    Let $\cG$ be the Centeleghe-Stix functor (over $\F_p$).\\
+%    Assume that there exists $A$ admitting a canonical lifting $\cA$.\\
+%    Let $f:A\to B$ be an isogeny.
+%\onslide<+->
+%    \[\begin{tikzcd}[ampersand replacement=\&] %needed for Beamer
+%    \& \Hom(\cA,\cA^\vee) \arrow[d, "\mathrm{red}"] \arrow[dr, "\text{complex unif.}"] \& \\
+%	\Hom(B,B^\vee) \arrow[r,"f^*:=f^\vee\circ - \circ f"] \arrow[d, "\cG"] \& \Hom(A,A^\vee)\arrow[d,"\cG"] \& (\overline I^t : I) \arrow[d,"\red{\alpha}","\simeq"'] \\
+%	 (\cG(B) : \cG(B^\vee))\arrow[r,"\cG(f^*)"] \& (\cG(A) : \cG(A^\vee)) \& (\overline I^t : I)
+%	 \arrow[l,equal]
+%	\end{tikzcd}\]
+%\onslide<+->
+%    Note that $\cG(f^*)$ is multiplication by the total real element $\overline{\cG(f)}\cG(f)$.\\
+%\onslide<+->
+%    So it sends totally imaginary elements to totally imaginary elements and $\Phi$-positive elements to $\Phi$-positive elements. 
+%\onslide<+->
+%    The only 'issue' is the \red{$\alpha$}.\\
+%\onslide<+->   
+%    We study when we can \blue{'pretend' $\alpha=1$}. 
+%\end{frame}
+
+\begin{frame}{ Outside of the ordinary...polarizations }
+\onslide<+->
+    Now $\cC_h$ over $\F_p$: let $\cG$ be the Centeleghe-Stix functor.\\
+    Assume that there exists $A$ admitting a canonical lifting $\cA$.\\
+\onslide<4->{Let $f:A\to B$ be an isogeny.}  
+    \[
+    \begin{tikzcd}[ampersand replacement=\&] %needed for Beamer
+    \& |[visible on=<2->]| \Hom(\cA,\cA^\vee) \arrow[visible on=<2->,d, "\mathrm{red}"]    \arrow[visible on=<2->,dr, "\text{complex unif.}"] \& \\
+    |[visible on=<4->]|\Hom(B,B^\vee) \arrow[visible on=<4->,r,"f^*:=f^\vee\circ - \circ f"] \arrow[visible on=<5->,d, "\cG"] \& 
+    |[visible on=<2->]| \Hom(A,A^\vee)\arrow[visible on=<3->,d,"\cG"] \&
+    |[visible on=<2->]| (\overline I^t : I) \arrow[visible on=<3->,d,"\red{\alpha}","\simeq"'] \\
+	|[visible on=<5->]| (\cG(B) : \cG(B^\vee))\arrow[visible on=<5->,r,"\cG(f^*)"] \&
+	|[visible on=<3->]| (\cG(A) : \cG(A^\vee)) \& |[visible on=<3->]| (\overline I^t : I)
+	\arrow[visible on=<3->,l,equal]
+	\end{tikzcd}
+	\]
+\onslide<6->
+    Note that $\cG(f^*)$ is multiplication by the totally positive element $\overline{\cG(f)}\cG(f)$:\\
+\onslide<7->
+    it sends totally imaginary elements to totally imaginary elements and $\Phi$-positive elements to $\Phi$-positive elements. 
+\onslide<8->
+    The only 'issue' is the \red{$\alpha$}.\\
+\onslide<9->   
+    We study when we can \blue{'pretend' $\alpha=1$}.
+\end{frame}
+
+\begin{frame}{ Final remarks }
+\begin{itemize}
+    \item Base field extensions and {\bf twists} (ordinary case).
+\pause   
+    \item {\bf Period matrices} of the canonical lift (ordinary case).
+\pause   
+    \item with Caleb Springer `21, building on Howe-Kedlaya~`21, we proved that every finite abelian group occur as the {\bf group of points} of an ordinary AV over $\F_2$. \blue{check Wanlin Li's talk!}
+\pause 	 
+    \item Magma implementations of the algorithms are on GitHub!
+\pause	 
+    \item Results of computations will appear on the LMFDB.
+\end{itemize}
+\end{frame}
+\begin{frame}{ }
+\begin{center}
+\green{\huge Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

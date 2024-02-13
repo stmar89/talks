@@ -1,0 +1,4 @@
+Every finite abelian group is the group of rational points of an
+ordinary abelian variety over F2, F3 and F5
+We show that every finite abelian group G occurs as the group of rational points of an ordinary abelian variety over F2, F3 and F5. We produce partial results for abelian varieties over a general finite field Fq. In particular, we show that certain abelian groups cannot occur as groups of rational points of abelian varieties over Fq when q is large.
+This is joint work with Caleb Springer.

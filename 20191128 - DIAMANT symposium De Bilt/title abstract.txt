@@ -1,0 +1,4 @@
+"Isomorphism classes of abelian varieties over finite fields"
+
+We explain how to compute the isomorphism classes of abelian varieties in ordinary square-free isogeny classes in terms of (non necessarily invertible) fractional ideals of orders in étale algebras over Q.
+We present a concrete algorithm to perform this tasks and, for the ordinary case, to compute the polarizations and also the automorphisms of the polarized abelian variety.

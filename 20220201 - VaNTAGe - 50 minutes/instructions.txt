@@ -1,0 +1,13 @@
+Hi Stefano, great!  we usually tell people 50 minutes so that there is time for questions.  
+We like to video the talks - please let me know if you want to talk about that.
+
+Here is advice we've given people before:
+
+Planning the talk: Please include an open conjecture or problem and write or latex notes ahead of time.  Please keep the talks accessible and intriguing.  We are trying to reach a very broad audience including early stage graduate students and experts in the field.  Some suggestions:
+Explain the main ideas behind the problem, why it's important, why it's still unsolved.
+Explain some of the past work on the problem.
+Provide an example that illustrates some of the key points
+Explain your contribution to the topic. 
+Avoid technicalities (for example by referring to the literature).
+
+Happy to talk more about it, cheers, Rachel

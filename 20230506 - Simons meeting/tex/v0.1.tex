@@ -1,0 +1,474 @@
+% \documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+% \usepackage{slashbox}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{ Computing isomorphism classes of\\abelian varieties over finite fields. }
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia}
+\institute[]{Utrecht University}
+\date[ May 6, 2023 ]{\large Simons Collaboration - May meeting}
+
+\begin{document}
+
+%Abstract : Deligne and Centeleghe-Stix described functors inducing equivalences between certain categories of abelian varieties over finite fields and modules with a Frobenius endomorphism. We will describe an algorithm that given a characteristic polynomial of Frobenius returns the representatives of the isomorphism classes of abelian varieties. In the ordinary case, building on the work Howe, we will be able to compute also polarizations and period matrices.
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+% \begin{frame}{ Abelian varieties over $\C$ vs $\F_q$ }    
+%     \begin{itemize}
+%      \item Let $A/\C$ be an abelian variety of dimension $g$. 
+% \pause
+%     \item Then $A(\C)$ is a {\bf torus}: $T:=\C^g/\Lambda$, where $\Lambda\simeq_\Z\Z^{2g}$.
+% \pause 
+%     \item Moreover, $T$ admits a non-degenerate {\bf Riemann form} $\longleftrightarrow$ polarization.
+% \pause
+%     \item Actually, $ A \mapsto A(\C)$ induces an \blue{equivalence} of categories:
+% 	  \[
+%       \set{ \text{abelian varieties $/\C$} } \longleftrightarrow 
+%       \set{\parbox[c]{12.5em}{\center $\C^g/\Lambda$ with $\Lambda\simeq \Z^{2g}$ admitting\\ a Riemann form}}.
+%      \]
+% \pause
+%     \item In \red{char.~$p>0$} such an equivalence \red{cannot exist} : there are (supersingular) elliptic curves with quaternionic endomorphism algebras.
+% \pause 
+%     \item Nevertheless, over finite fields, we obtain analogous results if we restrict ourselves to certain {\bf subcategories} of AVs.
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{ Abelian varieties }    
+    \begin{itemize}
+     \item An {\bf abelian variety} over a field $k$ is a connected projective group scheme over $k$.
+\pause     
+     \item Our goal: compute $k$-isomorphism classes of AVs for $k=\F_q$.
+\pause
+    \item eg. AVs of $\dim 1$ are elliptic curves:
+    \[ ZY^2 = X^3 + AXZ^2 + BZ^3 ,\quad  4A^3+27B^2 \neq 0 \]
+\pause 
+\vspace{-2em}
+    \item In higher dim: equations are too big.
+\pause 
+    \item First step is to simplify the problem: work up to {\bf isogeny} (=surjective homomorphism with finite kernel).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classification over $\F_q$}
+	\begin{itemize}
+    \item $A/\F_{q}$ comes with a {\bf Frobenius} endomorphism, 
+\pause
+    that induces an action
+		\[ \Frob_A : T_\ell A \rightarrow T_\ell A \text{ for any }\ell\neq p, \]
+		where $T_\ell(A) = \varprojlim A[\ell^n] \simeq \Z_\ell^{2g}$.
+\pause 
+    \item $\blue{h_A(x)}:=\Char(\Frob_A)$ is a \blue{$q$-Weil} polynomial and {\bf isogeny invariant}.
+\pause
+    \item By {\bf Honda-Tate} theory,     
+    \[ A\sim_{\F_q} B \Longleftrightarrow h_A(x)=h_B(x), \]
+    and using the association
+    \[ \text{isogeny classes of }A \longmapsto h_A(x) \]
+    allows us to \blue{enumerate} all AVs up to isogeny\\
+    (see Dupuy-Kedlaya-Roe-Vincent and LMFDB).
+\pause
+    \item Also, $h_A(x)$ is squarefree $\iff$ $\End_{\F_q}(A)$ is commutative.
+	\end{itemize}
+\end{frame}
+
+% \begin{frame}{ Deligne's equivalence }
+% 	Recall: $A/\F_q$ is {\bf ordinary} if half of the $p$-adic roots of $h_A$ are units.
+% \pause
+% 	\begin{theorem}[Deligne '69]
+% 	Let $q=p^r$, with $p$ a prime.
+% 	There is an \blue{equivalence} of categories:
+% 	\[ \begin{array}{cc}
+% 	\set{\text{ {\bf Ordinary} abelian varieties over } \F_q } 	& A \\
+% \pause
+%     \updownarrow											& \downmapsto \\
+% 	\set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+% \pause
+% 	- $F\otimes \Q$ is semisimple\\
+% 	- the roots of $\Char_{F\otimes\Q}(x)$ have abs. value $\sqrt{q}$\\
+% 	- \textbf{half of them are $p$-adic units}\\
+% 	- $\exists V:T\to T$ such that $FV=VF=q$
+% 	}}	& (T(A),F(A))
+% 	\end{array} \]
+% 	\end{theorem}
+% \pause
+% 	\begin{itemize}
+% 	 \item Ordinary $A/\F_q$ can be canonically lifted: $\leadsto \cA_{\mathrm{can}}/\mathrm{Witt}(\F_q)$...
+% \pause
+% 	 \item ... characterized by: $\End_{\F_q}(A) = \End_W(\cA_{\mathrm{can}})$.
+% \pause
+% 	 \item Put $T(A):=H_1(\cA_{\mathrm{can}}\otimes \C,\Z) $
+% \pause
+% 	  and $F(A):=$ the induced Frobenius.
+% 	\end{itemize}
+% \end{frame}
+
+\begin{frame}{Squarefree case: Deligne ('69) and Centeleghe-Stix ('15)}
+	\begin{itemize}
+    \item Fix a \textbf{squarefree} char.~poly.~\blue{$h$} which is {\bf ordinary} or with $q=p$ {\bf prime}.
+\pause  
+    \item  $\rightsquigarrow \text{an isogeny class } \blue{\cC_h}$/$\F_q$.
+\pause 
+    \item Put $K := \Q[x]/(h)=\Q[F]$, an \'etale algebra = product of number fields.
+	\item Put $V=q/F$. 
+\pause
+    \item Deligne and C-S's results give:
+\pause
+			\begin{theorem}
+			\[\begin{array}{cc}
+			\faktor{\set{\text{abelian varieties over $\F_q$ in $\cC_h$}}}{\simeq} & \\
+			\updownarrow & \\
+			\faktor{\set{ \text{fractional ideals of $\Z[F,V] \subset K$ } }}{\simeq} &
+\pause =:  \blue{\ICM(\Z[F,V])}\\ 
+			& \blue{\text{ ideal class monoid} }
+			  \end{array}\]
+			\end{theorem}
+\pause
+    \item \red{Problem:} $\Z[F,V]$ might not be maximal $\rightsquigarrow $ \red{non-invertible} ideals.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ICM : Ideal Class Monoid}
+    Let $R$ be an {\bf order} in an \'etale  $\Q$-algebra $K$.
+% according to Bourbaki etale (over a field K) implies commutative and finite (since it is defined as being isomorphic to L^n for some extension L of K).
+    \begin{itemize}
+\pause
+    \item Recall: for {\bf fractional $R$-ideals} $I$ and $J$
+	 \[ I\simeq_R J \Longleftrightarrow \exists x \in K^\times \text{ s.t.~} xI=J \]
+\pause
+    \item We have
+   	\begin{align*}
+    \ICM(R) & \supseteq \Pic(R)=\faktor{\set{\text{invertible fractional $R$-ideals}}}{\simeq_R} \\
+	\blue{\text{with equality }} & \blue{\rotatebox[origin=c]{90}{$\large\rightsquigarrow$}\mkern2mu \text{ iff } R=\cO_K }
+    \end{align*}
+\pause 
+    \item ...and actually
+    \[ \ICM(R) \supseteq \bigsqcup_{\scriptsize\parbox{5 em}{$R\subseteq S \subseteq \cO_K$\\over-orders}}\Pic(S) \qquad   
+     \textcolor{blue}{\text{with equality iff $R$ is Bass}} \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ simplify the problem  }
+    Study the isomorphism problem locally: (Dade, Taussky, Zassenhaus '62)
+    \begin{itemize}
+\pause 
+    \item  \textbf{weak equivalence}:
+    \[I_{\p}\simeq_{R_{\p}} J_{\p} \text{ for every } {\p} \in \mSpec(R)\]
+\pause
+    \vspace{-6mm}\[\Updownarrow\]
+    \[1\in (I:J)(J:I)\quad \textcolor{blue}{\text{easy to check!}}\]
+\pause
+    \item We denote the set of weak eq.~classes by $\cW(R)$.
+\pause 
+    \item If $I$ and $J$ are weakly equivalent (or isomorphic) then ...\\
+\pause 
+    ... they have the same {\bf multiplicator ring}: $(I:I)=(J:J)$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ Compute $\ICM(R)$ }
+\pause 
+    Partition w.r.t. the multiplicator ring:
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \[ \cW(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \cW_S(R)\]
+      \[ \ICM(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \ICM_S(R)\]
+    \end{column}
+\pause
+    \begin{column}{0.5\textwidth}  %%<--- here
+    \begin{center}
+    \textcolor{blue}{\parbox{10em}{the ``pedix'' $-_S$ means ``only classes with multiplicator ring S''}} 
+    \end{center}
+    \end{column}
+    \end{columns}
+\pause \vspace{2em}
+    \begin{theorem}[M.]
+    For every over-order $S$ of $R$, $\Pic(S)$ acts \red{freely} on $\ICM_S(R)$ and
+    \[ \cW_S(R) = \ICM_S(R) / \Pic(S). \]
+% \pause
+%     Repeat for every $R\subseteq S \subseteq \cO_K$:
+%     \[ \rightsquigarrow \ICM(R).\]
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{ To sum up: }
+    To compute $\ICM(R)$, we need to:
+\pause
+        \begin{enumerate}
+            \vspace{1em}
+            \item compute the overorders $R\subseteq S \subseteq \cO_K$ ...\\
+                  ... solved by Hofmann-Sircana '19.
+            \pause \vspace{1em}
+            \item for each such $S$, compute $\Pic(S)$ ...\\
+                  ... use:
+                  \[ 1 \to S^\times \to \cO_K^\times \to \frac{ \left( \cO_K/\frf \right)^\times  }{ \left( S/\frf \right)^\times } \to Pic(S) \to Pic(\cO_K) \to 1 \]
+                  where $\frf=(S:\cO_K)$ is the conductor. See Kl\"uners-Pauli '05.
+            \pause \vspace{1em}
+            \item for each $S$, compute $W_S(R)$, as I now will explain.
+        \end{enumerate}
+\end{frame}
+
+\begin{frame}{ Weak equivalence classes }
+    \begin{itemize}
+    \item Fix an overorder $S$ of $R$.
+    \item We compute $W_S(R)$ recursively.
+    \item If $S=\cO_K$ then $W_S(R)$ consists only of the class of $1\cdot\cO_K$.
+    \item If $S \subsetneq \cO_K$ then pick a non-invertible prime $\p$ of $S$.
+    \item Put $T = (\p:\p)\supsetneq S$ and let $J_1,\ldots, J_n$ be the representatives of $W_T(R)$.
+    \item Proposition: each class in $W_S(R)$ admits a representative $I$ such that $IT=J_i$ for a unique $i$, which implies
+    \[ \p I = \p J_i \subset I \subset J_i. \]
+    \item Enough to list all the sub-$S/\p$-vector spaces of $J_i/\p J_i$. 
+\pause
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ back to AVs: }
+    \begin{itemize}
+    \item To sum up:
+\pause
+    \item Given a {\bf squarefree} $q$-Weil polynomial $h$ which is ordinary or over the prime field...
+\pause
+    \item ... $\leadsto$ algorithm to \blue{compute the isomorphism classes} of AVs in~$\cC_h$.
+    \item See
+    \begin{center}
+        \url{https://github.com/stmar89/AlgEt}
+    \end{center}
+     for a Magma package to compute the ideal class monoid of an order in an \'etale algebra. (Should appear in the next Magma release) 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ About the computation }
+    \begin{itemize}
+        \item {\bf input}: all ordinary, or over a prime field, squarefree isogeny classes of dimension $g$ over $\F_q$ for:
+        \begin{align*}
+            g=1 & & q &=2, \ldots, 128 \\
+            g=2 & & q &=2, \ldots, 128 \\
+            g=3 & & q &=2, 3, 4, 5, 7, 8, 9, 16, 25 \\
+            g=4 & & q &=2, 3, 4 \\
+            g=5 & & q &=2  
+        \end{align*}
+        for a total of $615.269$ isogeny classes.
+        \item {\bf output}: got $1.659.022.602$ isomorphism classes.
+    \end{itemize}
+\end{frame}
+
+
+
+% \begin{frame}{ Stats }
+%     \small (rounded) average number of isomorphism classes per isogeny class.
+%     \begin{table}[h!]
+%         \tiny
+%         \begin{tabular}{|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}\hline
+%             & q=2 & q=3 & q=4 & q=5 & q=7 & q=8 & q=9 & q=11 & q=13 & q=16 & q=17 & q=19 &
+%             q=23 & q=25 \\\hline
+%              g=1 & 1 & 1 & 2 & 1 & 2 & 2 & 2 & 2 & 2 & 4 & 2 & 2 & 2 & 3 \\\hline
+%              g=2 & 2 & 3 & 5 & 5 & 8 & 17 & 14 & 15 & 20 & 53 & 29 & 35 & 47 & 63 \\\hline
+%              g=3 & 4 & 9 & 27 & 36 & 97 & 259 & 242 &-- &-- & 2352 &-- &-- &-- & 5024
+%             \\\hline
+%              g=4 & 12 & 57 & 285 &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- \\\hline
+%              g=5 & 54 &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- \\\hline
+                                      
+%         \end{tabular}
+%     % \caption{Triathlon results}
+%     \end{table}
+    
+%     \small max.~number of isomorphism classes per isogeny class.
+%     \begin{table}[h!]
+%         \tiny
+%         \begin{tabular}{|p{0.3cm}|p{0.35cm}|p{0.35cm}|p{0.6cm}|p{0.4cm}|p{0.3cm}|p{0.3cm}|p{0.3cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}\hline
+%             & q=2 & q=3 & q=4 & q=5 & q=7 & q=8 & q=9 & q=11 & q=13 & q=16 & q=17 & q=19 &
+%             q=23 & q=25 \\\hline
+%              g=1 & 1 & 2 & 2 & 2 & 2 & 3 & 3 & 4 & 4 & 5 & 4 & 4 & 6 & 6 \\\hline
+%              g=2 & 5 & 10 & 20 & 29 & 66 & 180 & 136 & 142 & 220 & 832 & 672 & 568 & 1184 &
+%             935 \\\hline
+%              g=3 & 40 & 162 & 1404 & 2196 & 15824 & 44226 & 39960 &-- &-- & 2271240 &-- &--
+%             &-- & 8674136 \\\hline
+%              g=4 & 668 & 9188 & 346064 &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- \\\hline
+%              g=5 & 7849 &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- &-- \\\hline                                 
+%         \end{tabular}
+%     % \caption{Triathlon results}
+%     \end{table}
+% \end{frame}
+
+\begin{frame}{ Some stats }
+    \begin{table}[h!]
+        \small
+        \begin{tabular}{|c|c|c|c|c|c|}\hline
+            & g=1 & g=2 & g=3 & g=4 & g=5 \\\hline
+            q=2 & 1 & 2 & 4 & 12 & 54 \\\hline
+            q=3 & 1 & 3 & 9 & 57 &-- \\\hline
+            q=4 & 2 & 5 & 27 & 285 &-- \\\hline
+            q=5 & 1 & 5 & 36 &-- &-- \\\hline
+            q=7 & 2 & 8 & 97 &-- &-- \\\hline
+            q=8 & 2 & 17 & 259 &-- &-- \\\hline
+            q=9 & 2 & 14 & 242 &-- &-- \\\hline
+            q=11 & 2 & 15 &-- &-- &-- \\\hline
+            q=13 & 2 & 20 &-- &-- &-- \\\hline
+            q=16 & 4 & 53 & 2352 &-- &-- \\\hline
+            q=17 & 2 & 29 &-- &-- &-- \\\hline
+            q=19 & 2 & 35 &-- &-- &-- \\\hline
+            q=23 & 2 & 47 &-- &-- &-- \\\hline
+            q=25 & 3 & 63 & 5024 &-- &-- \\\hline
+        \end{tabular}
+    \caption{(rounded) average number of isomorphism classes per isogeny class.}
+    \end{table}
+\end{frame}
+
+\begin{frame}{ Some stats }
+    \begin{table}[h!]
+        \small
+        \begin{tabular}{|c|c|c|c|c|c|}\hline
+            & g=1 & g=2 & g=3 & g=4 & g=5 \\\hline
+            q=2 & 1 & 1 & 1 & 1 & 4 \\\hline
+            q=3 & 1 & 1 & 2 & 8 &-- \\\hline
+            q=4 & 1 & 2 & 4 & 48 &-- \\\hline
+            q=5 & 1 & 2 & 4 &-- &-- \\\hline
+            q=7 & 2 & 4 & 24 &-- &-- \\\hline
+            q=8 & 3 & 6 & 36 &-- &-- \\\hline
+            q=9 & 2 & 8 & 48 &-- &-- \\\hline
+            q=11 & 1 & 4 &-- &-- &-- \\\hline
+            q=13 & 2 & 8 &-- &-- &-- \\\hline
+            q=16 & 4 & 16 & 480 &-- &-- \\\hline
+            q=17 & 1 & 8 &-- &-- &-- \\\hline
+            q=19 & 2 & 16 &-- &-- &-- \\\hline
+            q=23 & 1 & 12 &-- &-- &-- \\\hline
+            q=25 & 2 & 24 & 1440 &-- &-- \\\hline
+        \end{tabular}
+        \caption{most frequent size}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}{ Some stats }
+    \small 
+    \begin{table}[h!]
+        \begin{tabular}{|c|c|c|c|c|c|}\hline
+            & g=1 & g=2 & g=3 & g=4 & g=5 \\\hline
+            q=2 & 1 & 5 & 40 & 668 & 7849 \\\hline
+            q=3 & 2 & 10 & 162 & 9188 &-- \\\hline
+            q=4 & 2 & 20 & 1404 & 346064 &-- \\\hline
+            q=5 & 2 & 29 & 2196 &-- &-- \\\hline
+            q=7 & 2 & 66 & 15824 &-- &-- \\\hline
+            q=8 & 3 & 180 & 44226 &-- &-- \\\hline
+            q=9 & 3 & 136 & 39960 &-- &-- \\\hline
+            q=11 & 4 & 142 &-- &-- &-- \\\hline
+            q=13 & 4 & 220 &-- &-- &-- \\\hline
+            q=16 & 5 & 832 & 2271240 &-- &-- \\\hline
+            q=17 & 4 & 672 &-- &-- &-- \\\hline
+            q=19 & 4 & 568 &-- &-- &-- \\\hline
+            q=23 & 6 & 1184 &-- &-- &-- \\\hline
+            q=25 & 6 & 935 & 8674136 &-- &-- \\\hline
+           
+        \end{tabular}
+    \caption{max.~number of isomorphism classes per isogeny class.}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}{ }
+\begin{center}
+\green{\huge Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

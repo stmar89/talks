@@ -1,0 +1,190 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%  \documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{faktor}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+% \tikzset{
+%     invisible/.style={opacity=0},
+%     visible on/.style={alt={#1{}{invisible}}},
+%     alt/.code args={<#1>#2#3}{%
+%       \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+%   }
+% }
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Acan}{\mathcal{A}_{\mathrm{can}}}
+\newcommand{\AcanC}{A_{\mathrm{can}}}
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[RUMP Session ANTS XV]{Welcome to your Linear Algebra 1 exam!}
+\subtitle{}
+\author[Stefano Marseglia]{}
+% \institute[]{}
+\date[10 August 2022]{}
+
+\begin{document}
+\begin{frame}{}
+   \maketitle
+   \begin{center}
+      \pause Don't forget to motivate your answers.\\
+      \pause The use of the (Magma) calculator is allowed.
+   \end{center}
+\end{frame}
+
+
+\begin{frame}{}
+   Recall:\\
+   $A,B \in \Mat_{n\times n}$ are {\bf conjugate} ($A\sim B$) if $AP=PB$ for some $P\in \GL_n$.\\
+   {\bf Question 1:} 
+   \pause Are the following two matrices conjugate
+   \[
+   A=\begin{pmatrix}
+      0 & -1 \\ 5 & 0
+   \end{pmatrix}, \quad
+   B=\begin{pmatrix}
+      -1 & 2 \\ -3 & 1
+   \end{pmatrix}?
+   \]
+   \pause
+   {\bf Answer(s):}\\ 
+   \pause Over $\Q$: yes! Same minimal and characteristic polynomial $x^2+5$.\\
+   \pause {\bf But...}\\    
+   \pause Over $\Z$: no! Every such a $P$ must have even determinant.
+\end{frame}
+
+\begin{frame}{}
+   Fix minimal polynomial $m=m_1\cdots m_n$ (squarefree) and characteristic polynomial $h=m_1^{s_1}\cdots m_n^{s_n}$:\\
+   \pause {\bf Question 2.1}
+   Find the representatives of the $\Z$-conjugacy classes of matrices with min.~polynomial $m$ and characteristic polynomial $h$.\\
+   \pause
+   {\bf Answer:}
+   \begin{theorem}[(generalized) Latimer-MacDuffee]
+      \[ \begin{array}{cc}
+         \faktor{\set{\text{matrices with min.~poly.~$m$ and char.~poly.~$h$}}}{\sim_\Z}\\
+         \pause \updownarrow\\
+         \faktor{\set{\parbox[p]{19em}{$\Z$-lattices in 
+            $V= \left(\frac{\Q[x]}{m_1}\right)^{s_1}
+            \times \ldots \times 
+            \left(\frac{\Q[x]}{m_n}\right)^{s_n}$
+            closed under multiplication by $\pi:=x\bmod m$
+            }}}{\simeq_{\Z[\pi]}}
+      \end{array} \]
+   \end{theorem}
+   \pause {\bf Question 2.2} How do you {\bf compute} these $\Z[\pi]$-modules?\\
+   \pause
+   {\bf Answer:} ....check the arXiv in the next couple of days....
+\end{frame}
+
+
+\begin{frame}{}\
+   {\bf Bonus Question for extra points:}\\
+   \pause How do you compute abelian varieties over $\F_q$ with ordinary characteristic polynomial of Forbenius $h=m_1^{s_1}\cdots m_n^{s_n}$ (up to $\F_q$-isomorphism)?\\
+   \pause
+   {\bf Answer:} Do the same thing with $\Z[\pi,q/\pi]$ instead of $\Z[\pi]$:
+   \pause 
+   \begin{theorem}[Thank you Deligne]
+      \[ \begin{array}{cc}
+         \faktor{\set{\text{abelian varieties with char.~poly. $h$}}}{\simeq_{\F_q}}\\
+         \pause \updownarrow\\
+         \faktor{\set{\parbox[p]{19em}{$\Z$-lattices in 
+            $V= \left(\frac{\Q[x]}{m_1}\right)^{s_1}
+            \times \ldots \times 
+            \left(\frac{\Q[x]}{m_n}\right)^{s_n}$
+            closed under multiplication by $\pi:=x\bmod m$ and $q/\pi$
+            }}}{\simeq_{\Z[\pi,q/\pi]}}
+      \end{array} \]
+   \end{theorem}
+\end{frame}
+
+\begin{frame}{}\
+   \begin{center}
+      {\Huge Congrats: you passed the exam!}
+   \end{center}
+\end{frame}
+
+\end{document}

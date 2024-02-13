@@ -1,0 +1,446 @@
+%\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+\tikzset{
+    invisible/.style={opacity=0},
+    visible on/.style={alt={#1{}{invisible}}},
+    alt/.code args={<#1>#2#3}{%
+      \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+  }
+}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Acan}{\mathcal{A}_{\mathrm{can}}}
+\newcommand{\AcanC}{A_{\mathrm{can}}}
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Polarizations of abelian varieties over finite fields\\ via canonical liftings}
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia\\}
+\institute[]{Utrecht University}
+\date[1 June 2021]{AGCCT 2021 - 1 June 2021\\ \pause joint work with\\ {\bf Jonas Bergstr\"om} and {\bf Valentijn Karemaker}.}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Canonical Liftings } 
+    \begin{itemize}
+    \item Let $A_0$ be an abelian variety over $\F_q$ of dim $g$.
+\pause
+    \begin{definition}
+	    A {\bf canonical lifting} of $A_0$ is an abelian scheme over a normal local domain $\mathcal{R}$ of characteristic zero with residue field $\F_q$ with:
+	    \begin{enumerate}
+	    \item special fiber $A_0$, and
+	    \item general fiber $\Acan$ satisfying $\End(\Acan)= \End(A_0)$.
+	    \end{enumerate}
+    \end{definition}
+\pause    
+    \item Example: ordinary abelian variety; almost-ordinary abelian variety. 
+\pause
+    \item Non-example: supersingular EC (quaternions).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Complex Uniformization }
+    \begin{itemize}
+    \item Assume that $A_0$ admits a canonical lifting $\Acan$.
+\pause   
+    \item Fix $\mathcal{R} \hookrightarrow \C$ and put $\AcanC:=\Acan \otimes \C$.
+\pause
+    \item $\AcanC$ has morphisms $F$ and $V$ reducing to Frobenius and Verschiebung.
+\pause
+    \item By {\bf complex uniformization}:
+    \[ \AcanC(\C) \simeq \faktor{\C^g}{\Phi(I)} \quad 
+    \parbox{18em}{ - $I$ : a fractional $\Z[F,V]$-ideal in $L:=\Q[F]$,  \\
+                  - $\Phi$ : a CM-type of $L$. } \]
+\pause
+    \item Define $\cH(\AcanC):=I$.
+\pause
+    \item By the same construction:
+    \[
+    \begin{tikzcd}[ampersand replacement=\&] %needed for Beamer
+    \text{char.}0 : \& \Acan^\vee \arrow[r, "\otimes \C"] \& \AcanC^\vee \arrow[r, "\mathcal{H}"] \& \overline{I}^t =\set{ \overline{x} : \Tr_{L/\Q}(xI)\subseteq \Z }\\
+    \F_q : A_0^\vee \arrow[ur] \& \& \&
+    \end{tikzcd}    
+    \]
+\pause
+    \item In particular: $\cH(\Hom(\AcanC,\AcanC^\vee)) = (\overline{I}^t:I) = \set{ x \in L : xI \subseteq \overline{I}^t }$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Complex Uniformization : Polarizations }
+    \begin{itemize}
+    \item We have: 
+    \[ \AcanC(\C) \simeq \faktor{\C^g}{\Phi(I)}, \quad \AcanC^\vee(\C) \simeq \faktor{\C^g}{\Phi(\overline{I}^t)},\]
+    \[ \cH(\Hom(\AcanC,\AcanC^\vee)) = (\overline{I}^t:I). \]
+\pause         
+    \item What about {\bf polarizations}? We understand them over $\C$!
+\pause    
+    \item Let $\mu:\AcanC\to \AcanC^\vee$ an isogeny. Then $\mu$ is a polarization if and only if
+	       $\lambda := \cH(\mu) \in (\overline{I}^t:I)$ satisfies
+	       \begin{enumerate}
+\pause 
+	       \item $\lambda = - \overline{\lambda}$ (\blue{totally imaginary}), and
+\pause 
+	       \item for every $\vphi\in \Phi$ we have $Im(\vphi(\lambda))>0$  (\blue{$\Phi$-positive}).
+           \end{enumerate}
+\pause            	  
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ The Centeleghe-Stix equivalence }
+\pause 
+    \begin{theorem}[Centeleghe-Stix]
+    Let $\AV_h(p)$ be the isogeny class over the {\bf prime field} $\F_p$ determined by a {\bf squarefree} characteristic polynomial of Frobenius $h$.\\
+    Let $L=\Q[x]/h=\Q[F]$ be the endomorphism algebra, and put $V=p/F$.\\
+\pause 
+    There is an \red{equivalence} of categories:
+    \[ \AV_h(p) \overset{\cG}{\longrightarrow} \set{\text{fractional $\Z[F,V]$-ideals in $L$}}.  \]
+    \end{theorem}
+	\begin{itemize}
+\pause 
+    \item Let $A_h$ be an AV in $\AV_h(p)$ with $\End(A_h)=\Z[F,V]$.
+\pause 
+    \item The functor $\cG(-):=\Hom(-,A_h)$ induces the equivalence.
+\pause 
+    \item We can {\bf choose} $A_h$ so that for every $B_0\in \AV_h(p)$:
+    \[ \blue{\cG(B_0^\vee) = \overline{\cG(B_0)}^t}
+\pause    
+     \text{ and } \blue{\cG(f^\vee) = \overline{\cG(f)}}, \text{ for any }f: B_0\to B_0' \text{ in }\AV_h(p). \]
+\pause
+    \vspace{-0.8cm}     
+    \item In particular:
+    \vspace{-0.5cm}    
+    \[ \cG(\Hom(B_0,B_0^\vee)) = (\cG(B_0):\overline{\cG(B_0)}^t). \]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Comparison }
+    \begin{itemize}
+    \item Assume that $A_0$ admits a canonical lifting $\AcanC$.
+    \item We have two description using fractional ideals. Let's compare them.
+\onslide<5->{\item Let $f:A_0\to B_0$ be an isogeny.}
+    \end{itemize} 
+    \[
+%    \small
+    \begin{tikzcd}[ampersand replacement=\&] %needed for Beamer
+    \& |[visible on=<2->]| \Hom(\AcanC,\AcanC^\vee) \arrow[visible on=<2->,d, "\mathrm{red}"]    \arrow[visible on=<2->,dr, "\text{complex unif.}"] \& \\
+    |[visible on=<5->]|\Hom(B_0,B_0^\vee) \arrow[visible on=<5->,r,"f^*:=f^\vee\circ - \circ f"] \arrow[visible on=<6->,d, "\cG"] \& 
+    |[visible on=<2->]| \Hom(A_0,A_0^\vee)\arrow[visible on=<3->,d,"\cG"] \&
+    |[visible on=<2->]| (\overline I^t : I) 
+    \arrow[visible on=<3->]{d}[visible on=<4->,swap]{\red{\cdot\alpha}}[visible on=<4->,right,near start]{\red{\text{tot.~real }(\alpha=\overline{\alpha})}}  [visible on=<4->,right,near end]{\red{\text{unit in }\End(A_0)}}\\
+	|[visible on=<6->]| (\cG(B_0) : \overline{\cG(B_0)}^t)\arrow[visible on=<6->,r,"\cG(f^*)"] \&
+	|[visible on=<3->]| (\cG(A_0) : \overline{\cG(A_0)}^t) \& |[visible on=<3->]| (\overline I^t : I)
+	\arrow[visible on=<3->,l,equal]
+	\end{tikzcd}
+	\]
+\onslide<6->
+    \begin{itemize}
+    \item $f^*$ sends polarizations to polarizations.
+\onslide<7->    
+    \item $\cG(f^*) = \overline{\cG(f)}\cG(f)$ is a totally positive element:\\
+\onslide<8->
+          it sends totally imaginary elements to totally imaginary elements and $\Phi$-positive elements to $\Phi$-positive elements.
+    \end{itemize}     
+\end{frame}
+
+\begin{frame}{ Comparison : Polarizations }
+\onslide<1->
+    \[
+    \begin{tikzcd}[ampersand replacement=\&] %needed for Beamer
+    \&[-35pt] |[visible on=<2->]| \parbox{3cm}{\small\centering\red{we WANT \\to understand\\pols.~here}} \arrow[visible on=<2->,d, red]  \& \Hom(\AcanC,\AcanC^\vee) \arrow[d, "\mathrm{red}"] \arrow[dr] \&[-15pt] 
+    |[visible on=<2->]| \parbox{1.5cm}{\small\centering\green{we DO\\ understand\\pols.~here}} \arrow[visible on=<2->,d,ForestGreen]\&[-43pt]\\[-15pt]
+    |[visible on=<3->]| \red{\mu \in} \&[-35pt] 
+    \Hom(B_0,B_0^\vee) \arrow[r,"f^*:=f^\vee\circ - \circ f"] \arrow[d, "\cG"] \& 
+    \Hom(A_0,A_0^\vee)\arrow[d,"\cG"] \&[-35pt]
+    (\overline I^t : I)
+    \arrow{d}[swap]{\cdot\alpha} \&[-25pt] 
+    |[visible on=<3->]| \green{\ni \alpha^{-1}\cG(f^*)\cG(\mu)} \\
+	\&[-35pt] (\cG(B_0) : \overline{\cG(B_0)}^t)\arrow[r,"\cG(f^*)"] \&
+	(\cG(A_0) : \overline{\cG(A_0)}^t) \&[-35pt] (\overline I^t : I)
+	\arrow[l,equal]  \&[-35pt] 
+	\end{tikzcd}
+	\]
+\onslide<3->
+    By chasing the diagram, we get:
+\onslide<4->
+	\begin{theorem}["lift and spread"]
+	Let $\mu:B_0 \to B_0^\vee$ be an isogeny. Then
+    \[ \mu \text{ is a \red{polarization}} \iff \alpha^{-1} \cG(\mu) \text{ \green{is totally imaginary} and \green{$\Phi$-positive}} \]
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{ Principal Polarizations up to isomorphism }
+    \begin{itemize}
+	 \item Let $B_0 \in \AV_h(p)$. Put $T=\End(B_0)$ and $\cG(B_0)=J$.
+	 \pause \item Assume that $B_0 \simeq B_0^\vee$, i.e.~$J=i_0\overline{J}^t$ for some $i_0\in L^*$.
+	 \pause \item If $\mu$ and $\mu'$ are principal polarizations of $B_0$ then $(B_0,\mu) \simeq (B_0,\mu')$ (as PPAVs) if and only if there is $v\in T^*$ such that $\cG(\mu)=v\overline{v}\cG(\mu')$.
+	 \pause \item Let $\cT$ be a transversal of $T^*/<v\overline{v} : v \in T^*>$.
+	 \pause \item Then 
+	 \[ \Palpha{\Phi}{J}:=\{ i_0 \cdot u  : u \in \mathcal{T} \text{ s.t.~} \alpha^{-1} i_0 u \text{ is tot.~imaginary and } \Phi\text{-positive} \} \]
+	 is a set or representatives of the PPs of $B_0$ up to isomorphism.
+	 \pause \item It depends on $\alpha$!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Effective Results : when can we ignore $\alpha$? }
+    Assume $A_0$ admits a canonical lifting. Put $S:=\End(A_0)$\\
+    Let $B_0$ be isogenous to $A_0$. Put $T=\End(B_0)$.
+\pause      
+	\begin{theorem}[ 1 ]
+		Denote by $S^*_\R$ (resp.~$T^*_\R$) the group of totally real units of $S$ (resp.~$T$).\\
+\pause 
+		If $S^*_\R\subseteq T^*_\R$, then the set
+		\[ \Palpha{\Phi}{J}:=\{ i_0 \cdot u  : u \in \mathcal{T} \text{ s.t.~} \alpha^{-1} i_0 u \text{ is tot.~imaginary and } \Phi\text{-positive} \} \]
+\pause 
+	    is in bijection with the set (which does not depend on $\alpha$!)
+        \[ \Pone{\Phi}{J}=\{ i_0 \cdot u: u \in \mathcal{T} \text{ such that } i_0 u \text{ is totally imaginary and $\Phi$-positive } \}. \]
+	\end{theorem}
+\pause 
+	\begin{cor}
+    If $S=\Z[F,V]$ (eg. $\AV_h(p)$ is ordinary or almost-ordinary) then we can ignore $\alpha$.
+\pause 
+    \green{We recover Deligne+Howe and Oswal-Shankar}
+	\end{cor}
+\end{frame}
+
+%\begin{frame}{ When can we lift up to isogeny? }
+%	\begin{df}[Chai-Conrad-Oort]
+%    Let $\Phi$ be a $p$-adic CM-type for $L=\Q(F)$.
+%\pause 
+%    The pair $(L,\Phi)$ satisfies the {\bf Residual Reflex Condition} (RRC) w.r.t.~$F$ 
+%    if the following conditions are met:
+%    \begin{enumerate}[1.]
+%\pause 
+%    \item The {\bf Shimura-Taniyama formula} holds for $F$: for every  place $\nu$ of $L$ above~$p$, we have
+%    \begin{equation*}
+%    \dfrac{ \mathrm{ord}_\nu(F)}{ \mathrm{ord}_\nu(q)}=\dfrac{\#\set{ \vphi \in \Phi \text{ s.t.~} \vphi \text{ induces } \nu }}{[L_\nu:\Q_p]}.
+%    \end{equation*}
+%\pause
+%    \item Let $E$ be the reflex field attached to $(L,\Phi)$, and let $\nu$ be the induced $p$-adic place of $E$. Then the {\bf residue field} $k_\nu$ of $\cO_{E,\nu}$
+%    can be realized as a \red{subfield} of $\F_q$.
+%    \end{enumerate}
+%	\end{df}
+%\end{frame}
+%
+%\begin{frame}{  }
+%	\begin{theorem}[Chai-Conrad-Oort]
+%%    Fix an isogeny class over $\F_q$ with CM by $L = \Q(F)$ through $\Phi$ determined by an irreducible characteristic polynomial of Frobenius $h$. 
+%%\pause 
+%    If $(L,\Phi)$ satisfies {\bf RRC} w.r.t.~$F$, 
+%\pause 
+%    then in the isogeny class we can canonically lift an abelian variety $A_0$ with $\mathcal{O}_L = \mathrm{End}(A_0)$.
+%	\end{theorem}
+%	\begin{itemize}
+%\pause 
+%    \item Can generalize: $h$ irreducible $\leadsto$ $h$ squarefree.
+%\pause
+%    \item If there is a separable isogeny $A_0\to A'_0$ then $A'_0$ admits a canonical lifting (useful in combination of Thm 1)
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}{ When can we lift up to isogeny?  }
+	\begin{theorem}[Chai-Conrad-Oort]
+    Assume that $(L,\Phi)$ satisfies the {\bf Residual Reflex Condition} w.r.t.~$F$, that is,\\
+    \begin{enumerate}
+    \item $\Phi$ satisfies the \blue{Shimura-Taniyama} formula for $F$, and
+    \item the reflex field $E$ has residue field \blue{$k_E\subseteq \F_q$}.
+    \end{enumerate}  
+\pause 
+    Then we can \red{canonically lift} an abelian variety $A_0$ with $\mathcal{O}_L = \mathrm{End}(A_0)$.
+	\end{theorem}
+	\begin{itemize}
+%\pause 
+%    \item Can generalize: $h$ irreducible $\leadsto$ $h$ squarefree.
+\pause
+    \item If there is a separable isogeny $A_0\to A'_0$ then $A'_0$ admits a canonical lifting (useful in combination with Thm 1).
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}{ }
+%	We have run computations over all squarefree isogeny classes over small prime fields of dim $2,3$ and $4$. 
+%\pause 
+%    For example:
+%	\begin{table}[ht]
+%	    \centering
+%	    \small
+%	    \begin{tabular}{|c|c|c|c|c|c|c|}\hline
+%	\multicolumn{3}{|c|}{squarefree dimension $3$}                  & $p=2$ & $p=3$ & $p=5$ & $p=7$ \\\hline
+%	\multicolumn{3}{|c|}{total}                                     & $185$ & $621$  & $2863$ & $7847$ \\\hline                    
+%	\multicolumn{3}{|c|}{ordinary}                                  & $82$ & $390$  & $2280$  & $6700$ \\\hline
+%	\multicolumn{3}{|c|}{almost ordinary}                           & $58$ & $170$  & $474$  & $996$  \\\hline
+%	\multirow{3}{*}{$p$-rank $1$} & \multicolumn{2}{|c|}{no RRC}    & $0$ & $0$   & $0$   & $0$   \\\cline{2-7}
+%	                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $20$ & $26$   & $76$   & $118$   \\\cline{3-7}
+%	                              &                          & Thm 1 no  & $4$ & $16$   & $12$   & $8$   \\\hline
+%	\multirow{3}{*}{$p$-rank $0$}   & \multicolumn{2}{|c|}{no RRC}    & $0$ & $3$   & $2$   & $1$   \\\cline{2-7}
+%	                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $20$ & $15$   & $17$   & $23$   \\\cline{3-7}
+%	                              &                          & Thm 1 no  & $1$ & $1$   & $2$   & $1$   \\\hline                              
+%	    \end{tabular}
+%	%    \caption{Squarefree isogeny classes of dimension $3$. The notation is the same as in Table \ref{tab:dim2}.}
+%	%    \label{tab:dim3}
+%	\end{table}
+%\pause
+%    Among the $45$ isogeny classes which we cannot 'handle' with Thm 1 ($S^*_\R\subseteq T^*_\R$), we can compute the number of PPAV for $32$ of them using other methods. For the remaining $13$ (all over $\F_2$ and $\F_3$) we only get partial info.  
+%\end{frame}
+
+\begin{frame}{ }{}
+{\small
+	We have run computations over all squarefree isogeny classes over small prime fields of dim $2,3$ and $4$.
+}
+\pause 
+\begin{table}[ht]
+    \centering
+\footnotesize	
+    \begin{tabular}{|c|c|c|c|c|}\hline
+\multicolumn{3}{|c|}{squarefree dimension $4$}                  & $p=2$ & $p=3$ \\\hline
+\multicolumn{3}{|c|}{total}                                     & $1431$ & $10453$  \\\hline                    
+\multicolumn{3}{|c|}{ordinary}                                  & $656$ & $6742$  \\\hline
+\multicolumn{3}{|c|}{almost ordinary}                           & $392$ & $2506$  \\\hline
+\multirow{3}{*}{$p$-rank $2$} & \multicolumn{2}{|c|}{no RRC}    & $0$ & $0$ \\\cline{2-5}
+                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $149$ & $500$   \\\cline{3-5}
+                              &                          & Thm 1 no  & $49$ & $312$   \\\hline
+\multirow{3}{*}{$p$-rank $1$} & \multicolumn{2}{|c|}{no RRC}    & $6$ & $36$ \\\cline{2-5}
+                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $80$ & $184$   \\\cline{3-5}
+                              &                          & Thm 1 no  & $14$ & $40$   \\\hline
+\multirow{3}{*}{$p$-rank $0$} & \multicolumn{2}{|c|}{no RRC}    & $3$ & $6$   \\\cline{2-5}
+                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $73$ & $88$ \\\cline{3-5}
+                              &                          & Thm 1 no  & $9$ & $39$ \\\hline                              
+    \end{tabular}
+%    \caption{Squarefree isogeny classes of dimension $4$. The notation is the same as in Table \ref{tab:dim2}.}
+    \label{tab:dim4}
+\end{table}
+\pause
+{\small
+	Thm 1 ($S^*_\R\subseteq T^*_\R$) doesn't handle $72/\F_2$ and $391/\F_3$.
+\pause	
+	Out of these, we have {\bf other methods} for $20/\F_2$ and $214/\F_3$.
+\pause
+	For the remaining $52/\F_2$ and $171/\F_3$ we can only get information about certain endomorphism rings ($723$ out of $946$ and $3481$ out of $4636$, respectively).
+\pause	
+	Also there are $9/\F_3$ for which the computations of the isomorphism classes of unpolarized abelian varieties is not over yet.
+}
+\end{frame}
+
+\begin{frame}{  }
+    \begin{center}
+    \green{\huge Thank you!}
+    \end{center}  
+\end{frame}
+
+\begin{frame}[noframenumbering]{ Effective Results II }
+	\begin{theorem}[2]
+    Assume that there are $r$ isomorphism classes of abelian varieties in $\AV_h(p)$ with endomorphism ring $T$, represented under $\cG$ by the fractional ideals  $I_1,\ldots,I_r$.
+    For any CM-type $\Phi'$, we put
+		\[ \Pone{\Phi'}{I_i}=\{ i_0 \cdot u: u \in \mathcal{T} \text{ such that } i_0 u \text{ is totally imaginary and $\Phi'$-positive } \}. \]
+    If there exists a non-negative integer $N$ such that for every CM-type $\Phi'$ we have
+    \[
+    \vert \Pone{\Phi'}{I_1} \vert + \ldots + \vert \Pone{\Phi'}{I_r} \vert = N
+    \]
+    then there are exactly $N$ isomorphism classes of principally polarized abelian varieties with endomorphism ring $T$. 
+	\end{theorem}
+\end{frame}
+
+\begin{frame}[noframenumbering]{ }
+    \begin{proof}
+    \begin{itemize}
+    \item Consider the association $\Phi'\mapsto b$ where $b\in L^*$ is tot.~imaginary and $\Phi'$-positive.
+    \item We can go back: for every $b$ tot.~imaginary there exists a unique CM-type $\Phi_b$ s.t.~$b$ is $\Phi_b$-positive.
+    \item Hence the totally real elements of $L^*$ acts on the set of CM-types.
+    \item If $\Phi=\Phi_{b}$ is the CM-type for which we have a canonical lift (as before)
+        then $\Palpha{\Phi_b}{I_i} \longleftrightarrow \Pone{\Phi_{\alpha b}}{I_i}$.
+    \item If the we get the 'same sum' (over the $I_i$'s) for every CM-type we know that the result must be the correct one! 
+    \end{itemize}
+    \end{proof} 
+    Note: even if the sum is not the same for all $\Phi'$'s then we know that one of the outputs is the correct one!
+\end{frame}
+
+\end{document}

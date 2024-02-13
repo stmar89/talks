@@ -1,0 +1,17 @@
+- Given online at Beinasque. 45 minutes
+
+- I went very slow for the first half, up to the example in the square-free case (included).
+- I had to rush a bit in the second half of the talk.
+- In particular I skipped the example of the Power-of-Bass case.
+
+- One way to save 1-2 minutes is to discuss the CS functor only in the squarefree case.
+
+- Forgot to define Phi-positive
+
+
+
+
+TO ADD.
+
+- Reference to CS21
+- table with what is done, what is missing.

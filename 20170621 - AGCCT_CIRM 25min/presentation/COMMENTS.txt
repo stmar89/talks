@@ -1,0 +1,4 @@
+-Bjorn Poonen was not very happy with the "action of Pic(S) on ICMbar(S) is free and transitive"
+-I skipped the Elliptic curves slide
+
+

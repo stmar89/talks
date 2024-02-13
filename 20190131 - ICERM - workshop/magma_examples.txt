@@ -1,0 +1,290 @@
+// ##############################################################
+// Example 1
+// ##############################################################
+AttachSpec("packages.spec");
+_<x>:=PolynomialRing(Integers());
+
+h:=x^4+2*x^3-7*x^2+22*x+121;
+IsOrdinary(h);
+IsIrreducible(h);
+//the polynomial h defines an isogeny class of ordinary abelian varieties over F_11. Since h is irreducible we get that these abelian varieties are simple.
+A:=AssociativeAlgebra(h);
+F:=PrimitiveElement(A);
+// we define the order Z[F,V], where F is the Frobenius and V=11/F the Verschiebung
+E:=Order([F,11/F]);
+//the isomorphism classes of abelian varieties correspond to the ideal classes of E
+E_icm:=ICM(E);
+for I in E_icm do
+    ZBasis(I);
+end for;
+// the dual abelian variety correspond to the Trace Dual of the Complex Conjugate of the ideal
+I:=E_icm[1];
+Idual:=TraceDualIdeal(ComplexConjugate(I));
+//we check if I is self-dual
+IsIsomorphic2(I,Idual);
+
+//we compute the cm type of A, in order to find the polarizations
+cm_type:=CMType(A);
+phi:=cm_type[1];
+// we check if one of the isomorphism classes is principally polarized
+for I in E_icm do
+    IsPrincPolarized(I,phi);
+end for;
+// None of the abelian varieties is principally polarized.
+
+
+// ##############################################################
+// Example 2
+// ##############################################################
+AttachSpec("packages.spec");
+_<x>:=PolynomialRing(Integers());
+
+f:=(x^4-4*x^3+8*x^2-12*x+9)*(x^4-2*x^3+2*x^2-6*x+9);
+A:=AssociativeAlgebra(f);
+F:=PrimitiveElement(A);
+E:=Order([F,3/F]);
+E_oo:=FindOverOrders(E);
+#E_oo;
+
+//we compute all isomorphism classes of ab. var. with endomorphism ring equal to E
+E_icm_bar:=ICM_bar(E);
+#E_icm_bar;
+//there is only one...
+
+
+cm_type:=CMType(A);
+phi:=cm_type[1];
+
+for I in E_icm_bar do
+    test,pols:=IsPrincPolarized(I,phi);
+    #pols;
+end for;
+//we check which of the abelian surfaces are products of elliptic curves. This happens precisely when the corresponding ideal is a direct sum of two ideals, which is equivalent to have a multiplicator ring which is a product of two orders.
+IsProductOfIdeals(E_icm_bar[1]);
+
+//let's try the same for the abelian varieties with endomorphism ring O_A, the maximal order
+O:=MaximalOrder(A);
+O_icm_bar:=ICM_bar(O);
+#O_icm_bar;
+//only 1, again. This is not so surprising. Why?
+
+
+for I in O_icm_bar do
+    test,pols:=IsPrincPolarized(I,phi);
+    #pols;
+end for;
+//this time the abelian variety is polarized. The polarization is represented by
+pols[1];
+
+
+//we check which of the abelian varieties are products. This happens precisely when the corresponding ideal is a direct sum of two ideals, which is equivalent to have a multiplicator ring which is a product of two orders.
+for I in O_icm_bar do
+    IsProductOfIdeals(I);
+end for;
+//the variety is a product of two surfaces.
+
+// ##############################################################
+//Example 3 : power of a square-free
+// ##############################################################
+AttachSpec("packages.spec");
+//Attach("packages/PowerBass_0.1.m");
+
+_<x>:=PolynomialRing(Integers());
+f:=x^6-x^5+2*x^4-2*x^3+4*x^2-4*x+8;
+A:=AssociativeAlgebra(f);
+F:=PrimitiveElement(A);
+R:=Order([F,ComplexConjugate(F)]);
+oo:=FindOverOrders(R);
+#oo;
+IsBass(R);
+
+iso_cl:=AllBassClasses(R,3);
+
+//there are 6 abelian varieties in the isogeny class given by f^3, which consists of abelian varieties isogenous to B^3, where B is an abelian 3-fold over \F_2 with char poly of the Frobenius f
+
+assert #iso_cl eq 6;
+
+//we can check that each isomorphism class is self-dual, that is isomorphic to its own dual.
+for cl in iso_cl do
+        cl_dual:=< ComplexConjugate(TraceDualIdeal(I)) : I in  cl>;
+        IsBassIsomorphic(cl,cl_dual);
+end for;
+
+// ##############################################################
+// What I have computed and how do I store it.
+// ##############################################################
+
+
+AttachSpec("packages.spec");
+load "packages/printing_reading_functions.txt";
+
+dir_source:="computations_ord/";
+_<x>:=PolynomialRing(Integers());
+
+folder:=POpen("ls " cat dir_source,"r");
+//file:="[729,-162,99,-31,11,-2,1].txt"; //it is quite big!
+file:="[512,-128,88,-19,11,-2,1].txt";
+f,A,R,phi_pos_elt,data:=loadIsogenyClass(dir_source cat file);
+
+
+
+
+
+
+
+
+
+
+
+
+// ##############################################################
+// ##############################################################
+// OTHER STUFF
+// ##############################################################
+// ##############################################################
+
+
+// ##############################################################
+// Example : cubic order
+// ##############################################################
+
+
+AttachSpec("packages.spec");
+_<x>:=PolynomialRing(Integers());
+f:=x^3+10*x^2-8;
+K:=AssociativeAlgebra(f); //Q[x]/f
+
+a:=PrimitiveElement(K); //K=Q(a)
+
+R:=EquationOrder(K); //Z[x]/f
+oo:=FindOverOrders(R);
+
+#oo;
+
+R eq oo[2];
+O:=oo[3];
+IsMaximal(O);
+
+S:=oo[1];
+
+S eq Order([a,a^2/2]);
+
+St:=TraceDualIdeal(S);
+St*ColonIdeal(S,St) eq S; //so St is not invertible in S
+#PicardGroup(S) eq 1;
+IsIsomorphic2(1*S,St); //since the Pic S is trivial, St is isomorphic to S iff St is invertible
+
+IsGorenstein(S); //indeed we get that S is not Gorenstein.
+
+#WKICM_bar(S);
+
+icm:=ICM(R);
+
+for I in icm do
+    ZBasis(I);
+end for;
+
+// ##############################################################
+// Example : another cubic order
+// ##############################################################
+AttachSpec("packages.spec");
+_<x>:=PolynomialRing(Integers());
+
+f:=x^3+31*x^2+43*x+77;
+A:=AssociativeAlgebra(f);
+// we define E=Z[x]/(f)
+E:=EquationOrder(A);
+// the Picard Group of E
+E_pic:=PicardGroup(E);
+#E_pic;
+// we compute the ideal classes of fractional ideals with multiplicator ring equal to E
+E_icm_bar:=ICM_bar(E);
+#E_icm_bar;
+// since E is monogenic we know that it is Gorenstein, but it is not Bass, that is there is at least one over-order which is not Gorenstein
+IsGorenstein(E);
+//and hence we get that there are no other fractional ideals I with (I:I)=E other than the invertible ones.
+#E_pic eq #E_icm_bar;
+// We now compute the over-orders of E
+E_over_orders:=FindOverOrders(E);
+#E_over_orders;
+// and the weak equivalence classes of fractional E-ideals
+E_wk:=WKICM(E);
+#E_wk;
+// and the ideal classes of E
+E_icm:=ICM(E);
+#E_icm;
+
+
+IsBass(E);
+//so there  are ideals which are not invertible in their own multiplicator rings.
+//let's find one of them in the representatives of the ICM
+for I in E_icm do
+        S:=MultiplicatorRing(I);
+        St:=TraceDualIdeal(S);
+        if not IsWeakEquivalent(I,S) then
+            IsIsomorphic2(I,St);
+            ZBasis(I);
+        end if;
+end for;
+
+
+// ##############################################################
+//Example : representatives of conjugacy classes of integral matrices with given (square-free) characteristic polynomial
+// ##############################################################
+AttachSpec("packages.spec");
+_<x>:=PolynomialRing(Integers());
+
+f:=x^6 - 3*x^5 + 6*x^4 - 11*x^3 + 18*x^2 - 27*x + 27;
+A:=AssociativeAlgebra(f);
+R:=EquationOrder(A);
+icm:=ICM(R);
+#icm;
+//there are 33 conjugate classes of (semisimple) integral matrices with characteristic polynomial f, a representative of which will be stored in "mats". This are produces using the command IdealToMatrix(I) 
+mats:=[];
+for I in icm do Append(~mats,IdealToMatrix(I)); end for;
+//to check if two integral matrices m1 and m2 are conjugate over the integers use the command IsZConjugate(m1,m2); if this is the case we get also an invertible integral matrix U such that U^-1*m1*U = m2.
+
+IsZConjugate(mats[1],mats[2]);
+IsZConjugate(mats[1],mats[1]);
+
+//Given an integral matrix M, if you need the ideal associated to the matrix, you can use MatrixToIdeal(A,M), where A:=AssociativeAlgebra(f); and f:=CharacteristicPolynomial(M); f must be squarefree. It returns a set of generators of the ideal
+
+M:=Random(mats);
+id:=ideal<R|MatrixToIdeal(A,M)>;
+id2:=Random(R)*id; //this is an isomorphic ideal...
+M2:=IdealToMatrix(id2); //..which means that the matrices are conjugate 
+
+test,U:=IsZConjugate(M,M2);
+test,U^-1*M*U eq M2;
+
+
+
+// ##############################################################
+//Example : we check whether two given matrices (with the same squarefree characteristic polynomial) are conjugate over the integers
+// ##############################################################
+
+M1:=Matrix(Integers(),[
+[   162, -13207,     80,  13369, -13678],
+[     2,   -163,      2,    164,   -170],
+[     0,      0,      0,      0,     -7],
+[     0,      0,      1,      0,      0],
+[     0,      0,      0,      1,      1]
+]);
+M2:=Matrix(Integers(),[
+[ 163,   28,    0,  -28,   29],
+[-955, -164,    1,  163, -171],
+[   0,    0,    0,    0,   -7],
+[   0,    0,    1,    0,    0],
+[   0,    0,    0,    1,    1]
+]);
+
+_<x>:=PolynomialRing(Integers());
+f:=(x^2+x+8)*(x^3-x^2+7);
+CharacteristicPolynomial(M1) eq f;
+CharacteristicPolynomial(M2) eq f;
+// the two matrices are not conjugate
+IsZConjugate(M1,M2);
+// now we produce a conjugate matrix by acting with an invertible matrix U and run our function
+U:=RandomUnimodularMatrix(5,10);
+IsZConjugate(M1,U^-1*M1*U);
+

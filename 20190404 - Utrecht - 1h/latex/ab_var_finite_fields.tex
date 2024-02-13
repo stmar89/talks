@@ -1,0 +1,533 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%\documentclass[usenames,dvipsnames,handout]{beamer}
+
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{commands}
+\usepackage{faktor}
+\usepackage{xfrac} 
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+
+\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+\renewcommand{\char}{char}
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Abelian varieties over finite fields isogenous to a power}
+\author[Marseglia Stefano]{Marseglia Stefano}
+\institute[]{Utrecht University}
+\date[04 April 2019]{04 April 2019\\
+	   Geometry Seminar\\ Utrecht University}
+
+% Abstract: Let A be an ordinary square-free abelian variety over a finite field. In this talk we will describe the category of abelian varieties
+% isogenous to A^r in terms of R-modules, where R is an order in a certain étale algebra.
+% We will describe also polarizations and groups of automophisms. Under certain mild assumption on the order R, we will be able to effectively
+% compute the abelian varieties up to isomorphism and in the case r=1 we can also list all polarizations (up to polarized isomorphisms) with
+% automorphism groups and period matrix of the canonical lift.
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{ Introduction }
+Today's plan:
+\begin{itemize}
+ \item Introduction.
+ \item AV $A$ isogenous to $B^r$, for $B$ ordinary square-free defined over $\F_q$.
+ \item Isomorphism classes.
+ \item Polarizations.
+ \item Computations of polarizations and period matrices $(r=1)$.
+\end{itemize}
+Also, all \blue{morphisms} are defined \blue{over the field of definition!}
+\end{frame}
+
+\begin{frame}{ Abelian varieties : basics }
+\begin{itemize}
+ \item An \blue{abelian variety} over a field $k$ is a connected complete group variety over $k$.
+ \pause \item AV are projective and commutative.
+ \pause \item In dimension $1$: \green{elliptic curves}.
+ \pause \item If $\char k \neq 2,3$ we can always produce a model:
+ \[ Y^2Z = X^3 + AXZ^2 +BZ^3 \text{ with } 4A^3+27B^2 \neq 0 \]
+ \end{itemize}
+\end{frame}
+
+\begin{frame}{ Abelian varieties ($\C$ vs $ \F_q $) }
+\begin{itemize}
+ \item Goal: compute \red{isomorphism classes} of abelian varieties over a \red{finite field} $\F_q$.
+ \pause \item in dimension $g>1$ it is not easy to produce equations.
+ \pause \item for $g>3$ it is not enough to consider Jacobians (for PPAV's).
+ \pause \item over $\C$:
+ \[
+      \set{\text{abelian varieties $/\C$} } \longleftrightarrow 
+      \set{\parbox[c]{8em}{$\C^g/L$ with $L\simeq \Z^{2g}$\\ (eq.~classes of) $+$ Riemann form}}
+ \]
+ \pause \vspace{-6mm} \item in positive characteristic we don't have such an equivalence (at least for the whole category).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classes }
+Recall
+\begin{itemize}
+ \item for an abelian variety $A/\F_q$ there are simple $B_i$ and positive integers $e_i$ s.t.
+  \[ A \sim_{\F_q} B_1^{e_1}\times \ldots \times B_s^{e_s} \qquad\text{\green{Poincar\'e decomposition }}\] 
+ \pause \item If $h_A$ is the \red{characteristic polynomial} of Frobenius $\pi_A$ (acting on $T_lA$, for some $l\neq p$) then
+    \begin{itemize}
+      \pause \item $h_A\in \Z[x]$ and roots of size $\sqrt{q}$ \qquad\green{$q$-Weil polynomial}
+      \pause \item $ h_A = h_{B_1}^{e_1}\cdots h_{B_s}^{e_s} $
+      \pause \item $\deg h_A = 2\dim A$.
+    \end{itemize}
+\end{itemize}
+  \pause \begin{thm}[Honda-Tate]
+   There is a bijection between the set of simple abelian varieties over $\F_q$ up to isogeny and the set of $q$-Weil numbers up to conjugacy.
+  \end{thm}
+\end{frame}
+
+\begin{frame}{ Ordinary AV }
+  An abelian variety $A/\F_q$ of dimension $g$ is called \red{ordinary} if one of the following equivalent conditions holds:
+  \begin{enumerate}[(a)]
+   \pause \item $\#A[p](\overline{\F}_p)=p^g$
+   \pause \item exactly half of the roots of $h_A$ over $\overline{\Q}_p$ are $p$-adic units
+   \pause \item the mid-coefficient of $h_A$ is coprime with $p$
+  \end{enumerate}
+  \pause
+  \begin{prop}
+  For $B$ ordinary over $\F_q$:
+   \[ h_B \text{ is irreducible } \Longleftrightarrow B \text{ is simple}\]
+  \end{prop}
+\end{frame}
+
+\begin{frame}{ Deligne's equivalence }
+\begin{theorem}[Deligne '69]
+Let $q=p^d$, with $p$ a prime. There is an equivalence of categories:
+\[\begin{array}{cc}
+\red{\AVord{q}}:=\set{\text{\textbf{Ordinary} abelian varieties over $\F_q$}}\\
+\pause \updownarrow\\
+\red{\Modord{q}}:=\set{\parbox[p]{19em}{pairs $(T,F)$, where $T\simeq_\Z \Z^{2g}$ and $T\overset{F}{\to} T$ s.t.\\
+- $F\otimes \Q$ is semisimple\\
+- the roots of $\Char_{F\otimes\Q}(x)$ have abs. value $\sqrt{q}$\\
+- \textbf{half of them are $p$-adic units}\\
+- $\exists V:T\to T$ such that $FV=VF=q$
+}}
+\end{array}\]
+\end{theorem}
+\end{frame}
+
+\begin{frame}{ Deligne's equivalence - the functor }
+ \begin{itemize}
+  \item fix an embedding of $\varepsilon:W=W(\overline\F_p)\hookrightarrow \C$
+  \item take $A\in \AVord{q}$
+  \item let $A'$ be the canonical lift of $A$ to $W$
+  \item put $A_{\C}:=A'\otimes_\varepsilon \C$
+  \item finally, let $T(A):=H_1(A_\C,\Z)$
+  \item the construction is functorial: Frobenius $\pi(A)\rightsquigarrow F(A)$.
+ \end{itemize}
+
+ \pause Observe if $\dim(A)=g$ then $\rk(T(A))=2g$;
+  
+\end{frame}
+
+\begin{frame}{AV isogenous to a power }
+Today's setup:
+\pause
+\begin{center}
+let \textbf{$g$} be a \blue{$q$}-Weil polynomial which is \blue{ordinary} and \blue{square-free} 
+\end{center}
+\pause Put 
+\[\red{\AV(g^r)}:=\set{ A \in \AVord{q} : h_A = g^r }\]
+\pause
+and
+\[\red{\cM(g^r)}:=\set{ (T,F) \in \Modord{q} : \char_F = g^r }.\]
+\pause
+Observe: if $A\in \AV(g^r)$ then
+\[ A \sim (B_1\times \ldots \times B_s)^r \]
+with
+\[ g=h_{B_1\times \ldots \times B_s} \]
+\end{frame}
+
+\begin{frame}{Main theorem}
+Consider the CM \'etale $\Q$-algebra
+\[ \red{K} = \Q[F] = \faktor{\Q[x]}{\green{g}} \qquad \text{ where }F=x \mod g \]
+\pause and the order in $K$ given by
+\[ \red{R} = \Z[F,V], \qquad \text{ where }V=q/F=\overline{F}\]
+\pause Define
+\[\red{\cB(g^r)}:=\set{ \text{fin.~gen.~torsion-free $R$-modules $M$ s.t.~$M\otimes_R K\simeq K^r$} } \]
+\pause
+\begin{thm}[M.]
+ There are equivalences of categories
+ \[ \AV(g^r) \overset{\text{Deligne}}{\longleftrightarrow} \cM(g^r) \longleftrightarrow \cB(g^r) \]
+\end{thm}
+\end{frame}
+
+\begin{frame}{ The category $\cB(g^r)$ }
+Recall that an $R$-module $M$ is \textbf{torsion-free} if the canonical morphism
+\[ M \to M\otimes_R K \]
+is injective.
+
+\pause We can think of modules $M\in \cB(g^r)$ as \textbf{embedded} in $K^r$.
+
+\pause The category $\cB(g^r)$ becomes more \green{explicit} and \green{computable} under certain assumptions on the order $R$.
+\end{frame}
+
+\begin{frame}{ Bass orders }
+
+Recall 
+\begin{itemize}
+ \item a \blue{fractional $R$-ideal} $I$ is a sub-$R$-module of $K$ which is also a lattice
+ \item a fractional $R$-ideal is \blue{invertible} in $R$ if $I(R:I) =R$.
+\end{itemize}
+
+Define
+\[ \blue{\ICM(R)} = \faktor{\set{\text{fractional $R$-ideals}}}{\simeq_R}\qquad\green{\text{ideal class monoid}}\]
+and
+\[ \blue{\Pic(R)} = \faktor{\set{\text{fractional $R$-ideals invertible in $R$}}}{\simeq_R} \qquad\green{\text{Picard group}} \]
+
+An order $R$ is called \red{Bass} if one of the following equivalent conditions holds:
+\begin{itemize}
+ \pause \item every over-order $R\subseteq S \subseteq \cO_K$ is Gorenstein.
+ \pause \item every fractional $R$-ideal $I$ is invertible in $(I:I)$.
+ \pause \item $\ICM(R) = \bigsqcup_{R\subseteq S\subseteq \cO_K} \Pic(S)$.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{ $\cB(g^r)$ in the Bass case }
+\begin{thm}[Bass]
+ Assume that $R$ is a Bass order.
+ \pause Then for every $M\in \cB(g^r)$ there are fractional $R$-ideals $I_1,\ldots,I_r$ such that 
+ \[ M \simeq_R I_1\oplus \ldots \oplus I_r. \qquad\green{\parbox{12em}{everything is a direct sum\\of fractional ideals}}\]
+ \pause Moreover, given $M=\bigoplus_{k=1}^r I_k$ and $M'=\bigoplus_{k=1}^r J_k$ we have that 
+ \[ M\simeq_R M' \Longleftrightarrow
+ \begin{cases}
+  (I_k:I_k)=(J_k:J_k) \text{ for every $k$, and } \\
+  \prod_{k=1}^r I_k \simeq_R \prod_{k=1}^r J_k
+ \end{cases}
+ \pause \parbox{7em}{\green{generalization of Steinitz theory}}
+ \]
+\end{thm}
+\end{frame}
+
+\begin{frame}{ $\cB(g^r)$ in the Bass case }
+\begin{corollary}
+ Assume that $R$ is Bass. Then for every $M\in \cB(g^r)$ there are over orders $S_1\subseteq \ldots \subseteq S_r$ of $R$ and a fractional ideal $I$ invertible in $S_r$ such that
+ \[ M\simeq S_1\oplus\ldots\oplus S_{r-1}\oplus I \]
+\end{corollary}
+  \pause We have a \green{simple description} of morphisms in $\cB(g^r)$.
+
+  For example, for $M$ as above:
+  \pause {\small
+\[ \End_R(M) = 
+    \begin{pmatrix}
+    S_1 	& S_2 	   & \ldots & S_{r-1} & I \\
+    (S_1:S_2) 	& S_2 	   & \ldots & S_{r-1} & I \\
+    \vdots 	& \vdots   & \ddots & \vdots  & \vdots \\
+    (S_1:S_{r-1}) 	& (S_2:S_{r-1})& \ldots & S_{r-1} & I \\
+    (S_1:I) 	& (S_2:I)& \ldots & (S_{r-1}:I) & (I:I)
+    \end{pmatrix}
+    \]
+}
+and 
+\pause \vspace{-1em}
+\[\Aut_R(M)=\set{ A \in \End_R(M) \cap \GL_r(K) : A^{-1} \in \End_R(M) }.\]
+\end{frame}
+
+
+\begin{frame}{ Consequences for $\AV(g^r)$ }
+\begin{corollary}
+Assume $R=\Z[F,V]$ is Bass.
+Then
+ \begin{itemize}
+  \pause \vspace{1em} \item \
+  \vspace{-3em}
+  \[ \faktor{\AV(g^r)}{ \simeq } \longleftrightarrow \set{ (S_1\subseteq S_2 \subseteq \ldots \subseteq S_r , [I]_{\simeq}) : \parbox{7em}{$R\subseteq S_1$,\\ $I$ a frac. $R$-ideal with $(I:I)=S_r$}  } \]
+  \pause \vspace{-1em} \item for every $A\in \AV(g^r)$, say $A\sim B^r$ with $h_B=g$, there are 
+  \vspace{-1em}
+  \[C_1,\ldots,C_r \sim B \text{ such that } A \simeq C_1\times \ldots \times C_r \qquad\green{\parbox{8em}{everything\\ is a product}} \]
+  \vspace{-1em}
+  \pause \item if 
+  \vspace{-1em}
+  \[ A \longleftrightarrow \bigoplus_k I_k \text{ and } B \longleftrightarrow \bigoplus_k J_k \]
+  \vspace{-1em}
+  then 
+  \vspace{-1em}
+  \[ \mu \in \Hom(A,B) \longleftrightarrow \Lambda \in \Mat_{r\times r}(K) \text{ s.t. } \Lambda_{h,k}\in (J_h:I_k) \]
+  \pause Moreover, $\mu$ is an \red{isogeny} if and only if $\det(\Lambda) \in K^\times$
+ \end{itemize}
+\end{corollary}
+\end{frame}
+
+\begin{frame}{ Example }
+   Let $g=x^6 - 3x^5 + 6x^4 - 10x^3 + 18x^2 - 27x + 27$.
+   
+   \pause Note $\AV(g)$ is an isogeny class of simple ordinary abelian varieties over $\F_3$.
+   
+   \pause Define $K=\Q[x]/(g)=\Q(F)$ and $R=\Z[F,V]$.
+   
+   \pause The only over-order of $R$ is the maximal order $\cO_K$ of $K$ and, since $R$ is Gorenstein
+   $R$ is Bass.
+   
+   \pause Observe
+   \[ \Pic(R) \simeq \faktor{\Z}{3\Z} \text{ and } \Pic(\cO_K)=\set{1}. \]
+   
+   \pause Let $I$ be a representatives of a generator of $\Pic(R)$.
+   
+   \pause We now list the representatives of the isomorphism classes in $\AV(g^3)$:
+   \begin{align*}
+	& M_1=R \oplus R \oplus R &
+	& M_2=R \oplus R \oplus I &
+	& M_3=R \oplus R \oplus I^2 \\
+	& M_4=R \oplus R \oplus \cO_K & 
+	& M_5=R \oplus \cO_K \oplus \cO_K & 
+	& M_6=\cO_K \oplus \cO_K \oplus \cO_K
+   \end{align*}
+   \pause 
+   \[\End(M_1) = \Mat_3(R) \text{ and }
+    \End(M_2)=
+      \begin{pmatrix}
+         R & R & I \\
+         R & R & I \\
+         (R:I) & (R:I) & R
+      \end{pmatrix}\]
+\end{frame}
+
+\begin{frame}{ Dual modules }
+Let $M \in \cB(g^r)$ and let $\Tr:K^r \to \Q$ be the map induced by $\Tr_{K/\Q}$
+\pause Put
+\[ \red{M^\vee}:=\overline{M^t}=\set{ \overline{x} \in K^r : \Tr(xM)\subseteq \Z }. \]
+\pause In particular if $M=\bigoplus_k I_k$ then $M^\vee=\bigoplus_k \overline{I_k}^t$.
+
+\pause
+\begin{prop}
+ If $\mu:A\to B$ in $\AV(g^r)$ corresponds to $\Lambda:M\to N$ in $\cB(g^r)$,
+ \pause then $\mu^\vee:B^\vee\to A^\vee$ in $\AV(g^r)$ corresponds to $\Lambda^\vee:N^\vee\to M^\vee$ in $\cB(g^r)$,
+ where
+ \[ \red{\Lambda^\vee} := \overline{\Lambda}^T \]
+\end{prop}
+"Proof": Howe (1995) described dual modules in $\Modord{q}$.  We translated this notion to $\cB(g^r)$. 
+\end{frame}
+
+\begin{frame}{ Polarizations }
+Fix
+\[ \red{ \Phi }:=\set{ \vphi:K \to \C : v_p(\vphi(F))>0 }, \blue{\text{ tricky to compute!}} \]
+where $v_p$ is the $p$-adic valuation induced by $\varepsilon: W(\overline{\F}_p)\hookrightarrow \C$.
+
+\pause Observe that $\Phi$ is a \textbf{CM-type} of $K$ since the isogeny class is ordinary.
+
+\pause
+\begin{thm}
+ Let $\mu:A\to A^\vee$ in $\AV(g^r)$ be an isogeny, corresponding to $\Lambda:M\to M^\vee$.
+ \pause Then $\mu$ is a \red{polarization} if and only if
+ \begin{itemize}
+  \item $\Lambda = -\overline\Lambda^T$, and
+  \item for every $a$ in $K^r$, the element
+    $c=a^T\overline\Lambda \overline a $
+    is $\Phi$-non-positive, that is $\Im(\vphi(c)) \leq 0$ for every $\vphi$ in $\Phi$.
+ \end{itemize}
+ \pause We have $\deg \mu = [M^\vee : \Lambda M]$.
+\end{thm}
+
+\pause "Proof": Howe (1995) put polarizations in Deligne's category $\Modord{q}$. We translated this notion to $\cB(g^r)$. 
+
+\end{frame}
+
+\begin{frame}{ Automorphisms }
+Let $(M,\Lambda)$ and $(M',\Lambda')$ correspond to polarized variety in $\AV(g^r)$.
+
+\pause A morphism of polarized abelian varieties is a map $\Psi:M \to M'$ such that
+\[ \Psi^\vee\Lambda'\Psi = \Lambda. \]
+\pause Let \red{$\Pol(M)$} be the set of polarizations of $M$.
+\pause
+\begin{thm}
+There is a degree-preserving action of $\Aut(M)$ on $\Pol(M)$ given by
+\begin{align*}
+\Aut(M) & \times \Pol(M) \longmapsto \Pol(M)\\
+(U &, \Lambda) \longmapsto U^\vee \Lambda U
+\end{align*}
+\end{thm}
+\pause Unfortunately
+\[ \faktor{\Pol(M)}{\Aut(M)} \red{\text{ is hard to understand if $r\geq 2$}} \]
+\end{frame}
+
+\begin{frame}{ The case $r=1$, i.e. the square-free case }
+% - AV up to iso = ICM\\
+% - polarizations\\
+% - polarizations up to iso\\
+% - automoprhism groups\\
+% - decomposable\\
+\pause \green{We don't need $R$ Bass now! }
+\pause 
+\begin{itemize}
+ \item \[ \faktor{\AV(g)}{\simeq} \longleftrightarrow \ICM(R) \]
+\pause \item Concretely, if $A\leftrightarrow I$, then $A^\vee \leftrightarrow \overline{I}^t$, and
+\pause \item a polarization $\mu$ of $A$ corresponds to a $\lambda\in K^\times$ such that
+      \begin{enumerate}[-]
+\pause \item $\lambda I \subseteq \overline{I}^t$ (isogeny);
+\pause \item $\lambda$ is totally imaginary ($\overline \lambda = -\lambda$);
+\pause \item $\lambda$ is $\Phi$-positive, where $\Phi$ is the CM-type of $K$. \textcolor{red}{\parbox{6em}{\center "coming from char $p$"}}
+      \end{enumerate} 
+\pause Also: $\deg \mu= [\overline{I}^t : \lambda I]$.
+\pause  \item if $(A,\mu) \leftrightarrow (I,\lambda)$ and $S=(I:I)$ then
+  \[\set{\parbox[p]{7.5em}{non-isomorphic polarizations of $A$}} \longleftrightarrow \dfrac{\set{\text{totally positive }u\in S^\times }}{\set{v\overline{v}: v\in S^\times}}\]
+  and $\Aut(A,\mu) = \set{\text{torsion units of $S$}}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example}
+\begin{itemize}
+ \item Let $h(x)=x^8 - 5x^7 + 13x^6 - 25x^5 + 44x^4 - 75x^3 + 117x^2 - 135x + 81$;
+ \item $\rightsquigarrow$ isogeny class of an simple ordinary abelian varieties over $\F_{3}$ of dimension $4$;
+ \item Let $F$ be a root of $h(x)$ and put $R:=\Z[F,3/F]\subset \Q(F)$;
+ \item $8$ over-orders of $R$: two of them are not Gorenstein;
+ \item $\#\ICM(R) = 18 \rightsquigarrow 18$ isom.~classes of AV in the isogeny class;
+ \item $5$ are not invertible in their multiplicator ring;
+ \item $8$ classes admit principal polarizations;
+ \item $10$ isomorphism classes of princ. polarized AV.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Example}
+Concretely:
+{\scriptsize \begin{align*}
+  \begin{split} 
+  I_1 = & 2645633792595191 \Z \oplus (F + 836920075614551) \Z \oplus (F^2 + 1474295643839839)\Z \oplus\\
+	& \oplus (F^3 + 1372829830503387)\Z \oplus (F^4 + 1072904687510)\Z \oplus\\
+	& \oplus \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F + 6704806986143610)\Z \oplus\\
+	& \oplus \frac{1}{9}(F^6 + F^5 + F^4 + 8F^3 + 2F^2 + 2991665243621169) \Z \oplus\\
+	& \oplus \frac{1}{27}(F^7 + F^6 + F^5 + 17F^4 + 20F^3 + 9F^2 + 68015312518722201)\Z\\
+  \end{split}
+\intertext{principal polarizations:}
+  \begin{split}
+  x_{1,1} = \frac{1}{27}( & -121922F^7 + 588604F^6 - 1422437F^5 +\\
+			  & +1464239F^4 + 1196576F^3 - 7570722F^2 + 15316479F - 12821193)\\ 
+%   \end{split}\\
+%   \begin{split}
+  x_{1,2} = \frac{1}{27}( & 3015467F^7 - 17689816F^6 + 35965592F^5 -\\
+			  & -64660346F^4 + 121230619F^3 - 191117052F^2 + 315021546F - 300025458)\\
+  \end{split}\\
+  & \End(I_1) =  R\\
+  & \#\Aut(I_1,x_{1,1}) = \#\Aut(I_1,x_{1,2}) = 2
+ \end{align*}}
+\end{frame}
+
+
+\begin{frame}{Example}
+ 
+{\scriptsize \begin{align*}
+  \begin{split} 
+  I_7 = & 2\Z\oplus(F + 1)\Z\oplus(F^2 + 1)\Z\oplus(F^3 + 1)\Z\oplus(F^4 + 1)\Z\oplus\frac13(F^5 + F^4 + F^3 + 2F^2 + 2F + 3)\Z \oplus \\ 		      & \oplus\frac{1}{36}(F^6 + F^5 + 10F^4 + 26F^3 + 2F^2 + 27F + 45)\Z\oplus\\
+	& \oplus \frac{1}{216}(F^7 + 4F^6 + 49F^5 + 200F^4 + 116F^3 + 105F^2 + 198F + 351)\Z\\
+  \end{split}
+\intertext{principal polarization:}\\[-7ex]
+  \begin{split}
+  x_{7,1} = \frac{1}{54}(20F^7 - 43F^6 + 155F^5 - 308F^4 + 580F^3 - 1116F^2 + 2205F - 1809)
+  \end{split}\\
+  \begin{split}
+  \End(I_7) & = \Z \oplus  F\Z \oplus  F^2\Z \oplus  F^3\Z \oplus  F^4\Z \oplus
+  \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F)\Z \oplus \\
+	& \oplus \frac{1}{18}(F^6 + F^5 + 10F^4 + 8F^3 + 2F^2 + 9F + 9)\Z \oplus\\
+	& \oplus \frac{1}{108}(F^7 + 4F^6 + 13F^5 + 56F^4 + 80F^3 + 33F^2 + 18F + 27)\Z\\
+  \end{split}\\
+  & \#\Aut(I_7,x_{7,1}) = 2
+\end{align*}}             
+$I_1$ is invertible in $R$, but $I_7$ is not invertible in $\End(I_7)$.
+\end{frame}
+
+\begin{frame}{ Period matrices }
+   We can also compute the \red{period matrix} of the canonical lifts of a principally polarized square-free ordinary abelian variety:
+   
+   \pause Assume
+   \[(A,\mu) \longleftrightarrow (I,\lambda) \]
+   
+   \pause Write
+   \[I=\alpha_1\Z\oplus\ldots\oplus\alpha_{2g}\Z\]
+    
+   \pause Let $\Phi=\set{\vphi_1,\ldots,\vphi_g}$ be the CM-type.
+    
+   \pause Let $(A',\mu')$ be the (complex) canonical lift of $(A,\mu)$. 
+    
+   \pause We have an isomorphism of complex tori
+   \[ A'(\C) \simeq \faktor{\C^g}{\Phi(I)}, \qquad \Phi(I) = \Span{(\vphi_1(\alpha_i),\ldots,\vphi_g(\alpha_i): i=1,\ldots,2g}.\]
+   
+%    A \emph{period matrix} associated to $A'$ is a $g\times 2g$ complex matrix whose columns are the coordinates of a $\Z$-basis of the full lattice $\Phi(I)$.
+%    We are interested in a matrix that captures the Riemann form induced by the polarization $\lambda'$ of $A'$.
+\end{frame}
+
+\begin{frame}{ Period matrices }
+   The Riemann form associated to $\lambda$ is given by
+   \[ b:I\times I \to \Z \quad (s,t)\mapsto \Tr(\overline{t\lambda}s). \]
+    
+   \pause Pick a \green{symplectic} $\Z$-basis of $I$ with respect to the form $b$, that is,
+    \[ I = \gamma_1 \Z \oplus \ldots \oplus \gamma_g \Z \oplus \beta_1 \Z \oplus \ldots \oplus \beta_g \Z, \]
+    \pause with
+    \[ b(\gamma_i,\beta_i)=1 \text{ for all $i$, and}\]
+    \[b(\gamma_h,\gamma_k)=b(\beta_h,\beta_k)=b(\gamma_h,\beta_k)=0 \text{ for all $h\neq k$}. \]
+    
+    \pause Consider the \blue{$g\times 2g$} matrix $\Omega$ whose $i$-th row is 
+    \[(\vphi_i(\gamma_1),\ldots,\vphi_i(\gamma_g),\vphi_i(\beta_1),\ldots,\vphi_i(\beta_g)).\]
+    
+    \pause This is \red{big period matrix} of $(A',\lambda')$.
+\end{frame}
+    
+    
+\begin{frame}{ Period matrices - Example }
+   Let $g=(x^4 - 4x^3 + 8x^2 - 12x + 9)(x^4 - 2x^3 + 2x^2 - 6x + 9)$.
+   \pause We compute the principally polarized abelian varieties and we find that $4$ isomorphism classes admit a unique principal polarization.
+   \pause Here is one of them with the period matrix of the canonical lift.
+ {\scriptsize\begin{align*}
+    \begin{split}
+       I & =  \dfrac{1}{54}\left(432-549\alpha+441\alpha^2-331\alpha^3+186\alpha^4-81\alpha^5+33\alpha^6-7\alpha^7\right)\Z\oplus\\
+	   & \oplus\dfrac{1}{6}\left(63-78\alpha+65\alpha^2-49\alpha^3+27\alpha^4-12\alpha^5+5\alpha^6-1\alpha^7\right)\Z\oplus\\
+           & \oplus\dfrac{1}{6}\left(81-99\alpha+84\alpha^2-61\alpha^3+33\alpha^4-15\alpha^5+6\alpha^6-1\alpha^7\right)\Z\oplus\\
+           & \oplus\dfrac{1}{18}\left(-63+96\alpha-86\alpha^2+68\alpha^3-39\alpha^4+18\alpha^5-8\alpha^6+2\alpha^7\right)\Z\oplus(-1)\Z\oplus\\
+	   & \oplus(-\alpha)\Z\oplus(-\alpha^2)\Z\oplus\dfrac{1}{9}\left(81-96\alpha+81\alpha^2-64\alpha^3+33\alpha^4-15\alpha^5+6\alpha^6-\alpha^7\right)\Z
+    \end{split}\\
+    \pause \lambda & = \dfrac{537}{80} -\dfrac{1343}{120}\alpha +\dfrac{1343}{144}\alpha^2 -\dfrac{419}{60}\alpha^3 +\dfrac{337}{80}\alpha^4 -\dfrac{15}{8}\alpha^5 +\dfrac{559}{720}\alpha^6 -\dfrac{1}{5}\alpha^7
+    \end{align*}}
+    \pause
+    {\scriptsize\[
+    \Omega =
+    \begin{pmatrix}
+      2.8 - i & -2.8 + 0.6i & 0 & 0 & 1 & 1.7 - 0.3i & 0 & 0 \\
+      -2.8 + i & 2.8 - 3.4i & 0 & 0 & 1 & 0.3 + 1.7i & 0 & 0 \\
+      0 & 0 & -1 & -0.4 - 0.2i & 0 & 0 & -1.6 - 0.6i & -0.2 - 0.2i\\
+      0 & 0 & -1 & -2.6 + 6.9i & 0 & 0 & 0.6 - 1.6i & -6.9 + 6.9i
+    \end{pmatrix}
+    \]}
+\end{frame}
+
+\begin{frame}{ Final remarks }
+    \begin{itemize}
+     \item Computations of isomorphism classes can be done in the same way replacing "ordinary over $\F_q$" with \green{"over $\F_p$, away from real primes"}, by using Centeleghe-Stix (2015)...
+     \item ...but polarizations (and period matrices) are still work in progress.
+     \item The Magma code is avalable on my webpage.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{ }
+\begin{center}
+{\Large Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

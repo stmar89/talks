@@ -1,0 +1,2 @@
+- Put polarizations over C before, when one introduces complex uniformization.
+- I like more the order in which VK puts things.

@@ -1,0 +1,501 @@
+%\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+%\usepackage{tikz-cd}
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[]{Polarizations of abelian varieties over finite fields\\ via canonical liftings}
+\subtitle{}
+\author[Stefano Marseglia]{Stefano Marseglia\\}
+\institute[]{Utrecht University}
+\date[21 April 2021]{SU Wednesday Zoom - 21 April 2021\\ \pause joint work with\\ \red{Jonas Bergstr\"om} (SU) and \red{Valentijn Karemaker} (UU).}
+
+\begin{document}
+
+% Abstract: 
+% Super-isolated abelian varieties are abelian varieties over finite fields whose isogeny class contains a single isomorphism class. In this talk we will review their properties, consider their products and, in the ordinary case, we will describe their (principal) polarizations.
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}{ Today's plan: }
+%	Joint work with \red{Jonas Bergstr\"om} (SU) and \red{Valentijn Karemaker} (UU).
+%	\begin{itemize}
+%	\item Abelian varieties
+%	\item Duals and Polarizations
+%	\item $\C$ vs $\F_q$
+%	\item Canonical lifting
+%	\item Complex Multiplication
+% 	\item Residual Reflex Condition
+%	\item Centeleghe-Stix functor
+%	\item Our result: Polarizations over $\F_p$ and how to compute them.
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}{ Abelian Varieties }
+	\begin{itemize}
+	 \item An \green{abelian variety} $A$ over a field $k$ is a projective geometrically connected group variety over $k$.\\
+	 \pause We have \blue{morphisms} $\oplus:A\times A \to A$, $\ominus:A\to A$ and a $k$-rational point $e\in A(k)$ such that $(A,\oplus,\ominus,e)$ is a group object in the category of projective geom.~connected varieties over $k$.
+	 \pause \item In practice, we have \red{diagrams $\rightsquigarrow$} \blue{``natural'' group structure} on $A(\overline k)$.
+	 \pause \item eg. ($\ominus$ is the ``inverse'' morphism)
+	 {\tiny
+	 \[ 
+	 	\xymatrix{
+	 		A\times_k A \ar[rr]^{(\ominus,\mathrm{id})} 	& 						& A\times_k A \ar[d]^{\oplus}\\
+	 		A \ar[u]^{\Delta} \ar[r] 	& \mathrm{Spec}(k) \ar[r]^{e}	& A 
+	 	}
+	 	\pause \qquad
+	 	\xymatrix{
+	 		A\times_k A \ar[rr]^{(\mathrm{id},\ominus)} 	& 						& A\times_k A \ar[d]^{\oplus}\\
+	 		A \ar[u]^{\Delta} \ar[r] 	& \mathrm{Spec}(k) \ar[r]^{e}	& A 
+	 	}
+	  \]}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example : $\dim A=1$ elliptic curves  }
+	\begin{itemize}
+		\item AVs of dimension $1$ are called \red{Elliptic Curves}.
+		\pause \item They admit a \blue{plane model}: if $\Char k \neq 2,3$
+		\[  Y^2Z = X^3 +AXZ^2 + BZ^3\quad A,B \in k\text{ and }e=[0:1:0]  \]
+		\pause \vspace{-0.7cm} \item The \green{groups law is explicit}:\\
+		if $P=(x_P,y_P) $ then $ \ominus P=(x_P,-y_P) $ and\\
+		\pause if $Q=(x_Q,y_Q)\neq \ominus P$ then $P\oplus Q=(x_R,y_R)$ where
+		\[ x_R = \lambda^2 -x_P-x_Q, \quad y_R = y_P+\lambda (x_R-x_P), \]
+		where
+		\[ \lambda = 
+		\begin{cases}
+			\frac{3x_P^2 + B}{2A}& \text{ if } P=Q  \\
+			\frac{y_P -y_Q}{x_P - x_Q} &  \text{ if } P\neq Q
+		\end{cases}
+		\]	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Example : EC over $\R$ }
+\vspace{-0.5cm}
+\begin{center}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\onslide<2-> {Over $\R$:\\ 
+			consider the abelian variety: 
+			\[ \red{y^2 = x^3 -x +1} \]}
+			\onslide<3->{Addition law: $P,Q$ {\Large \blue{$\leadsto$}} $P\oplus Q$}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\tikz{
+			    \onslide<2->{
+				\draw [help lines] (-2,-2.24) grid (1.8,2.24);
+				\draw [->] (-2-0.2,0) -- (1.8+0.2,0) node[right] {$x$}; 
+				\draw [->] (0,-2.24-0.2) -- (0,2.24+0.2) node[left] {$y$}; 
+				\draw [red, thick, domain=-1.32471795724474602596090885448:1.8, samples=100]
+				 plot (\x, {sqrt(\x*\x*\x -\x +1)});
+				\draw [red, thick, domain=-1.32471795724474602596090885448:1.8, samples=100]
+				 plot (\x, -{sqrt(\x*\x*\x -\x +1)});
+				}
+				\onslide<3->{
+				\draw [blue, thick, domain=-2:1.8, samples=100] plot (\x, {0.7*\x +0.5 });
+				\draw [blue, thick, dashed] (1.3407,2.24) -- (1.3407,-2.24);
+				\draw (-1.2858-0.2,-0.7*1.2858+0.5+0.1) node {$P$};
+				\draw (0.43506,0.7*0.43506+0.5 +0.3) node {$Q$};
+				\draw (1.3407+0.5,-0.7*1.3407-0.5) node {$P\oplus Q$};
+				}
+			}
+		\end{column}
+	\end{columns}
+\end{center}
+\end{frame}
+
+\begin{frame}{ Duals and Polarizations }
+    \begin{itemize}
+     \item A hom.~$\vphi:A\to B$ is an \red{isogeny} if $\dim A = \dim B$ and $\vphi$ is surjective.
+     \pause \item Isogenies have finite $\ker$.
+     \pause \item Put $\deg\vphi = \mathrm{rank}\ker(\vphi)$.	
+	 \pause \item $\Pic^0_{A}$ is also an AV, called the \green{dual} of $A$ and denoted $A^\vee$.	 
+	 \pause \item An isogeny $\mu:A\to A^\vee$ (over $k$) is called a \blue{polarization} if 
+     there are an $k\subseteq k'$ and an ample line bundle $\mathcal{L}$ such that (on points)
+     \[ \vphi_{k'}: x\mapsto [t_x^*\mathcal{L} \otimes\mathcal{L}^{-1} ]. \]
+	 \pause \item A polarization $\mu$ is \blue{principal} if $\deg \mu = 1 \iff \mu$ is an isomorphism.
+	 \pause \item \red{Why} do we care about polarizations?
+        \begin{enumerate}
+    	 \pause \item $\Aut(A,\mu)$ is finite $\leadsto$ moduli space $\mathcal{A}_{g,d}$
+    	 \pause \item proper smooth curve $C/k \leadsto \Pic^0_{C}=:\Jac(C)$ a PPAV.
+    	\end{enumerate}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ $\C$ vs $\F_q$ }    
+    \begin{itemize}
+     \item Pick $A/\C$ of dimension $g$. 
+	 \pause \item $A(\C)\simeq V:=\C^g/\Lambda$, where $\Lambda\simeq_\Z\Z^{2g}$. It is a \red{torus}.
+	 \pause \item Moreover, $V$ admits a non-degenerate \green{Riemann form} $\longleftrightarrow$ polarization.
+	 \pause \item Actually,
+	  \[
+      \set{ \text{abelian varieties $/\C$} } \longleftrightarrow 
+      \set{\parbox[c]{12.5em}{\center $\C^g/\Lambda$ with $\Lambda\simeq \Z^{2g}$ admitting\\ a Riemann form}}
+     \]
+	  induced by $ A \mapsto A(\C)$ is an \blue{equivalence} of categories.
+	 \pause \item In \red{char.~$p>0$} such an equivalence \red{cannot exist} : there are (supersingular) elliptic curves with quaternionic endomorphism algebras.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Isogeny classification over $\F_q$}
+	\begin{itemize}
+%	\item $A$ and $B$ are \green{isogenous} if $\dim A=\dim B$ and $\exists$ a surjective hom.~$\varphi:A\to B$.
+%	\pause \item Being isogenous is an equivalence relation.
+    \item $A/\F_{q}$ comes with a \blue{Frobenius endomorphism}, 
+    \pause that induces an action
+		\[ \Frob_A : T_\ell A \rightarrow T_\ell A \text{ for any }\ell\neq p, \]
+		where $T_\ell(A) = \varprojlim A[\ell^n] \simeq \Z_\ell^{2g}$.
+	\pause \item $\green{h_A(x)}:=\Char(\Frob_A)$ is a \blue{$q$-Weil} polynomial and isogeny \blue{invariant}.
+	\pause \item By \red{Honda-Tate} theory, the association
+		\[ \text{isogeny class of }A \longmapsto h_A(x) \]
+		is injective and allows us to \red{list} all isogeny classes.
+	\pause \item One can prove that $h_A(x)$ is squarefree $\iff$ $\End(A)$ is commutative.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Canonical Liftings } 
+    \begin{itemize}
+     \item Pick $A_0/\F_q$ of dim $g$.
+     \pause \item A \red{canonical lifting} of $A_0$ is an abelian scheme $\mathcal{A}$ over a local domain $\mathcal{R}$ of char.~zero with residue field $\F_q$ 
+     such that $\mathcal{A} \otimes \F_q \simeq A_0$ and
+    $\End(\mathcal{A}) = \End(A_0)$.
+     \pause \item If $\mathcal{R}$ is normal then $\End(\mathcal{A})=\End(A)$, where $A=\mathcal{A}\otimes Q(\mathcal{R})$.
+     \pause \item For $A_0/\F_q$ of dim $g$, there is $0\leq f \leq g$ ($p$-rank) such that
+    $ \vert A_0[p](\overline{\F}_p)\vert  = p^f$.
+	 \pause \item If $f=g$ then $A_0$ is \green{ordinary} and admits a canonical lifting to the ring of Witt vectors $W(\F_q)$.
+	 \pause \item If $f=g-1$ then $A_0$ is \green{almost-ordinary}. If $\End(A_0)$ is commutative, $A_0$ admits a canonical lifting to a quadratic extension of $W(\F_q)$.
+	 \pause \item In general, \blue{no canonical lifting}: eg. supersingular elliptic curves (quaternions).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Complex Multiplication }
+    \begin{itemize}
+     \item Let $A_0$ be an AV over $\F_q$ of dim $g$, with $h_{A_0}$ squarefree.
+     \pause \item Put $L=\Q[F]=\Q[x]/h_{A_0}$ and $V=q/F$.
+     \pause \item $L$ has an \green{involution}: $F \mapsto \overline{F} = V$.
+	 \pause \item Also $\Z[F,V] \hookrightarrow \End(A_0)$...
+	 \pause \item ... i.e.~$\End(A_0)\otimes \Q$ contains a \blue{CM-algebra} $L$ of degree $[L:\Q] = 2g$.
+     \pause \item We say that AVs over $\F_q$ have \red{Complex Multiplication} (CM).
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Complex Multiplication II }
+    \begin{itemize}
+     \item A \red{CM-type} $\Phi$ of $L$ is a choice of $g$ homs $L\to \overline{\Q}$, one per each conjugate pair:
+     \[ \Hom(L,\overline{\Q}) = \Phi \sqcup \overline{\Phi}.\]
+	  \pause \item The \blue{reflex field} $E$ of $(L,\Phi)$ is the num.~field s.t.~$\Gal(\overline{\Q}/E)$ stabilizes $\Phi$.
+	  \pause \item If $L$ is a field :
+	  \[ E=\Q\left( \sum_{\vphi\in\Phi} \vphi(\alpha) : \alpha \in L \right). \]
+	  \pause \item Fix once and for all
+	  \[ \overline \Q \hookrightarrow \overline \Q_p \simeq \C \]
+	  so that we can talk about and identify \green{$p$-adic} and \green{complex} CM-types and reflex fields (with the completion).
+	\end{itemize}    
+\end{frame}
+
+\begin{frame}{ Residual Reflex Condition (RRC) }
+	\begin{df}[Chai-Conrad-Oort]
+		Let $\Phi$ be a $p$-adic CM-type for a CM-field $L=\Q(F)$.
+		\pause The pair $(L,\Phi)$ satisfies the \red{RRC} w.r.t.~$F$ 
+		if the following conditions are met:
+		\begin{enumerate}[1.]
+			\pause \item \label{def:RRC_item_st} The \green{Shimura-Taniyama formula} holds for $F$: for every  place $\nu$ of $L$ above~$p$, we have
+			\begin{equation*}
+			\dfrac{ \mathrm{ord}_\nu(F)}{ \mathrm{ord}_\nu(q)}=\dfrac{\#\set{ \vphi \in \Phi \text{ s.t.~} \vphi \text{ induces } \nu }}{[L_\nu:\Q_p]}.
+			\end{equation*}
+			\pause \item \label{def:RRC_item_refl} Let $E$ be the reflex field attached to $(L,\Phi)$, and let $\nu$ be the induced $p$-adic place of $E$. Then the \blue{residue field} $k_\nu$ of $\cO_{E,\nu}$
+			can be realized as a \red{subfield} of $\F_q$.
+		\end{enumerate}
+	\end{df}
+\end{frame}
+
+\begin{frame}{  }
+	\begin{theorem}[Chai-Conrad-Oort]
+		Fix an isogeny class over $\F_q$ with CM by $L = \Q(F)$ through $\Phi$ determined by an irreducible characteristic polynomial of Frobenius $h$. 
+		\pause Assume $(L,\Phi)$ satisfies \green{RRC} w.r.t.~$F$. 
+		\pause Then this \blue{isogeny} class contains an abelian variety $A_0/\F_q$ such that $\mathcal{O}_L = \mathrm{End}(A_0)$ which has a \red{canonical lifting} $A$ over a number field $E'$ (a finite extension of the reflex field $E$ of $(L,\Phi)$).
+	\end{theorem}
+	\begin{itemize}
+	    \pause \item Can generalize: $h$ irreducible $\leadsto$ $h$ squarefree.
+	    \pause \item Define $\mathcal{S}_\Phi$ as the set of orders $S$ in $L$ s.t.~$S$ is Gorenstein, $S = \overline{S}$ and there is in the isogeny class an $A'_0$ with $S=\End(A'_0)$ admitting a canonical lifting.
+	    \pause \item By the Theorem: if $(L,\Phi)$ satisfies RRC then $\cO_L\in \mathcal{S}_\Phi$.
+	    \pause \item Also: if $\End(A_0)=\cO_L$ and there is a separable isogeny $A_0\to A'_0$ then $\End(A'_0)\in \mathcal{S}_\Phi$.
+	    \pause \item \green{From now on we assume that $\mathcal{S}_\Phi\neq \emptyset$.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Complex Uniformization }
+    \begin{itemize}
+	 \item Let $A$ be the canonical lifting of $A_0$.
+	 \pause \item $A^\vee$ is the (canonical) lifting of $A_0^\vee$.
+	 \pause \item Then $ A(\C) \simeq \C^g/\Phi(I)$ (vector notation), for a \red{fractional $\Z[F,V]$-ideal} $I$ in $L$.
+	 \pause \item Define $\cH(A):=I$.
+	 \pause \item We have $\cH(A^\vee) = \overline{I}^t =\set{ \overline{x} : \Tr_{L/\Q}(xI)\subseteq \Z }$.
+	 \pause \item In particular $\cH(\Hom(A,A^\vee)) = \green{(\overline{I}^t:I)} = \set{ x \in L : xI \subseteq \overline{I}^t }$.      
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Centeleghe-Stix I : the functor }
+    \begin{theorem}[Centeleghe-Stix]
+	    Let $\AV_h(p)$ be the isogeny class over the prime field $\F_p$ determined by a squarefree $h$. Put $L=\Q[x]/h=\Q[F]$ and $V=p/F$.
+	    \pause There is an \red{equivalence} of categories between $\AV_h(p)$ and the category of \blue{fractional $\Z[F,V]$-ideals} in $L$.
+    \end{theorem}
+	\begin{itemize}
+    \pause \item Let $A_h$ be an AV in $\AV_h(p)$ with $\End(A_h)=\Z[F,V]$.
+    \pause \item The functor $\cG(-):=\Hom(-,A_h)$ induces the equivalence.
+    \pause \item C-S prove that one can choose $A_h$ in such a way that functors 'glue' together and form an equivalence from the category of AVs/$\F_p$ with no real roots and the category of free f.g. $\Z$-modules with a Frobenius-like endomorphism.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Centeleghe-Stix II : choices and duality}
+    \begin{itemize}
+     \item In general one can prove that there exists an invertible $\Z[F,V]$-ideal $H$ such that for any $B_0 \in \AV_h(p)$ we have $\cG(B_0^\vee) = H \overline{\cG(B_0)}^t$.
+     \pause \item Hence $\cG(\Hom(B_0,B_0^\vee) = H\overline{H}(\cG(B_0):\overline{\cG(B_0)}^t)$.
+	 \pause \item The functor $\cG$ depends on the \green{choice} of $A_h$ with minimal $\End$. 
+	 \pause \item More precisely there is an action of $\Pic(\Z[F,V])$ on such AVs. 
+	 \pause \item Therefore we can '\red{modify}' $\cG$ to obtain \blue{$\cG(B_0^\vee) = \overline{\cG(B_0)}^t$}
+	 \pause \item Hence
+	 \[ \cG(\Hom(B_0,B_0^\vee)) = (\cG(B_0):\overline{\cG(B_0)}^t), \]
+	 \pause \item and that \blue{$\cG(f^\vee) = \overline{\cG(f)}$}, for any $f: B_0\to B_0'$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Comparison I : $\Hom$'s }
+	\begin{prop}
+		%[Berstr\"om, Karemaker, M.]
+		Let $A_0\in \AV_h(p)$ such that $S=\End(A_0)\in \mathcal{S}_\Phi$. In particular $A_0$ has a canonical lifting $A$.
+		\pause Then there exists a \red{totally real $\alpha \in S^*$} such that the \green{reduction map} $\Hom_L(A,A^{\vee}) \to \Hom_L(A_0,A_0^{\vee})$ is multiplication by $\alpha \in S^*$.
+	\end{prop}
+	\pause \begin{minipage}{0.44\textwidth}
+	\[
+	\xymatrix{
+	    \Hom(A,A^\vee) \ar[d]_{\mathrm{red}} \ar@<2pt>[dr]^{\mathcal{H}} & \\
+	    \Hom(A_0,A_0^\vee)\ar[d]^{\cG} & (\overline I^t : I) \ar[d]_{\alpha} \\
+	    (\cG(A_0) : \overline{\cG(A_0)}^t) & (\overline I^t : I) \ar@{=}[l]}
+	\]
+	\end{minipage}
+	\begin{minipage}{0.55\textwidth}
+	    \begin{itemize}
+		 \pause \item In general $I=\cH(A)$ is not $\cG(A_0)$!
+		 \pause \item But $(\overline{I}^t,I)=\cH(\Hom(A,A^\vee))$ and $\cG(\Hom(A_0,A_0^\vee))$ are the same ...
+		 \pause \item ... and $\cG(\mathrm{red}(f)) = \alpha \cH(f)$.
+		 \pause \item By the choices made above, $\cG$ respects symmetric homomorphisms, that is, $\alpha$ is totally real $\alpha = \overline{\alpha}$.
+		\end{itemize}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{ Comparison II : Polarizations }
+    \begin{itemize}
+     \item We understand polarizations \green{over $\C$}! Indeed:
+	 \pause \item Let $\mu:A\to A^\vee$ an isogeny. Then $\mu$ is a polarization if and only if
+	       $\lambda := \cH(\mu)$ satisfies
+	       \begin{enumerate}
+	       \item $\lambda = - \overline{\lambda}$ (\blue{totally imaginary}), and
+	       \item for every $\vphi\in \Phi$ we have $Im(\vphi(\lambda))>0$  (\blue{$\Phi$-positive}).
+           \end{enumerate}	  
+	\end{itemize}
+	\begin{theorem}["lift and spread"]
+	%	[Berstr\"om, Karemaker, M.]
+		Let $\End(A_0)=S\in\mathcal{S}_\Phi$ and $\alpha \in S^*$ totally real as above.\\
+		\pause For any abelian variety $B_0 \in \AV_h(p)$, and any isogeny $\mu: B_0 \to B_0^{\vee}$, the following are equivalent:
+		\begin{enumerate}
+		\pause \item The isogeny $\mu$ is a \red{polarization} of $B_0$;
+		\pause \item The element $\alpha^{-1} \cG(\mu) \in L$ is \green{totally imaginary} and \green{$\Phi$-positive}.
+		\end{enumerate}
+		\pause Moreover, we have $\deg \mu = \# \left( \cG(B_0) / \cG(\mu) \cG(B_0^\vee) \right)$.
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{  }
+	\begin{proof}
+	Let $f:A_0\to B_0$ be an isogeny. Consider $f^* := f^\vee \circ - \circ f$: 
+	\pause \[\xymatrix{
+	                                 & \Hom(A,A^\vee) \ar[d]_{\mathrm{red}} \ar[dr]^{\mathcal{H}} & \\
+	 \Hom(B_0,B_0^\vee) \ar[r]^{f^*}\ar[d]^{\cG} & \Hom(A_0,A_0^\vee)\ar[d]^{\cG} & (\overline I^t : I) \ar[d]_{\alpha} \\
+	 (\cG(B_0) : \cG(B_0^\vee))\ar[r]^{\cG(f^*)} & (\cG(A_0) : \cG(A_0^\vee)) & (\overline I^t : I)
+	 \ar@{=}[l]
+	}\]
+	\pause Note that $\cG(f^*)$ is multiplication by the total real element $\overline{\cG(f)}\cG(f)$.
+	\pause So it sends totally imaginary elements to totally imaginary elements and $\Phi$-positive elements to $\Phi$-positive elements.
+	\end{proof} 
+\end{frame}
+
+\begin{frame}{ Principal Polarizations up to isomorphism }
+    \begin{itemize}
+	 \item Let $B_0 \in \AV_h(p)$. Put $T=\End(B_0)$ and $\cG(B_0)=J$.
+	 \pause \item Assume that $B_0 \simeq B_0^\vee$, i.e.~$J=i_0\overline{J}^t$ for some $i_0\in L^*$.
+	 \pause \item If $\mu$ and $\mu'$ are principal polarizations of $B_0$ ...
+	 \pause \item ... then $(B_0,\mu) \simeq (B_0,\mu')$ (as PPAVs) if and only if there is $v\in T^*$ such that $\cG(\mu)=v\overline{v}\cG(\mu')$.
+	 \pause \item Let $\cT$ be transversal of $T^*/<v\overline{v} : v \in T^*>$.
+	 \pause \item Then 
+	 \[ \Palpha{\Phi}{J}:=\{ i_0 \cdot u  : u \in \mathcal{T} \text{ s.t.~} \alpha^{-1} i_0 u \text{ is tot.~imaginary and } \Phi\text{-positive} \} \]
+	 is a set or representatives of the PPs of $B_0$ up to isomorphism.
+	 \pause \item It depends on $\alpha$!
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{ Effective Results I }
+	\begin{theorem}[1]
+		Denote by $S^*_\R$ (resp.~$T^*_\R$) the group of totally real units of $S$ (resp.~$T$).
+		\pause If $S^*_\R\subseteq T^*_\R$, then the set
+		\[ \Palpha{\Phi}{J}:=\{ i_0 \cdot u  : u \in \mathcal{T} \text{ s.t.~} \alpha^{-1} i_0 u \text{ is tot.~imaginary and } \Phi\text{-positive} \} \]
+	    is in bijection with the set
+		\pause \[
+		    \Pone{\Phi}{J}=\{ i_0 \cdot u: u \in \mathcal{T} \text{ such that } i_0 u \text{ is totally imaginary and $\Phi$-positive } \},
+		\]
+		which does not depend on $\alpha$.
+	\end{theorem}
+	\pause 
+	\begin{cor}
+		If $\Z[F,V] \in \mathcal{S}_\Phi$ (eg. $\AV_h(p)$ is ordinary or almost-ordinary) then we can ignore $\alpha$.
+	\end{cor}
+\end{frame}
+
+\begin{frame}{ Effective Results II }
+	\begin{theorem}[2]
+		Assume that there are $r$ isomorphism classes of abelian varieties in $\AV_h(p)$ with endomorphism ring $T$, represented under $\cG$ by the fractional ideals  $I_1,\ldots,I_r$.
+		\pause For any CM-type $\Phi'$, we put
+		\[   \Pone{\Phi'}{I_i}=\{ i_0 \cdot u: u \in \mathcal{T} \text{ such that } i_0 u \text{ is totally imaginary and $\Phi'$-positive } \}. \]
+		\pause If there exists a non-negative integer $N$ such that for every CM-type $\Phi'$ we have
+		\[
+		    \vert \Pone{\Phi'}{I_1} \vert + \ldots + \vert \Pone{\Phi'}{I_r} \vert = N
+		\]
+		then there are exactly $N$ isomorphism classes of principally polarized abelian varieties with endomorphism ring $T$. 
+	\end{theorem}
+\end{frame}
+
+\begin{frame}{ }
+    \begin{proof}
+        \begin{itemize}
+        \item Consider the association $\Phi'\mapsto b$ where $b\in L^*$ is tot.~imaginary and $\Phi'$-positive.
+        \pause \item We can go back: for every $b$ tot.~imaginary there exists a unique CM-type $\Phi_b$ s.t.~$b$ is $\Phi_b$-positive.
+        \pause \item Hence the totally real elements of $L^*$ acts on the set of CM-types.
+        \pause \item If $\Phi=\Phi_{b}$ is the CM-type for which we have a canonical lift (as before)
+        then $\Palpha{\Phi_b}{I_i} \longleftrightarrow \Pone{\Phi_{\alpha b}}{I_i}$.
+        \pause \item If the we get the 'same sum' (over the $I_i$'s) for every CM-type we know that the result must be the correct one! 
+        \end{itemize}
+    \end{proof}
+    \pause Note: even if the sum is not the same for all $\Phi'$'s then we know that one of the outputs is the correct one!
+\end{frame}
+
+\begin{frame}{ }
+	We run computations over all squarefree isogeny classes over small prime fields of dim $2,3$ and $4$. 
+	\pause For example:
+	\begin{table}[ht]
+	    \centering
+	    \small
+	    \begin{tabular}{|c|c|c|c|c|c|c|}\hline
+	\multicolumn{3}{|c|}{squarefree dimension $3$}                  & $p=2$ & $p=3$ & $p=5$ & $p=7$ \\\hline
+	\multicolumn{3}{|c|}{total}                                     & $185$ & $621$  & $2863$ & $7847$ \\\hline                    
+	\multicolumn{3}{|c|}{ordinary}                                  & $82$ & $390$  & $2280$  & $6700$ \\\hline
+	\multicolumn{3}{|c|}{almost ordinary}                           & $58$ & $170$  & $474$  & $996$  \\\hline
+	\multirow{3}{*}{$p$-rank $1$} & \multicolumn{2}{|c|}{no RRC}    & $0$ & $0$   & $0$   & $0$   \\\cline{2-7}
+	                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $20$ & $26$   & $76$   & $118$   \\\cline{3-7}
+	                              &                          & Thm 1 no  & $4$ & $16$   & $12$   & $8$   \\\hline
+	\multirow{3}{*}{$p$-rank $0$}   & \multicolumn{2}{|c|}{no RRC}    & $0$ & $3$   & $2$   & $1$   \\\cline{2-7}
+	                              & \multirow{2}{*}{yes RRC} & Thm 1 yes & $20$ & $15$   & $17$   & $23$   \\\cline{3-7}
+	                              &                          & Thm 1 no  & $1$ & $1$   & $2$   & $1$   \\\hline                              
+	    \end{tabular}
+	%    \caption{Squarefree isogeny classes of dimension $3$. The notation is the same as in Table \ref{tab:dim2}.}
+	%    \label{tab:dim3}
+	\end{table}
+    \pause Among the $45$ isogeny classes which we cannot 'handle' with Thm 1, we can compute the number of PPAV for $32$ of them using Thm 2. For the remaining $13$ (all over $\F_2$ and $\F_3$) we only get partial info.
+\end{frame}
+
+\begin{frame}{ }
+\begin{center}
+\green{\huge Thank you!}
+\end{center}
+\end{frame}
+
+\end{document}

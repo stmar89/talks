@@ -1,0 +1,36 @@
+Hello,
+
+we would like to invite you to give a talk at the seminar of Algorithmic
+number theory in Bordeaux (France).
+
+The seminar takes place every Tuesday at 11 a.m.
+
+Elena Berardini, in Cc, told me that you are visiting in the week of
+14/11. Would you like to give a talk at that date ?
+
+The public of the seminar is interested in questions of algorithmic
+number theory and cryptography. One can assume a good luggage of
+mathematicas knowledge and a great interest in cryptography.
+
+############
+
+Thank you for accepting our invitation. I reserve the date 14/11 for you.
+
+The seminar lasts 50 minutes + 10 minutes of questions. It can be on both slides and blackboard. They are in the room, ready to be used as you wish. We usually like to transmit the talks on zoom and the quality is not so ideal on the blackboard but good enough not to forbid this possibility.
+
+We put the title and abstract at leat one week in advance. The best would be 2 weeks.
+
+https://www.math.u-bordeaux.fr/imb/seminaire-de-theorie-algorithmique-des-nombres?lang=en
+
+cheers,
+
+Razvan 
+
+
+#############
+
+Title : Computing isomorphism classes and polarisations of abelian varieties over finite fields.
+
+Abstract: We consider abelian varieties over a finite field which are ordinary, or over a prime field, and which have commutative endomorphism algebra.
+Works of Deligne and Centeleghe-Stix allow us to describe these abelian varieties in terms of fractional ideals of an order in an étale algebra. I will explain how such descriptions can be exploited to explictly compute the abelian varieties up to isomorphism. 
+Moreover, results by Howe give us a way to compute principal polarisations of the abelian varieties in the ordinary case. In a joint work with Bergström and Karemaker we extend these results to the prime field case.

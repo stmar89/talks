@@ -1,0 +1,3 @@
+Title : Computing isomorphism classes of abelian varieties over finite fields.
+
+Abstract : Deligne and Centeleghe-Stix described functors inducing equivalences between certain categories of abelian varieties over finite fields and modules with a Frobenius endomorphism. We will describe an algorithm that given a characteristic polynomial of Frobenius returns the representatives of the isomorphism classes of abelian varieties. In the ordinary case, building on the work Howe, we will be able to compute also polarizations and period matrices. 

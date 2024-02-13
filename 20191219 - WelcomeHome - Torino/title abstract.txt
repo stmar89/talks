@@ -1,0 +1,3 @@
+"Representing abelian varieties"
+
+Abelian varieties are projective varieties whose set of points naturally forms a group. In particular they can be described by equations in some projective space. But when the dimension is higher than one, these equations are very cumbersome. In this talk we will give an overview of how can we overcome this difficulty over various fields of definition.

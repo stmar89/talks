@@ -1,0 +1,7 @@
+- It fits well timewise in a 45 minutes presentation (going a bit fast).
+- Too dense of info for a general mathematical audience.
+- Put Hensel's Lemma after the introduction of the Teichmuller reps, as the tool to concretely build such reps.
+- ATTENTION: What is the T. reps of 2 \in F_5? Shouldn't it have only one entry in the first coordinate and the rest 0?
+- Quote the Hasse principle as an application of the p-adics.
+- Can skip \Q_p and define only \Z_p, to reduce the amount of info.
+

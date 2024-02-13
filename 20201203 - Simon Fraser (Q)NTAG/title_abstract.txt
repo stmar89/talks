@@ -1,0 +1,14 @@
+Hi Türkü,
+
+here are the details of the talk:
+
+Title: Products and Polarizations of Super-Isolated Abelian Varieties
+
+Abstract: Super-isolated abelian varieties are abelian varieties over finite fields whose isogeny class contains a single isomorphism class. In this talk we will review their properties, consider their products and, in the ordinary case, we will describe their (principal) polarizations.
+
+
+Thank you!
+
+Best,
+
+Stefano

@@ -1,0 +1,22 @@
+Title: Cohen-Macaulay type of endomorphism rings of abelian varieties over finite fields.
+
+Abstract: Given an order in a number field, or, more generally, in an étale algebra over Q, we will study its (Cohen-Macaulay) type.
+
+We give two applications about abelian varieties over finite fields, with commutative endomorphism algebra, which are ordinary or over a prime field.
+The first is a sufficient condition, which involves the type of End(A), for A not being isomorphic to its dual. In particular, such an A cannot be principally polarised or a Jacobian.
+As a second application, we show that the group of points of A is uniquely determined by End(A) if the type of End(A) is < 3.
+
+#Comments about the talk:
+* It is too long. I could not state and prove both Application Theorems.
+* If one has to give more background about AVs/Fq it is impossible to fit in 1h.
+* One possibility, that could make the talk go faster, is the following:
+
+- Say that End c End^0 is an order in an étale algebra over Q
+- Del/CS Theorem: fractional ideals.
+	This will be strong motivation to study fractional ideal.
+	Get an interpretation of (I:I) as endomorphism ring.
+	If (I:I) is Gorenstein then we understand the fractional ideals.
+	Want to go beyond Gorenstein.
+- Define trace dual, and type.
+- Prop: If type(I:I)=2 then ...
+- Applications: 1 an 2. 

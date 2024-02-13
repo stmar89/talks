@@ -1,0 +1,7 @@
+https://www.math.u-bordeaux.fr/imb/seminaire-de-theorie-algorithmique-des-nombres?lang=en
+
+Title : Computing isomorphism classes and polarisations of abelian varieties over finite fields.
+
+Abstract: We consider abelian varieties over a finite field which are ordinary, or over a prime field, and which have commutative endomorphism algebra.
+Works of Deligne and Centeleghe-Stix allow us to describe these abelian varieties in terms of fractional ideals of an order in an étale algebra. I will explain how such descriptions can be exploited to explictly compute the abelian varieties up to isomorphism. 
+Moreover, results by Howe give us a way to compute principal polarisations of the abelian varieties in the ordinary case. In a joint work with Bergström and Karemaker we extend these results to the prime field case.

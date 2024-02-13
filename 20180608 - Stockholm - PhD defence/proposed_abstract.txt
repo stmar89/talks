@@ -1,0 +1,4 @@
+Deligne proved that the category of ordinary abelian varieties over a finite field is equivalent to the category of free finitely generated abelian groups endowed with an endomorphism satisfying certain easy-to-state axioms. Centeleghe and Stix extended this equivalence to all isogeny classes of abelian varieties over F_p without real Weil numbers.
+Using these descriptions, under some extra assumptions on the isogeny class, we obtain that in order to compute the isomorphism classes of abelian varieties we need to calculate the isomorphism classes of (non necessarily invertible) fractional ideals of some orders in certain étale algebras over Q.
+We present a concrete algorithm to perform these tasks and, for the ordinary case, to compute the polarizations and also the automorphisms of the polarized abelian variety.
+ 

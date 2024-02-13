@@ -1,0 +1,401 @@
+%PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fourier} % If mathematics don't display well using Times, then use Fourier.
+\usepackage{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsbsy}
+\usepackage[all]{xy}
+%\usepackage{graphics} 
+% \usepackage[pdftex]{graphicx} % for improved inclusion of graphics
+\usepackage{epstopdf} % converts eps figures to pdf
+%\usepackage{wrapfig} % to include figure with text wrapping around it
+\usepackage[margin=10pt,font=small,labelfont=bf]{caption} % for improved layout of figure captions with extra margin, smaller font than text
+\usepackage{fancyhdr} % for better header layout
+%\usepackage{eucal}
+\usepackage[english]{babel}
+%\usepackage[english,swedish]{babel}
+% \usepackage[usenames, dvipsnames]{color}
+\usepackage[perpage]{footmisc}
+\usepackage{enumerate} % enumerated list for List of Papers
+%\usepackage[sort,compress]{natbib}
+\usepackage{ifthen}
+% \usepackage{multicol} % for pages with multiple text columns, e.g. References
+\setlength{\columnsep}{20pt} % space between columns; default 10pt quite narrow
+%\usepackage[nottoc]{tocbibind} % correct page numbers for bib in TOC, nottoc suppresses an entry for TOC itself
+%\usepackage{nextpage}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+%\usepackage[swedish,english]{babel}
+\usepackage{ucs}
+\usepackage{graphicx}
+\usepackage{rotating} 
+% \usepackage{tikz}
+% \usetikzlibrary{matrix}
+% \usetikzlibrary{calc,intersections}
+\usepackage{amsmath} 
+\usepackage{mathrsfs}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{eqparbox}
+% \usepackage{titlesec}
+\usepackage{amsthm}
+
+
+%MATH OPERATORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\divisor}{div}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\res}{res}
+% \DeclareMathOperator{\red}{red}
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\component}{comp}
+\DeclareMathOperator{\smooth}{sm}
+\DeclareMathOperator{\length}{length}
+\DeclareMathOperator{\inv}{inv}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\ann}{ann}
+\let\Im\relax % Set equal to \relax so that LaTeX thinks it's not defined
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\Frob}{Frob}
+%CATEGORIES AND RELATED COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\Schemes}{Sch}
+\DeclareMathOperator{\Ab}{Ab}
+\DeclareMathOperator{\Sets}{Set}
+\DeclareMathOperator{\Groups}{Grp}
+\DeclareMathOperator{\Rings}{Rng}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\End}{End}
+%RELATED
+\newcommand{\op}{{\operatorname{op}}}
+
+%BLACKBOARD BOLD SYMBOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\P{\mathbb{P}}%changed; used to be P^1
+\def\A{\mathbb{A}}
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+\def\N{\mathbb{N}}
+
+%SHEAF VERSIONS OF COMMON OPERATORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\sheaflie{\mathcal{L}ie}
+\def\sheafhom{\mathcal{H}om}
+\newcommand{\sheafl}{\mathscr{L}}
+
+%BRACKETS AND PAIRINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\lleft{\left<\!\left<}%{\langle\langle}
+\def\rright{\right>\!\right>}%{\rangle\rangle}
+\newcommand{\Span}[1]{\left<#1\right>}
+\newcommand{\SSpan}[1]{\lleft#1\rright}
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+
+%SUB- AND SUPERSCRIPTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\algcl}{^{\textrm{alg}}}
+\newcommand{\sepcl}{{^{\textrm{sep}}}}
+\newcommand{\urcl}{{^{\textrm{ur}}}}
+\newcommand{\ssm}{_{\smooth}}
+
+%FONT ENCODING AND EXOTIC LETTERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[utf8]{inputenc}%%%Addedfor Kile
+%\usepackage[OT2,OT1]{fontenc}
+%\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+%\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+
+%USEFUL SYMBOLS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eps}{{\epsilon}}
+\newcommand{\vphi}{{\varphi}}
+\newcommand{\vpi}{{\varpi}}
+\newcommand{\vtheta}{{\vartheta}}
+\newcommand{\vep}{{\varepsilon}}
+
+\newcommand{\bbA}{{\mathbb A}}
+\newcommand{\bbB}{{\mathbb B}}
+\newcommand{\bbC}{{\mathbb C}}
+\newcommand{\bbD}{{\mathbb D}}
+\newcommand{\bbE}{{\mathbb E}}
+\newcommand{\bbF}{{\mathbb F}}
+\newcommand{\bbG}{{\mathbb G}}
+\newcommand{\bbH}{{\mathbb H}}
+\newcommand{\bbI}{{\mathbb I}}
+\newcommand{\bbJ}{{\mathbb J}}
+\newcommand{\bbK}{{\mathbb K}}
+\newcommand{\bbL}{{\mathbb L}}
+\newcommand{\bbM}{{\mathbb M}}
+\newcommand{\bbN}{{\mathbb N}}
+\newcommand{\bbO}{{\mathbb O}}
+\newcommand{\bbP}{{\mathbb P}}
+\newcommand{\bbQ}{{\mathbb Q}}
+\newcommand{\bbR}{{\mathbb R}}
+\newcommand{\bbS}{{\mathbb S}}
+\newcommand{\bbT}{{\mathbb T}}
+\newcommand{\bbU}{{\mathbb U}}
+\newcommand{\bbV}{{\mathbb V}}
+\newcommand{\bbW}{{\mathbb W}}
+\newcommand{\bbX}{{\mathbb X}}
+\newcommand{\bbY}{{\mathbb Y}}
+\newcommand{\bbZ}{{\mathbb Z}}
+
+
+\newcommand{\bA}{{\bf A}}
+\newcommand{\bB}{{\bf B}}
+\newcommand{\bC}{{\bf C}}
+\newcommand{\bD}{{\bf D}}
+\newcommand{\bE}{{\bf E}}
+\newcommand{\bF}{{\bf F}}
+\newcommand{\bG}{{\bf G}}
+\newcommand{\bH}{{\bf H}}
+\newcommand{\bI}{{\bf I}}
+\newcommand{\bJ}{{\bf J}}
+\newcommand{\bK}{{\bf K}}
+\newcommand{\bL}{{\bf L}}
+\newcommand{\bM}{{\bf M}}
+\newcommand{\bN}{{\bf N}}
+\newcommand{\bO}{{\bf O}}
+\newcommand{\bP}{{\bf P}}
+\newcommand{\bQ}{{\bf Q}}
+\newcommand{\bR}{{\bf R}}
+\newcommand{\bS}{{\bf S}}
+\newcommand{\bT}{{\bf T}}
+\newcommand{\bU}{{\bf U}} 
+\newcommand{\bV}{{\bf V}}
+\newcommand{\bW}{{\bf W}}
+\newcommand{\bX}{{\bf X}}
+\newcommand{\bY}{{\bf Y}}
+\newcommand{\bZ}{{\bf Z}}
+
+
+\newcommand{\fra}{{\mathfrak a}}
+\newcommand{\frb}{{\mathfrak b}}
+\newcommand{\frc}{{\mathfrak c}}
+\newcommand{\frd}{{\mathfrak d}}
+\newcommand{\fre}{{\mathfrak e}}
+\newcommand{\frf}{{\mathfrak f}}
+\newcommand{\frg}{{\mathfrak g}}
+\newcommand{\frh}{{\mathfrak h}}
+\newcommand{\fri}{{\mathfrak i}}
+\newcommand{\frj}{{\mathfrak j}}
+\newcommand{\frk}{{\mathfrak k}}
+\newcommand{\frl}{{\mathfrak l}}
+\renewcommand{\frm}{{\mathfrak m}}
+\newcommand{\frn}{{\mathfrak n}}
+\newcommand{\fro}{{\mathfrak o}}
+\newcommand{\frp}{{\mathfrak p}}
+\newcommand{\p}{{\mathfrak p}}
+% \newcommand{\frq}{{\mathfrak q}}
+\newcommand{\q}{{\mathfrak q}}
+\newcommand{\frr}{{\mathfrak r}}
+\newcommand{\frs}{{\mathfrak s}}
+\newcommand{\frt}{{\mathfrak t}}
+\newcommand{\fru}{{\mathfrak u}}
+\newcommand{\frv}{{\mathfrak v}}
+\newcommand{\frw}{{\mathfrak w}}
+\newcommand{\frx}{{\mathfrak x}}
+\newcommand{\fry}{{\mathfrak y}}
+\newcommand{\frz}{{\mathfrak z}}
+
+
+\newcommand{\frA}{{\mathfrak A}}
+\newcommand{\frB}{{\mathfrak B}}
+\newcommand{\frC}{{\mathfrak C}}
+\newcommand{\frD}{{\mathfrak D}}
+\newcommand{\frE}{{\mathfrak E}}
+\newcommand{\frF}{{\mathfrak F}}
+\newcommand{\frG}{{\mathfrak G}}
+\newcommand{\frH}{{\mathfrak H}}
+\newcommand{\frI}{{\mathfrak I}}
+\newcommand{\frJ}{{\mathfrak J}}
+\newcommand{\frK}{{\mathfrak K}}
+\newcommand{\frL}{{\mathfrak L}}
+\newcommand{\frM}{{\mathfrak M}}
+\newcommand{\frN}{{\mathfrak N}}
+\newcommand{\frO}{{\mathfrak O}}
+\newcommand{\frP}{{\mathfrak P}}
+\newcommand{\frQ}{{\mathfrak Q}}
+\newcommand{\frR}{{\mathfrak R}}
+\newcommand{\frS}{{\mathfrak S}}
+\newcommand{\frT}{{\mathfrak T}}
+\newcommand{\frU}{{\mathfrak U}}
+\newcommand{\frV}{{\mathfrak V}}
+\newcommand{\frW}{{\mathfrak W}}
+\newcommand{\frX}{{\mathfrak X}}
+\newcommand{\frY}{{\mathfrak Y}}
+\newcommand{\frZ}{{\mathfrak Z}}
+
+
+
+
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\cG}{{\mathcal G}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cI}{{\mathcal I}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cK}{{\mathcal K}}
+\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cQ}{{\mathcal Q}}
+\newcommand{\cR}{{\mathcal R}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cW}{{\mathcal W}}
+\newcommand{\cX}{{\mathcal X}}
+\newcommand{\cY}{{\mathcal Y}}
+\newcommand{\cZ}{{\mathcal Z}}
+
+
+
+\newcommand{\Qp}{{\mathbb Q_p}} % p-adische Zahlen
+\newcommand{\Qps}{\mathbb Q_{p^s}} % p^s-adische Zahlen
+\newcommand{\Cp}{\mathbb C_p} % Komplettierung von \overline{Q_p}
+\newcommand{\Zp}{\mathbb Z_p} % p-adische Zahlen
+\newcommand{\Fp}{\mathbb F_p} % endlicher K\"{o}rper mit p Elementen
+\newcommand{\Zpn}{\mathbb Z_p/p^n\Zp} % p-adische Zahlen mod p^n
+
+
+\newcommand{\Ql}{\mathbb Q_\ell} % l-adische Zahlen
+\newcommand{\Zl}{\mathbb Z_\ell} % l-adische ganze Zahlen
+\newcommand{\Zln}{\Zl/\ell^n\Zl} % l-adische Zahlen mod l^n
+\newcommand{\Zn}{\Z/n\Z} % Z mod n
+
+\newcommand{\Rpn}{R/\pi^nR}
+\newcommand{\Rgn}{\mathbb R_{>0}} % positive reelle Zahlen
+
+\newcommand{\Lpn}{\Lambda/\pi^n\Lambda}
+\newcommand{\Ln}{\Lambda^{(n)}}
+
+\newcommand{\Gm}{\mathbb G_m} % multiplikative Gruppe
+
+\newcommand{\Fl}{\mbox{${\cal F} \!\!\!\!\!\!\!\; {\cal J}$}}
+
+\newcommand{\qd}{\hfill $\square$}
+
+\newcommand{\bksl}{\backslash}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\hra}{\hookrightarrow}
+\newcommand{\sub}{\subset}
+\newcommand{\Ind}{{\rm{Ind}}}
+
+\newcommand{\midc}{{\, | \,}}
+
+%THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{df}{Definition}[section]
+\newtheorem{prop}[df]{Proposition}
+% \newtheorem{lemma}[df]{Lemma}
+\newtheorem{thm}[df]{Theorem}
+\newtheorem{claim}[df]{Claim}
+\newtheorem{cor}[df]{Corollary}
+% \newtheorem{problem}[df]{Problem}
+\newtheorem{inclaim}{Claim}[df]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{aside}[df]{Aside}
+\newtheorem{conjecture}[df]{Conjecture}
+% \newtheorem{example}[df]{Example}
+
+\newtheorem*{df*}{Definition}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{thm*}{Theorem}
+\newtheorem*{claim*}{Claim}
+\newtheorem*{cor*}{Corollary}
+\newtheorem*{problem*}{Problem}
+\newtheorem*{inclaim*}{Claim}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{aside*}{Aside}
+\newtheorem*{conjecture*}{Conjecture}
+\newtheorem*{example*}{Example}
+
+\newtheorem{exss}{Exercise}[subsection]
+\newtheorem{exs}{Exercise}[section]
+\newtheorem{ex}{Exercise}
+\newtheorem*{ex*}{Exercise}
+\theoremstyle{definition}
+\newtheorem*{sol}{Solution}
+
+%MISC & PERSONAL
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\tam{c_{\tau}} %Tamagawa number
+\def\defeq{\stackrel{\text{\tiny def}}{=}}
+\def\O{\mathcal{O}}
+\newcommand{\linequiv}{\sim_{\text{\tiny lin}}}
+\newenvironment{system}%
+{\left\lbrace\begin{array}{@{}l@{}}}%
+{\end{array}\right.}
+\renewcommand{\mod}{\bmod}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand{\CHECK}{{\color{red}!!CHECK!!}}
+\newcommand{\st}{\ |\ }
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\bICM}{\overline{\ICM}}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Wk}{\cW}
+\DeclareMathOperator{\bWk}{\overline{\Wk}}
+\DeclareMathOperator{\NS}{NS}
+\DeclareMathOperator{\rank}{rank}
+\newcommand{\isoclass}[1]{\{ #1 \}}
+\newcommand{\wkclass}[1]{[ #1 ]}
+\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu}
+\DeclareMathOperator{\characteristic}{char}
+
+% \renewcommand{\red}[1]{\textcolor{red}{#1}} %comments on
+% % \renewcommand{\red}[1]{} %comments off
+
+\newcommand{\tensor}[1]{\underset{#1}{\otimes}}
+
+%MACROS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% add more flexibility to pmatrix and such, for example you can use [cc | c]
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
