@@ -1,5 +1,5 @@
-% \documentclass[usenames,dvipsnames]{beamer}
-\documentclass[usenames,dvipsnames,handout]{beamer}
+\documentclass[usenames,dvipsnames]{beamer}
+% \documentclass[usenames,dvipsnames,handout]{beamer}
 
 \usetheme{AnnArbor}
 % \usecolortheme{default}
@@ -378,7 +378,7 @@
 \pause    
     \begin{remark}
         Let $\cC_h$ be a {\bf squarefree} isogeny classes over the {\bf prime field $\F_p$}.
-        Building on work by Centeleghe-Stix, we get a bijection between the isomorphism classes of AVs in $\cC_h$ and the ideal class monoid of $\Z[\pi,p/\pi]$, as above.
+        Building on work by Centeleghe-Stix, we get a bijection between the isomorphism classes of AVs in $\cC_h$ and the ideal class monoid of $\Z[F,V]$, as above.
         But the functor is completely different! (eg.~It is contravariant)
     \end{remark}
 \end{frame}
@@ -453,36 +453,38 @@
 \end{frame}
 
 
-% \begin{frame}{Example}{}
-%     Concretely:
-% 	% {\scriptsize \begin{align*}
-% 	\begin{split} 
-% 	I_1 = & 2645633792595191 \Z \oplus (F + 836920075614551) \Z \oplus (F^2 + 1474295643839839)\Z \oplus\\
-% 	& \oplus (F^3 + 1372829830503387)\Z \oplus (F^4 + 1072904687510)\Z \oplus\\
-% 	& \oplus \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F + 6704806986143610)\Z \oplus\\
-% 	& \oplus \frac{1}{9}(F^6 + F^5 + F^4 + 8F^3 + 2F^2 + 2991665243621169) \Z \oplus\\
-% 	& \oplus \frac{1}{27}(F^7 + F^6 + F^5 + 17F^4 + 20F^3 + 9F^2 + 68015312518722201)\Z\\
-% 	\end{split}
-% 	% \intertext{principal polarizations:}
-% 	% \begin{split}
-% 	% x_{1,1} = \frac{1}{27}( & -121922F^7 + 588604F^6 - 1422437F^5 +\\
-% 	% 		  & +1464239F^4 + 1196576F^3 - 7570722F^2 + 15316479F - 12821193)\\ 
-% 	% %   \end{split}\\
-% 	% %   \begin{split}
-% 	% x_{1,2} = \frac{1}{27}( & 3015467F^7 - 17689816F^6 + 35965592F^5 -\\
-% 	% 		  & -64660346F^4 + 121230619F^3 - 191117052F^2 + 315021546F - 300025458)\\
-% 	%   \end{split}\\
-% 	% & \End(I_1) =  R\\
-% 	% & \#\Aut(I_1,x_{1,1}) = \#\Aut(I_1,x_{1,2}) = 2
-% 	% \end{align*}}
-% \end{frame}
+\begin{frame}{Example}{}
+    Concretely:
+	{\scriptsize \begin{align*}
+	\begin{split} 
+	I_1 = & 2645633792595191 \Z \oplus (F + 836920075614551) \Z \oplus (F^2 + 1474295643839839)\Z \oplus\\
+	& \oplus (F^3 + 1372829830503387)\Z \oplus (F^4 + 1072904687510)\Z \oplus\\
+	& \oplus \frac{1}{3}(F^5 + F^4 + F^3 + 2F^2 + 2F + 6704806986143610)\Z \oplus\\
+	& \oplus \frac{1}{9}(F^6 + F^5 + F^4 + 8F^3 + 2F^2 + 2991665243621169) \Z \oplus\\
+	& \oplus \frac{1}{27}(F^7 + F^6 + F^5 + 17F^4 + 20F^3 + 9F^2 + 68015312518722201)\Z\\
+	\end{split}
+	\intertext{principal polarizations:}
+	\begin{split}
+	x_{1,1} = \frac{1}{27}( & -121922F^7 + 588604F^6 - 1422437F^5 +\\
+			  & +1464239F^4 + 1196576F^3 - 7570722F^2 + 15316479F - 12821193)\\ 
+	%   \end{split}\\
+	%   \begin{split}
+	x_{1,2} = \frac{1}{27}( & 3015467F^7 - 17689816F^6 + 35965592F^5 -\\
+			  & -64660346F^4 + 121230619F^3 - 191117052F^2 + 315021546F - 300025458)\\
+	  \end{split}\\
+	& \End(I_1) =  R\\
+	& \#\Aut(I_1,x_{1,1}) = \#\Aut(I_1,x_{1,2}) = 2
+	\end{align*}}
+\end{frame}
 
 
 \begin{frame}{ }
     \begin{itemize}
     \item The equivalence is not just useful to classify the AVs!
     \pause
-    \item It can be used to compute polarizations, isogenies, and group of $\F_q$-points.
+    \item It can be used to compute polarizations, isogenies, and ...
+    \pause
+    \item ... group of $\F_q$-points.
     \pause
     \item In the rest of the talk, we will prove
     \end{itemize}
