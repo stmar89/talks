@@ -1,0 +1,9 @@
+#######
+Title: Abelian varieties over finite fields and their group of points
+Abstract: In this talk, I will describe how to efficiently represent abelian varieties over finite fields, classify them up to isomorphism, and study their group of points.
+########
+
+https://univ-rennes1-fr.zoom.us/j/89046973578
+password: 644099 
+
+1hour, including questions, I guess
