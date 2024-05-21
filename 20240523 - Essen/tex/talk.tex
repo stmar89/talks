@@ -1,5 +1,5 @@
-% \documentclass[usenames,dvipsnames]{beamer}
-\documentclass[usenames,dvipsnames,handout]{beamer}
+\documentclass[usenames,dvipsnames]{beamer}
+% \documentclass[usenames,dvipsnames,handout]{beamer}
 
 \usetheme{AnnArbor}
 % \usecolortheme{default}
@@ -66,12 +66,13 @@
 \newcommand{\cH}{{\mathcal H}}
 %\newcommand{\cM}{{\mathcal M}}
 \newcommand{\cT}{{\mathcal T}}
-%\newcommand{\cW}{{\mathcal W}}
+\newcommand{\cW}{{\mathcal W}}
 
 
 \newcommand{\vphi}{\varphi}
-
+\renewcommand{\frm}{{\mathfrak m}}
 \newcommand{\p}{{\mathfrak p}}
+
 \newcommand{\frf}{{\mathfrak f}}
 
 \newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
@@ -219,7 +220,7 @@
 \pause 
     \item Nevertheless, as we will see later, over a finite field $\F_q$, we obtain analogous results if we restrict ourselves to certain {\bf subcategories} of AVs.
 \pause
-    \item WARNING: all morphisms, endomorphisms, isogenies, etc.~are defined over $\F_q$.
+    \item \red{WARNING}: all morphisms, endomorphisms, isogenies, etc.~are defined over $\F_q$.
 	\end{itemize}
 \end{frame}
 
@@ -247,11 +248,11 @@
 
 \begin{frame}{ Endomorphism rings }
 	\begin{itemize}
-    \item $\End_{\F_q}(A)$ is a free $\Z$-module of finite rank ... 
+    \item $\End(A)$ is a free $\Z$-module of finite rank ... 
 \pause 
-    \item ... $\End_{\F_q}(A) \subset \End_{\F_q}(A)\otimes_\Z\Q$.
+    \item ... $\End(A) \subset \End(A)\otimes_\Z\Q$.
 \pause 
-    \item Denote by $\pi_A\in \End_{\F_q}(A)$ the Frobenius endomorphism of $A$.
+    \item Denote by $\pi_A\in \End(A)$ the Frobenius endomorphism of $A$.
 \pause 
     \item Tate: $h_A(x)$ is squarefree $\iff$ $\End(A)$ is commutative.\\
     (We will assume this for the rest of the talk.)
@@ -261,7 +262,7 @@
 \pause 
     \item The association $\pi_A \mapsto \pi$ allows us to identify $\End(A)$ with a special kind of subring of $K$:
 \pause 
-    \item $\Z[\pi,q/\pi] \subseteq \End_{\F_q}(A) \subseteq \cO_K$ are orders in $K$\\
+    \item $\Z[\pi,q/\pi] \subseteq \End(A) \subseteq \cO_K$ are orders in $K$\\
     (an {\bf order} $R$ in $K$ is a subring $R\subset K$ such that $R\simeq_\Z \Z^{\dim_\Q K}$).
 \pause 
     \item 
@@ -315,19 +316,20 @@
     $$(I:J)=\set{a \in K : aJ\subseteq I}
     \quad \text{and}\quad I^t=\set{a \in K : \Tr_{K/\Q}(a I)\subseteq \Z}$$
     are also fr.~$R$-ideals.
-    \item \pause We have $(I:I)^t = I\cdot I^t$.
+    \item \pause The order $(I:I)$ is the {\bf multiplicator ring} of $I$ and satisfies: 
+    $$(I:I)^t = I\cdot I^t.$$
     \item \pause A fr.~$R$-ideal $I$ is invertible if $I(R:I)=R$ ...
-    \item \pause ... or, equivalently, $I_\p \simeq R_\p$ as $R_\p$-modules for every $\p$ maximal $R$-ideal.\\
-        ($R_\p$ is the completion of $R$ at $\p$)
+    \item \pause ... or, equivalently, $I_\frm \simeq R_\frm$ as $R_\frm$-modules for every $\frm$ maximal $R$-ideal.\\
+        ($R_\frm$ is the completion of $R$ at $\frm$)
     \item \pause If $I$ is invertible, then $(I:I)=R$.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{ Cohen-Macaulay type and Gorenstein orders } 
     \begin{itemize}
-    \item Def: The {\bf (Cohen-Macaulay) type} of $R$ at a maximal ideal $\p$ is
-        \[ \type_\p (R) := \dim_{R/\p} \frac{R^t}{\p R^t}. \]
-    \item \pause Def: $R$ is {\bf Gorenstein} at $\p$ if $\type_\p(R)=1$.
+    \item Def: The {\bf (Cohen-Macaulay) type} of $R$ at a maximal ideal $\frm$ is
+        \[ \type_\frm (R) := \dim_{R/\frm} \frac{R^t}{\frm R^t}. \]
+    \item \pause Def: $R$ is {\bf Gorenstein} at $\frm$ if $\type_\frm(R)=1$.
     \item \pause Remark: these definitions coincides with the 'usual' ones.
     \item \pause Ex: monogenic $\Z[\alpha]$ and maximal $\cO_K$ orders are Gorenstein.\\
     (also $\Z[\pi,q/\pi]$ for AVs).
@@ -337,10 +339,10 @@
 
 \begin{frame}{ Classification for orders of type $\leq 2$ } 
     \begin{theorem}
-        Let $\p$ be a maximal ideal of $R$, and $I$ a fr.~$R$-ideal with $(I:I)=R$.
+        Let $\frm$ be a maximal ideal of $R$, and $I$ a fr.~$R$-ideal with $(I:I)=R$.
         \begin{enumerate}
-            \item \pause If $\type_\p(R)=1$ (Gorenstein) then $I_\p\simeq R_\p$ as $R_\p$-modules.
-            \item \pause If $\type_\p(R)=2$ then either $I_\p\simeq R_\p$ or $I_\p\simeq R^t_\p$  as $R_\p$-modules.
+            \item \pause If $\type_\frm(R)=1$ (Gorenstein) then $I_\frm\simeq R_\frm$ as $R_\frm$-modules.
+            \item \pause If $\type_\frm(R)=2$ then either $I_\frm\simeq R_\frm$ or $I_\frm\simeq R^t_\frm$  as $R_\frm$-modules.
         \end{enumerate}
     \end{theorem}
 
@@ -360,27 +362,28 @@
 
 \begin{frame}{ Proof of Part 2 } 
     \begin{itemize}
-    \item \pause Put $U = I/\p I$, $V = I^t/\p I^t$ and $W = R^t/\p R^t$.
+    \item \pause Put $U = I/\frm I$, $V = I^t/\frm I^t$ and $W = R^t/\frm R^t$.
     \item \pause By assumption $R^t = I \cdot I^t$, so the map $ m: U \otimes V \to W $ induced by multiplication $I \times I^t \to R^t$
     is surjective.
     \item \pause Moreover, $\dim W = 2$ (because of the assumption on the type).
     \item \pause By the Lemma:
     \begin{enumerate}
-        \item $\exists x \in I$ such that $m( (x+\p I) \otimes V  ) = \frac{x I^t + \p R^t }{ \p R^t }$ equals $W$.\\
-            By Nakayama's lemma: $I_\p^t\simeq R_\p^t \iff R_\p\simeq I_\p $,...
-        \item \pause ...or, $\exists y \in I^t$ such that $U \otimes m( U \otimes (y+\p) I^t ) = W $ implying $I^t_\p \simeq R_\p \iff I_\p \simeq R^t_\p$.
+        \item $\exists x \in I$ such that $m( (x+\frm I) \otimes V  ) = \frac{x I^t + \frm R^t }{ \frm R^t }$ equals $W$.\\
+            By Nakayama's lemma: $I_\frm^t\simeq R_\frm^t \iff R_\frm\simeq I_\frm $,...
+        \item \pause ...or, $\exists y \in I^t$ such that $U \otimes m( U \otimes (y+\frm) I^t ) = W $ implying $I^t_\frm \simeq R_\frm \iff I_\frm \simeq R^t_\frm$.
     \end{enumerate}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{ Back to AVs: Categorical equivalence(s) }
+    \pause
     Fix a squarefree characteristic poly $h(x)$ of Frobenius $\pi$ over $\F_q$.\\
-    Put $K=\Q[x]/h=\Q[\pi]$.\\
+    Put $K=\Q[x]/h=\Q[\pi]$.
     Let $\mathcal{I}_h$ be the corresponding isogeny class.
     \pause 
     \begin{theorem}
-        Assume that $q=p$ is prime or that $\mathcal{I}_h$ is ordinary.\\
-        \pause Then there is an {\bf equivalence} of categories
+        If $q=p$ is prime or that $\mathcal{I}_h$ is ordinary (coeff.~of $x^g$ in $h(x)$ is $\not\equiv 0\bmod p$)
+        \pause then there is an {\bf equivalence} of categories
         \[
         \begin{array}{cc}
         & \set{ \text{ $\mathcal{I}_h$ with $\F_q$--morphisms } }  \\
@@ -394,38 +397,147 @@
 \end{frame}
 
 \begin{frame}{ AVs: Isomorphism classes }
+    \begin{itemize}
+        \item
+        We get a bijection
+        \begin{align*}
+            \set{ \text{ isom.~classes of AVs in $\mathcal{I}_h$ } } \longleftrightarrow & \set{ \text{isom.~ classes of fr.~$\Z[\pi,q/\pi]$-ideals } }\\
+            & :=\blue{\ICM(\Z[\pi,q/\pi])} \text{ ideal class monoid}
+        \end{align*}
+        \item
+        If $\Z[\pi,q/\pi] = \cO_K$ is the maximal order then $\ICM(\Z[\pi,q/\pi]) = \Pic(\cO_K)$ is a product of class groups of number fields and we are good.
+        \item
+        \red{Problem:} $\Z[\pi,q/\pi]$ might not be a Dedekind ring $\rightsquigarrow $ \red{non-invertible} ideals.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{ICM : Ideal Class Monoid}
+    Let $R$ be an {\bf order} in an \'etale  $\Q$-algebra $K$.
+% according to Bourbaki etale (over a field K) implies commutative and finite (since it is defined as being isomorphic to L^n for some extension L of K).
+    \begin{itemize}
+\pause
+    \item Recall: for {\bf fractional $R$-ideals} $I$ and $J$
+	 \[ I\simeq_R J \Longleftrightarrow \exists x \in K^\times \text{ s.t.~} xI=J. \]
+\pause
+    \item \vspace*{-1em}
+    We have
+   	\begin{align*}
+    \ICM(R) & \supseteq \Pic(R)=\faktor{\set{\text{invertible fractional $R$-ideals}}}{\simeq_R} \\
+	\blue{\text{with equality }} & \blue{\rotatebox[origin=c]{90}{$\large\rightsquigarrow$}\mkern2mu \text{ iff } R=\cO_K }
+    \end{align*}
+\pause
+    \item \vspace*{-1em}
+    Simplify the problem by localizing: \textbf{weak equivalence}\\ (Dade, Taussky, Zassenhaus '62)
+    \[I_{\frm}\simeq_{R_{\frm}} J_{\frm} \text{ for every } {\frm} \in \mSpec(R)\]
+\pause
+    \vspace{-6mm}\[\Updownarrow\]
+    \[1\in (I:J)(J:I)\quad \textcolor{blue}{\text{easy to check!}}\]
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{   }
+%     \item We have
+%    	\begin{align*}
+%     \ICM(R) & \supseteq \Pic(R)=\faktor{\set{\text{invertible fractional $R$-ideals}}}{\simeq_R} \\
+% 	\blue{\text{with equality }} & \blue{\rotatebox[origin=c]{90}{$\large\rightsquigarrow$}\mkern2mu \text{ iff } R=\cO_K }
+%     \end{align*}
+% \pause 
+%     \item ...and actually
+%     \[ \ICM(R) \supseteq \bigsqcup_{\scriptsize\parbox{5 em}{$R\subseteq S \subseteq \cO_K$\\over-orders}}\Pic(S) \qquad   
+%      \textcolor{blue}{\text{with equality iff $R$ is Bass}} \]
+% \pause
+%     \item Hofmann-Sircana '19: computation of over-orders.
+    %     ...whose representatives can be found in
+%     \[\set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$ }} \quad \textcolor{blue}{\parbox{10 em}{finite! and most of the time not-too-big ...}}\]
+%     where $\frf_R=(R:\cO_K)$ is the conductor of $R$.
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{ Compute $\ICM(R)$ }
+    Let $\cW(R)$ be the set of weak eq.~classes. 
+\pause 
+    Partition w.r.t. the multiplicator ring:
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \[ \cW(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \cW_S(R)\]
+      \[ \ICM(R) = \bigsqcup_{R\subseteq S \subseteq \cO_K} \ICM_S(R)\]
+    \end{column}
+\pause
+    \begin{column}{0.5\textwidth}  %%<--- here
+    \begin{center}
+    \textcolor{blue}{\parbox{10em}{the ``pedix'' $-_S$ means ``only classes with multiplicator ring S''}} 
+    \end{center}
+    \end{column}
+    \end{columns}
+\pause
+    \begin{theorem}[M.] 
+    For every over-order $S$ of $R$, $\Pic(S)$ acts \red{freely} on $\ICM_S(R)$ and
+    \[ \cW_S(R) = \ICM_S(R) / \Pic(S). \]
+\pause
+    Repeat for every $R\subseteq S \subseteq \cO_K \rightsquigarrow \ICM(R)$.
+    \end{theorem}
+\end{frame}
+
+\begin{frame}{ Compute $\ICM(R)$ }
+    \begin{itemize}
+    \item To compute the overorders: see Hoffman-Sircana.
+\pause
+    \item To compute $\Pic(S)$: see Klüners-Pauli.
+\pause
+    \item To compute $W(R) = \sqcup W_S(R)$:
+\pause
+    \item all representatives can be found in
+        \[\set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$ }} \quad \textcolor{blue}{\parbox{10 em}{finite}}\]
+        where $\frf_R=(R:\cO_K)$ is the conductor of $R$.
+\pause
+    \item Can we use the type? Write $W_S(R) = \prod_{\frm \subset S} (W_S(R))_\frm$.
+\pause
+    \item We have proven that:\\
+        if the type of $S$ at $\frm$ is $1$ then $(W_S(R))_\frm = \{ [S_\frm] \}$, while \\
+        if the type of $S$ at $\frm$ is $2$ then $(W_S(R))_\frm = \{ [S_\frm], [S^t_\frm] \}$
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{ AVs: Group of rational points }
-
+    \begin{theorem}[ Springer-M. ]
+        $\mathcal{I}_h$ and $K=\Q[\pi]=\Q[x]/h$ as before.\\
+        \pause Let $R$ be an order in $K$ and $\frm$ a maximal ideal of $R$ (possibly but not necessarily above $p$). 
+        \pause Assume:
+        \[ \type_\frm(R) \leq 2 \text{ for every }\frm \supseteq (1-\pi)R.\]
+        \pause Then for every $A \in \mathcal{I}_h$ such that $\End(A)=R$ we have that $A(\F_q) = R/(1-\pi)R$.
+    \end{theorem}
+    \pause Proof: Say that $A \mapsto I$. Then $A(\F_q) = \ker(1-\pi_A) = \frac{I}{(1-\pi)I}=:M$.\\
+    \pause $M$ is finite: $M=\oplus_{\frm \supset (1-\pi)R} M_\frm$.\\
+    \pause If $I_\frm\simeq R_\frm$ then $M_\frm \simeq_R \frac{R_\frm}{(1-\pi)R_\frm}$.\\
+    \pause If $I_\frm \simeq R^t_\frm$ then $M_\frm \simeq_R \frac{R^t_\frm}{(1-\pi)R^t_\frm} \simeq_\Z \frac{R_\frm}{(1-\pi)R_\frm}$.
 \end{frame}
 
 \begin{frame}{ AVs: self-duality }
     \begin{theorem}[ Springer-M. ]
         $\mathcal{I}_h$ and $K=\Q[\pi]=\Q[x]/h$ as before.\\
-        \pause Let $R$ be an order in $K$ and $\p$ a maximal ideal of $R$ (possibly but not necessarily above $p$). 
+        \pause Let $R$ be an order in $K$ and $\frm$ a maximal ideal of $R$. 
         \pause Assume:
-        \[ R=\overline{R}, \quad \p = \overline{\p},\quad \text{and}\quad \type_\p(R) = 2 .\]
+        \[ R=\overline{R}, \quad \frm = \overline{\frm},\quad \text{and}\quad \type_\frm(R) = 2 .\]
         \pause Then for every $A \in \mathcal{I}_h$ such that $\End(A)=R$ we have that $A\not\simeq A^\vee$. 
         \pause In particular, such an $A$ cannot be principally polarized nor a Jacobian.
     \end{theorem}
     \pause Proof: Say that $A \mapsto I$. Hence $A^\vee \mapsto \overline{I}^t$.\\
-    \pause By the Classification: either $I_\p\simeq R_\p$ or $I_\p\simeq R_\p^t$.\\
-    \pause In the first case: $\overline{I}_\p^t = \overline{I}_{\overline{\p}}^t \simeq R^t_\p \not\simeq R_\p$.\\
-    \pause Similarly, in the second: $\overline{I}_\p^t = \overline{I}_{\overline{\p}}^t \simeq R_\p \not\simeq R_\p^t$.\\
+    \pause By the Classification: either $I_\frm\simeq R_\frm$ or $I_\frm\simeq R_\frm^t$.\\
+    \pause In the first case: $\overline{I}_\frm^t = \overline{I}_{\overline{\frm}}^t \simeq R^t_\frm \not\simeq R_\frm$.\\
+    \pause Similarly, in the second: $\overline{I}_\frm^t = \overline{I}_{\overline{\frm}}^t \simeq R_\frm \not\simeq R_\frm^t$.\\
     \pause In both cases: $I\not\simeq \overline{I}^t \iff A\not \simeq A^\vee$.
 \end{frame}
 
 \begin{frame}{ Some stats and refs }
-    \red{Be more precise in this slide\\}
-    Soon on the LMFDB there will be tables of isomorphism classes of AVs$/\F_q$.
-    \pause Over $615269$ isogeny classes for $1\leq g \leq 5$ and various $q$, we encountered
+    How often do the hypothesis of the previous theorem ($R=\overline R$, exists $\frm =\overline \frm$ with $\type_\frm(R)=2$) do occur?\\
+
+    We computed the isomorphism classes of AVs$/\F_q$ (see LMFDB xyz) for $615.269$ isogeny classes (for $1\leq g \leq 5$ and various $q$).\\
+    We encountered
     \begin{itemize}
         \item $3.914.908$ commutative endomorphism rings, of which:
         \item \pause $72.6 \%$ satisfy $R=\overline{R}$;
         \item \pause $10.3 \%$ satisfy $R=\overline{R}$ and are non-Gorenstein;
-        \item \pause $7.4 \%$ satisfy $R=\overline{R}$, are non-Gorenstein and the Theorem applies.
+        \item \pause $7.4 \%$ satisfy $R=\overline{R}$, are non-Gorenstein and $\exists \frm=\overline \frm$ s.t.~with $\type_\frm(R)=2$.
 	\end{itemize}
 \end{frame}
 
@@ -434,12 +546,12 @@
     \green{\huge Thank you!}
     \end{center}
     \pause 
-    {\footnotesize References:
+    {\footnotesize Main references:
     \begin{itemize}
         \item \emph{Cohen-Macaulay type of orders, generators and ideal classes}\\
             \url{https://arxiv.org/abs/2206.03758}
         \item \emph{Abelian varieties over finite fields and their groups of rational points}\\
-            with Caleb Springer,\\
+            with Caleb Springer, to appear in Algebra\&Number Theory\\
             \url{https://arxiv.org/abs/2211.15280}
         \item Magma package for \'etale $\Q$-algebras\\
             \url{https://github.com/stmar89/AlgEt} 
