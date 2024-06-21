@@ -1,0 +1,5 @@
+Title: Cohen-Macaulay type of endomorphism rings of abelian varieties over finite fields
+
+Abstract: Let A be an abelian variety over a finite field Fq with commutative Fq-endomorphism ring S, which is an order in an étale algebra over Q. We will study the (Cohen-Macaulay) type of S. When the type is 1 or 2, we will see: that we can easily compute the isomorphism classes of the abelian varieties isogenous to A with the same endomorphism ring S; that the group of Fq-rational points of A is uniquely determined by S; a necessary condition for A to not be isomorphic to its dual variety.
+
+60 minutes
