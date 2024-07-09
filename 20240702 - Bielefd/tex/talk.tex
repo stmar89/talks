@@ -1,5 +1,5 @@
-% \documentclass[usenames,dvipsnames]{beamer}
-\documentclass[usenames,dvipsnames,handout]{beamer}
+\documentclass[usenames,dvipsnames]{beamer}
+% \documentclass[usenames,dvipsnames,handout]{beamer}
 
 \usetheme{AnnArbor}
 % \usecolortheme{default}
@@ -106,7 +106,7 @@
 % \subtitle{\onslide<2->{...or...\\when an abelian variety met Bruns-Herzog's book.}}
 \author[Stefano Marseglia]{Stefano Marseglia}
 \institute[]{University of French Polynesia}
-\date[23 May 2024]{Essen Oberseminar - 23 May 2024.}
+\date[23 May 2024]{Bielefeld - 2 July 2024.}
 
 \begin{document}
 
@@ -373,6 +373,7 @@
         \item \pause ...or, $\exists y \in I^t$ such that $U \otimes m( U \otimes (y+\frm) I^t ) = W $ implying $I^t_\frm \simeq R_\frm \iff I_\frm \simeq R^t_\frm$.
     \end{enumerate}
 	\end{itemize}
+    \pause \hspace{0.5cm}QED
 \end{frame}
 
 \begin{frame}{ Back to AVs: Categorical equivalence(s) }
@@ -382,7 +383,7 @@
     Let $\mathcal{I}_h$ be the corresponding isogeny class.
     \pause 
     \begin{theorem}
-        If $q=p$ is prime or that $\mathcal{I}_h$ is ordinary (coeff.~of $x^g$ in $h(x)$ is $\not\equiv 0\bmod p$)
+        If $q=p$ is prime or $\mathcal{I}_h$ is ordinary (coeff.~of $x^g$ in $h(x)$ is $\not\equiv 0\bmod p$)
         \pause then there is an {\bf equivalence} of categories
         \[
         \begin{array}{cc}
@@ -404,6 +405,7 @@
             \set{ \text{ isom.~classes of AVs in $\mathcal{I}_h$ } } \longleftrightarrow & \set{ \text{isom.~ classes of fr.~$\Z[\pi,q/\pi]$-ideals } }\\
             & :=\blue{\ICM(\Z[\pi,q/\pi])} \text{ ideal class monoid}
         \end{align*}
+        \item To {\bf classify} the AVs in $\mathcal{I}_h$ we need to compute the $\ICM$.
         \item
         If $\Z[\pi,q/\pi] = \cO_K$ is the maximal order then $\ICM(\Z[\pi,q/\pi]) = \Pic(\cO_K)$ is a product of class groups of number fields and we are good.
         \item
@@ -484,17 +486,17 @@
 \pause
     \item To compute $\Pic(S)$: see Klüners-Pauli.
 \pause
-    \item To compute $W(R) = \sqcup W_S(R)$:
+    \item To compute $\cW(R) = \sqcup \cW_S(R)$:
 \pause
     \item all representatives can be found in
         \[\set{\text{sub-$R$-modules of $\faktor{\cO_K}{\frf_R}$ }} \quad \textcolor{blue}{\parbox{10 em}{finite}}\]
         where $\frf_R=(R:\cO_K)$ is the conductor of $R$.
 \pause
-    \item Can we use the type? Write $W_S(R) = \prod_{\frm \subset S} (W_S(R))_\frm$.
+    \item Can we use the type? Write $\cW_S(R) = \prod_{\frm \subset S} (\cW_S(R))_\frm$.
 \pause
     \item We have proven that:\\
-        if the type of $S$ at $\frm$ is $1$ then $(W_S(R))_\frm = \{ [S_\frm] \}$, while \\
-        if the type of $S$ at $\frm$ is $2$ then $(W_S(R))_\frm = \{ [S_\frm], [S^t_\frm] \}$
+        if the type of $S$ at $\frm$ is $1$ then $(\cW_S(R))_\frm = \{ [S_\frm] \}$, while \\
+        if the type of $S$ at $\frm$ is $2$ then $(\cW_S(R))_\frm = \{ [S_\frm], [S^t_\frm] \}$
     \end{itemize}
 \end{frame}
 
@@ -545,10 +547,9 @@
     \begin{center}
     \green{\huge Thank you!}
     \end{center}
-    \pause 
     {\footnotesize Main references:
     \begin{itemize}
-        \item \emph{Cohen-Macaulay type of orders, generators and ideal classes}\\
+        \item \emph{Cohen-Macaulay type of orders, generators and ideal classes}\\ to appear in Journal of Algebra\\
             \url{https://arxiv.org/abs/2206.03758}
         \item \emph{Abelian varieties over finite fields and their groups of rational points}\\
             with Caleb Springer, to appear in Algebra\&Number Theory\\

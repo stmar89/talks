@@ -1,0 +1,260 @@
+\documentclass[usenames,dvipsnames]{beamer}
+%  \documentclass[usenames,dvipsnames,handout]{beamer}
+
+\usetheme{AnnArbor}
+% \usecolortheme{default}
+% \usecolortheme{crane}
+\usecolortheme{beaver}
+\usecolortheme{dolphin}
+% \usecolortheme{orchid}
+% \usecolortheme{rose}
+
+
+\usepackage{fourier}
+\usepackage{faktor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{faktor}
+%\usepackage{stmaryrd}
+\usepackage{hyperref}
+\usepackage[all]{xy}
+\usepackage{tikz}
+%    \usetikzlibrary{mindmap,shadows,shapes.geometric,shapes.misc,positioning}
+\usepackage{tikz-cd}
+% \tikzset{
+%     invisible/.style={opacity=0},
+%     visible on/.style={alt={#1{}{invisible}}},
+%     alt/.code args={<#1>#2#3}{%
+%       \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}}%
+%   }
+% }
+%\usetikzlibrary{matrix}
+%\usetikzlibrary{calc,intersections}
+%\newcommand{\downmapsto}{\rotatebox[origin=c]{-90}{$\large\mapsto$}\mkern2mu} %MnSymbol doesn't work well with beamer
+\usepackage{multirow}
+
+\def\Q{\mathbb{Q}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\R{\mathbb{R}}
+\def\F{\mathbb{F}}
+
+\DeclareMathOperator{\AV}{AV}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Pol}{Pol}
+\DeclareMathOperator{\Char}{char}
+\DeclareMathOperator{\rk}{Rank}
+\DeclareMathOperator{\Frob}{Frob}
+\DeclareMathOperator{\ICM}{ICM}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\mSpec}{mSpec}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Jac}{Jac}
+%\renewcommand{\char}{char} %CRASHES WITH beamer
+
+
+\newcommand{\cG}{\mathcal{G}}
+%\newcommand{\cB}{{\mathcal B}}
+%\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cL}{{\mathcal L}}
+%\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cT}{{\mathcal T}}
+%\newcommand{\cW}{{\mathcal W}}
+
+
+\newcommand{\vphi}{\varphi}
+
+\newcommand{\p}{{\mathfrak p}}
+\newcommand{\frf}{{\mathfrak f}}
+
+\newcommand{\set}[1]{\left\lbrace#1\right\rbrace }
+\newcommand{\Span}[1]{\left<#1\right>}
+
+%\newcommand{\AVord}[1]{\AV^{\text{ord}}({#1})}
+%\newcommand{\Modord}[1]{\cM^{\text{ord}}({#1})}
+
+%\newcommand{\AVcs}[1]{\AV^{\text{cs}}({#1})}
+%\newcommand{\Modcs}[1]{\cM^{\text{cs}}({#1})}
+
+\newcommand{\Acan}{\mathcal{A}_{\mathrm{can}}}
+\newcommand{\AcanC}{A_{\mathrm{can}}}
+\newcommand{\Palpha}[2]{\mathcal{P}^{\alpha}_{{#1}}({#2})}
+\newcommand{\Pone}[2]{\mathcal{P}^{1}_{{#1}}({#2})}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\green}[1]{\textcolor{ForestGreen}{#1}}
+
+\newtheorem{df}{Definition}[section]
+\newtheorem{remark}[df]{Remark}
+\newtheorem{prop}[df]{Proposition}
+\newtheorem{cor}[df]{Corollary}
+
+
+
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[ANTS XVI - MIT]{Modules over orders,\\conjugacy classes of integral matrices and\\ abelian varieties over finite fields}
+\subtitle{}
+\author[Stefano Marseglia]{}
+% \institute[]{}
+\date[July 18 2024]{}
+
+\begin{document}
+\begin{frame}{}
+   \maketitle
+   % \begin{center}
+   %    \pause Don't forget to motivate your answers.\\
+   %    \pause The use of the (Magma) calculator is allowed.
+   % \end{center}
+\end{frame}
+
+
+\begin{frame}{}
+   \begin{itemize}
+      \item Let $R$ be a commutative ring with unity.
+      \item $A,B \in \Mat_{n\times n}(R)$ are {\bf $R$-conjugate} ($A\sim_R B$) if $AP=PB$ for some $P\in \GL_n(R)$.
+      \item The minimal polynomial of $A \in \Mat_{n\times n}(R)$ is the polynomial of smallest degree such that $m(A) = O$ (the zero $n\times n$ matrix).
+      \item The characteristic polynomial of $A \in \Mat_{n\times n}(R)$ is $\det(A-xI_n)$.
+   \end{itemize}
+   {\bf Question 1:} 
+   \pause Are the following two matrices $\Q$-conjugate? Are they $\Z$-conjugate?
+   \[
+   A=\begin{pmatrix}
+      0 & -1 \\ 5 & 0
+   \end{pmatrix}, \quad
+   B=\begin{pmatrix}
+      -1 & 2 \\ -3 & 1
+   \end{pmatrix}
+   \]
+   \pause
+   {\bf Answer(s):}\\ 
+   \pause Over $\Q$: yes! Same characteristic polynomial $x^2+5$, which is irreducible.\\
+   \pause {\bf But...}\\    
+   \pause Over $\Z$: no! Every such a $P$ must have even determinant.
+\end{frame}
+
+\begin{frame}{}
+   {\bf Set-up} 
+   Fix monic polynomials $m=m_1\cdots m_n$ and $h=m_1^{s_1}\cdots m_n^{s_n}$ in $\Z[x]$ with 
+   \begin{itemize}
+      \item each $m_i$ irreducible and 
+      \item $m_i\neq m_j$ if $i\neq j$. (i.e.~$m$ is squarefree)
+   \end{itemize}
+   
+   \pause {\bf Question 2.1}
+   Can we describe the representatives of the $\Z$-conjugacy classes of matrices with:
+   \begin{itemize}
+      \item minimal polynomial $m$, and
+      \item characteristic polynomial $h$?
+   \end{itemize}
+   \pause
+   {\bf Answer:}
+   \begin{theorem}[(generalized) Latimer-MacDuffee]
+      The order $\Z[\pi]=\frac{\Z[x]}{(m)}$ acts on $V=\left(\frac{\Q[x]}{m_1}\right)^{s_1}
+      \times \ldots \times 
+      \left(\frac{\Q[x]}{m_n}\right)^{s_n}$.\\
+      We have a bijection
+      \[ \begin{array}{cc}
+         \faktor{\set{\parbox[p]{7.5em}{$\Z[\pi]$-lattices in $V$}}}
+         {\simeq_{\Z[\pi]}}\\
+         \pause \updownarrow\\
+         \faktor{\set{\text{matrices with min.~poly.~$m$ and char.~poly.~$h$}}}{\sim_\Z}\\
+      \end{array} \]
+   \end{theorem}
+\end{frame}
+
+\begin{frame}
+   Proof (idea):\\
+
+\end{frame}
+
+\begin{frame}{}\
+   \noindent{\bf Question 3} 
+   How do you compute abelian varieties over $\F_q$ with ordinary characteristic polynomial of Frobenius $h=m_1^{s_1}\cdots m_n^{s_n}$ (up to $\F_q$-isomorphism)?\\
+   \pause
+   {\bf Answer:} Do the same thing with $\Z[\pi,q/\pi]$ instead of $\Z[\pi]$:
+   \pause 
+   \begin{theorem}[Deligne]
+      \[ \begin{array}{cc}
+         \faktor{\set{\text{abelian varieties with char.~poly. $h$}}}{\simeq_{\F_q}}\\
+         \pause \updownarrow\\
+         \faktor{\set{\parbox[p]{19em}{$\Z$-lattices in 
+            $V= \left(\frac{\Q[x]}{m_1}\right)^{s_1}
+            \times \ldots \times 
+            \left(\frac{\Q[x]}{m_n}\right)^{s_n}$
+            closed under multiplication by $\pi:=x\bmod m$ and $q/\pi$
+            }}}{\simeq_{\Z[\pi,q/\pi]}}
+      \end{array} \]
+   \end{theorem}
+\end{frame}
+
+\begin{frame}
+   How do we make this theorems effective?
+\end{frame}
+
+\begin{frame}{}\
+   {\bf Set-up}:
+   \begin{itemize}
+      \item $K_1,\ldots,K_n$ number fields, with ring of integers $\cO_i\subset K_i$.
+      \item $K=K_1\times \ldots \times K_n$.
+      \item $\cO=\cO_1\times \ldots \times \cO_n$, the maximal order of $K$.
+      \item $s_1,\ldots,s_n$ positive integers and $V = K_1^{s_1}\times \ldots\times K_n^{s_n}$.
+      \item for an order $R$ in $K$, set $\cL(R,V) = \set{\text{$R$-lattice in $V$}}/\simeq_R$.
+   \end{itemize}
+   {\bf Proposition (Steinitz)}:
+   Let~$M$ be in~$\cL(\cO,V)$.
+   Then there are fractional~$\cO_i$-ideals~$I_i$ and there exists an~$\cO$-linear isomorphism
+   \[ M\simeq
+   \bigoplus_{i=1}^n \left(\cO_i^{\oplus(s_i-1)}\oplus I_i\right).
+   \]
+   The isomorphism class of~$M$ is uniquely determined by 
+   % the integers~$s_i$ and 
+   the isomorphism class of the fractional~$\cO$-ideal~$I=I_1\oplus \cdots \oplus I_n$.
+\end{frame}
+
+\begin{frame}{}\
+   \begin{itemize}
+      \item Let $\frf=(R:\cO)=\set{x : x \in K x\cO \subseteq R}$ be the conductor of $R$ in $\cO$.
+      \item Write $\frf=\oplus_{i=1}^n\frf_i$, $\frf_i$ a fractional $\cO_i$-ideal in $K_i$.
+   \end{itemize}
+   {\bf Theorem}:
+   Let~$M$ be in~$\cL(R,V)$.
+   Then there exist an~$M'$ in~$\cL(R,V)$, and fractional~$\cO_i$-ideals~$I_i$ such that
+   \begin{itemize}
+      \item~$M'\simeq M$ as an~$R$-module.
+      \item~$M'\cO = \bigoplus_{i=1}^n \left(\cO_i^{\oplus(s_i-1)}\oplus I_i\right)$.
+      \item~$\bigoplus_{i=1}^n \left(\frf_i^{\oplus(s_i-1)}\oplus \frf_iI_i\right) \subseteq M' \subseteq
+      \bigoplus_{i=1}^n \left(\cO_i^{\oplus(s_i-1)}\oplus I_i\right)$.
+   \end{itemize}
+   {\bf Proof}:
+\end{frame}
+
+\begin{frame}{}\
+   IsIsomorphic
+\end{frame}
+
+\begin{frame}{}\
+   the algorithm
+\end{frame}
+
+
+\begin{frame}{}\
+   reduced the number of enumerations to $1$
+\end{frame}
+
+% \begin{frame}{}\
+%    \begin{center}
+%       {\Huge Congrats: you passed the exam!}
+%    \end{center}
+% \end{frame}
+
+\end{document}
