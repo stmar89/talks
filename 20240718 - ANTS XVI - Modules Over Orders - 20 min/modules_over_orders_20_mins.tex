@@ -1,5 +1,6 @@
 \documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
-%  \documentclass[usenames,dvipsnames,handout]{beamer}
+% \documentclass[aspectratio=169,handout,usenames,dvipsnames]{beamer}
+
 
 \usetheme{AnnArbor}
 % \usecolortheme{default}
@@ -136,9 +137,9 @@
 
 \begin{frame}{}
    \begin{itemize}
-      \item Let $R$ be a commutative ring with unity.
+      \item Let $R$ be an integral domain with unity.
       \item $A,B \in \Mat_{n\times n}(R)$ are {\bf $R$-conjugate} ($A\sim_R B$) if $AP=PB$ for some $P\in \GL_n(R)$.
-      \item The {\bf minimal} polynomial $m(x)$ of $A \in \Mat_{n\times n}(R)$ is the polynomial of smallest degree such that $m(A) = O$ (the zero $n\times n$ matrix).
+      \item The {\bf minimal} polynomial $m(x)$ of $A \in \Mat_{n\times n}(R)$ is the monic polynomial of smallest degree such that $m(A) = O$ (the zero $n\times n$ matrix).
       \item The {\bf characteristic} polynomial of $A \in \Mat_{n\times n}(R)$ is $\det(xI_n-A)$.
    \end{itemize}
    \pause 
@@ -223,11 +224,10 @@
       \[ \begin{array}{cc}
          \faktor{\set{\text{abelian varieties with char.~poly. $h$}}}{\simeq_{\F_q}}\\
          \pause \updownarrow\\
-         \faktor{\set{\parbox[p]{19em}{$\Z$-lattices in 
+         \faktor{\set{\parbox[p]{19em}{$\Z[\pi,q/\pi]$-lattices in 
             $V= \left(\frac{\Q[x]}{m_1}\right)^{s_1}
             \times \ldots \times 
             \left(\frac{\Q[x]}{m_n}\right)^{s_n}$
-            closed under multiplication by $\pi:=x\bmod m$ and $q/\pi$
             }}}{\simeq_{\Z[\pi,q/\pi]}}
       \end{array} \]
    \end{theorem}
@@ -335,22 +335,27 @@
 \begin{frame}{}\
    \begin{example}
       Let
+      \vspace*{-2em}
       \begin{gather*}
-         m_1 =x^2 - x + 3, \quad
+         m_1 =x^2 - x + 3, \qquad
          m_2 = x^2 + x + 3,\\
-         m = m_1m_2 = x^4 +5x^2 + 9, \\
-         h =m_1^2m_2 = x^6 - x^5 + 8x^4 -5x^3 + 24x^2 - 9x - 27.
+         m = m_1m_2, \qquad h =m_1^2m_2.
       \end{gather*}
       \pause
       Set: $K_i=\Q[x]/m_i$, $K=K_1\times K_2=\Q[\pi]$, $V=K_1^2\times K_2$, $E=\Z[\pi]$, $R=\Z[\pi,3/\pi]$.
       \pause
       Then:
       \begin{itemize}
-            \item the $\GL_6(\Z)$-conj.~classes of matrices with min.~poly $m$ and char.~poly $h$ are in bijection with $\cL(E,V)/\simeq_E$: there is $4$ of them.
+            \item the $\Z$-conj.~classes of $6\times 6$-matrices with min.~poly $m$ and char.~poly $h$ are in bijection with $\cL(E,V)/\simeq_E$: there is $4$ of them.
       \pause
             \item the $\F_3$-isomorphism classes of abelian varieties in the $\F_3$-isogeny class determined by the $3$-Weil polynomial $h$ are in bijection with $\cL(R,V)/\simeq_R$: there is $2$ of them.
       \end{itemize}
    \end{example}
+   \vspace*{1em}
+   \pause
+   \begin{center}
+      {\Huge Thank you!}
+   \end{center}
 \end{frame}
 
 % \begin{frame}{}\
