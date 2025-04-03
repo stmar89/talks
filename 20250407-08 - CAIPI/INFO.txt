@@ -1,0 +1,94 @@
+#############
+1) Annamaria:
+#############
+####
+Talk 1: Elliptic curves and endomorphism rings
+####
+We will begin this symposium by introducing the simplest examples of abelian varieties: elliptic curves. My focus will be on the endomorphism ring, an important algebraic object associated with an elliptic curve (and an abelian variety more generally). Through various examples, we will explore the structure of this ring in different cases. It will quickly become clear that computing the endomorphism ring is not always an easy task and, in some cases, the difficulty of this problem is actually crucial for the security of protocols in isogeny-based cryptography. 
+
+Topics:
+
+- Elliptic curves, isogenies, endomorphisms
+- Endomorphism rings
+- Different cases (characteristic 0 - finite fields, ordinary/supersingular)
+- Quaternion algebras
+- Supersingular isogeny graphs
+- Applications to isogeny-based cryptographhy
+
+####
+Talk 2: Computing the endomorphism ring of low-dimensional abelian varieties over finite fields
+####
+For an elliptic curve E defined over a finite fields, the endomorphism ring is either an order in an imaginary quadratic field (if E is ordinary) or a maximal order in a quaternion algebra (if E is supersingular). In this talk we will explore the different approaches to computing the endomorphism ring in both cases. Time permitting we will also briefly discuss the corresponding problem for abelian surfaces over finite fields.
+
+#############
+2) Stefano:
+#############
+#### pre-Talk
+* Title:
+An introduction to abelian varieties over finite fields.
+* Abstract:
+Abelian varieties are connected projective varieties whose set of points forms a group.
+They can be considered an higher dimensional analogues of elliptic curves.
+We will give an overview of the main tools to study (unpolarized) abelian varieties of any dimension, with focus on finite fields, starting from the basic definitions and ending at the classification up-to-isogeny.
+
+List of topics:
+- Definition of abelian varieties (AVs).
+- Example: elliptic curves are AVs of dimension 1.
+- State/cite Cassels-Flynn: in dim >1, projective equations are horrible.
+- Isogenies: definition; gives an equivalence relation (Sketch of the proof?).
+- Polarizations: 
+	define them; 
+	state relation with projective; 
+	say I will not use them in my talk, but will.
+- Example (very quick): 
+	over CC we can use tori; 
+	not every torus is algebraic, i.e. an AV.
+	Tori are algebraic iff they have a polarization.
+	this fails in char(p)>0 (eg. supersingular EC with quaternion endomorphism algebra)
+- Tate modules: definition; 
+    local variant of the lattices for the complex case; 
+    at p, they do not work well.
+	
+- Frobenius: definition; it is an isogeny.
+- Tate's Theorem (version at \ell\neq p).
+- Characteristic polynomials of Frobenius: definition using \ell-Tate modules.
+- Honda-Tate theory: classification up to isogeny.
+
+-(*) Dieudonne modules: definition of the covariant version (this is quite time-consuming!).
+     see for some inspiration http://virtualmath1.stanford.edu/~conrad/JLseminar/Notes/L17I.pdf
+-(*) Tate's Theorem (version at p).
+-(*) Squarefree char. poly. iff commutative End^0 (with or without proof; depending on time constrains).
+[The topics marked with a (*) might be moved to the actualy talk if there is not enough time.]
+
+### Talk ###
+* Title:
+Classifying abelian varieties over finite fields with commutative endomorphism algebra.
+* Abstract:
+Consider an isogeny class C of abelian varieties defined over Fq with commutative Fq-endomorphism algebra. Building on Tate's Theorem, we provide an equivalence of categories between C and certain modules over the ring Z[pi,q/pi], where pi is the Frobenius endomorphism of the isogeny class. These modules are well-suited for concrete computations. For example, we can enumerate them up to isomorphism and we can easily reconstruct the endomorphism rings occurring in the isogeny class. We will discuss some concrete examples of isogeny classes that are not ordinary, not almost ordinary, nor over the prime field Fp, in which the endomorphism rings exhibit some exotic behaviours.
+* Reference:
+"Abelian varieties over finite fields with commutative endomorphism algebra: theory and algorithms"
+https://arxiv.org/abs/2409.08865
+
+#############
+3) Elisa:
+#############
+### Elisa needs for the talk ###
+- Elliptic curves (in particular over C as a complex torus). Endomorphism Rings (CM and ss cases). Hilbert class polynomial. Related to/included in Anna's pre-talk?
+- Abelian varieties over C as complex torus. (Principal) polarizations for abelian surfaces. Basically, that for an ExE' the polarization looks like [[a,b][\bar{b},c]] with ac-N(b)=1. Related to/included in Stefano's pre-talk?
+- Moduli spaces M2 and A2 and invariants. I guess only related to my talk?. 
+
+### pre-talk ###
+####
+Title:
+Parametrising the moduli spaces M2 of genus 2 curves and A2 of ppas. 
+
+Abstract:
+We will start by introducing genus 2 curves and their invariants, called Igusa invariants. They produce a parametrisation of the moduli space M2. This moduli space can be embedded into the moduli space A2 of principally polarised abelian surfaces. We will discuss how to extend Igusa invariants to also parametrise A2. We will also look closer at the border of these spaces (i.e. at their compactifications). We will end up by studying, over the complex numbers, the locus in A2 of abelian surfaces with real multiplication as initiated by Humbert. 
+
+### Talk ###
+Title:
+An arithmetic intersection for squares of elliptic curves with complex multiplication. 
+(joint work with Christophe Ritzenthaler and Fernando Rodríguez Villegas)
+
+Abstract:
+Let C be a genus 2 curve with Jacobian isomorphic to the square of an elliptic curve with complex multiplication by a maximal order in an imaginary quadratic field of discriminant −d < 0. We show that if the stable model of C has bad reduction over a prime p then p ≤ d/4. We give an algorithm to compute the set of such p using the so-called refined Humbert invariant introduced by Kani. Using results from Kudla-Rapoport and the formula of Gross-Keating, we compute for each of these primes p its exponent in the discriminant of the stable model of C.
